@@ -378,6 +378,8 @@ dpScript;
                 // 히스토리를 가져옴
                 $histories = $oIssuetrackerModel->getHistories($oIssue->get('document_srl'));
                 $oIssue->add('histories', $histories);
+
+                if($oIssue->isAccessible()) $oIssue->updateReadedCount();
                 
                 // 스킨에서 사용하기 위해 context set
                 Context::set('oIssue', $oIssue);
