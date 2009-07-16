@@ -13,4 +13,7 @@
         <condition operation="equal" column="member_group_member.group_srl" default="module_grants.group_srl" notnull="notnull" pipe="and"/>
         <condition operation="equal" column="member.member_srl" default="member_group_member.member_srl" notnull="notnull" pipe="and" />
     </conditions>
+    <navigation>
+        <index var="sort_index" default="nick_name" order="asc" />
+    </navigation>
 </query>
