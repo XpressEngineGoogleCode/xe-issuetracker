@@ -330,7 +330,7 @@
                     case 'reassign' :
                             $oMemberModel = &getModel('member');
                             $member_info = $oMemberModel->getMemberInfoByMemberSrl($assignee_srl);
-                            $history['assignee'] = array($oIssue->get('assignee_srl'), $member_info->nick_name);
+                            $history['assignee'] = array($oIssue->get('assignee_name'), $member_info->nick_name);
                             $change_args->assignee_srl = $assignee_srl;
                             $change_args->assignee_name = $member_info->nick_name;
 
