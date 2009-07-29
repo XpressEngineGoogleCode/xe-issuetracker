@@ -257,7 +257,7 @@
                 $file_srl = $output->get('file_srl');
                 Context::set('file_srl', $file_srl);
 
-                if($comment) {
+                if($file_srl && $comment) {
                     $comment_args->file_srl = $file_srl;
                     $comment_args->comment = $comment;
                     executeQuery('issuetracker.updateReleaseFile', $comment_args);
