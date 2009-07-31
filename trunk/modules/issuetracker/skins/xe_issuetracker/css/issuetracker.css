@@ -292,7 +292,7 @@
 .attachedFile ul.files { position:relative; margin:0; padding:0; clear:both; list-style:none;}
 .attachedFile ul.files *{ display:inline-block; *display:inline; padding:0; margin:0; font-size:11px;}
 .attachedFile ul.files li{ position:relative; margin:0 10px 0 0;}
-.attachedFile ul.files a{ position:relative; background-repeat:no-repeat; background-position:left center; *zoom:1; text-decoration:none !important;}
+.attachedFile ul.files a{ position:relative; background-repeat:no-repeat; background-position:left center; *zoom:1; text-decoration:none !important; font-size:20px;}
 .attachedFile ul.files a .bubble{ display:none; position:absolute; top:15px; left:0; padding:2px 5px; z-index:100; white-space:nowrap;}
 
 /* Board Write */
