@@ -171,7 +171,7 @@
             $erev = Context::get('erev');
             $brev = Context::get('brev');
 
-            $oSvn = new Svn($this->module_info->svn_url, $this->module_info->svn_cmd);
+            $oSvn = new Svn($this->module_info->svn_url, $this->module_info->svn_cmd, $this->module_info->svn_userid, $this->module_info->svn_passwd);
             $current = $oSvn->getStatus($path);
             Context::set('current', $current);
 
