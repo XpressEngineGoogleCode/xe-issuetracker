@@ -4,8 +4,8 @@
     <node target="priority_srl" />
     <node target="type_srl" required="true" />
     <node target="component_srl" required="true" />
-    <node target="package_srl" required="true"/>
-    <node target="occured_version_srl" required="true" />
+    <node target="package_srl" />
+    <node target="occured_version_srl" />
     <node target="action" />
     <node target="status" />
     <node target="assignee_srl" />
