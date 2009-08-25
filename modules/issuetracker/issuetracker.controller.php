@@ -369,9 +369,19 @@
                     }
 
                     $change_args->target_srl = $target_srl;
-                    $output = executeQueryArray('issuetracker.updateIssue', $change_args);
-                    if(!$output->toBool()) return $output;
-                    $args->history = serialize($history);
+                    $target_column = array('assignee_srl','assignee_name','milestone_srl','type_srl','priority_srl','component_srl','occured_version_srl','resolution_srl','status');
+                    $changed = false;
+                    foreach($target_column as $target) {
+                        if(isset($change_args->{$target})) {
+                            $changed = true;
+                            break;
+                        }
+                    }
+                    if($changed) {
+                        $output = executeQueryArray('issuetracker.updateIssue', $change_args);
+                        if(!$output->toBool()) return $output;
+                        $args->history = serialize($history);
+                    }
                 }
             }
             $args->issues_history_srl = ($args->history_srl) ? $args->history_srl : getNextSequence();
