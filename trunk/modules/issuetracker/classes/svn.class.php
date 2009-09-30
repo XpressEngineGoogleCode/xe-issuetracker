@@ -44,6 +44,8 @@
             }
         }
 
+
+
         function getStatus($path = '/') {
             if(substr($path,0,1)=='/') $path = substr($path,1);
             if(strpos($path,'..')!==false) return;
@@ -63,12 +65,13 @@
             return $output;
         }
 
+
         function getList($path, $revs = null) {
             if(substr($path,0,1)=='/') $path = substr($path,1);
             if(strpos($path,'..')!==false) return;
 
             $command = sprintf(
-                '%s --non-interactive %s --config-dir %s list %s%s%s',
+                '%s --xml --non-interactive %s --config-dir %s list %s%s%s',
                 $this->svn_cmd,
                 $this->_getAuthInfo(),
                 $this->tmp_dir,
@@ -78,30 +81,47 @@
             );
 
             $buff = $this->execCmd($command, $error);
-            $list = explode(PHP_EOL,$buff);
-
+            $xmlDoc = $this->oXml->parse($buff);
+            $list = $xmlDoc->lists->list->entry;
             if(!count($list)) return null;
-
+            if(!is_array($list)) $list = array($list);
             $file_list = $directory_list = $output = array();
-
-            foreach($list as $name) {
-                if(!$name) continue;
+            $commitLogs = array();
+            foreach($list as $entry)
+            {
                 $obj = null;
-                $obj->name = $name;
-                $obj->path = $path.$name;
-
-                $logs = $this->getLog($obj->path, $revs, null, false, 1);
-                $obj->revision = $logs[0]->revision;
-                $obj->author = $logs[0]->author;
-                $obj->date = $this->getDateStr("Y-m-d H:i",$logs[0]->date);
-                $obj->gap = $this->getTimeGap($logs[0]->date);
-                $obj->msg = $this->linkXE($logs[0]->msg);
-
-                if(substr($obj->path,-1)=='/') $obj->type = 'directory';
-                else $obj->type = 'file';
-
-                if($obj->type == 'file') $file_list[] = $obj;
-                else $directory_list[] = $obj;
+                $obj->name = $entry->name->body;
+                $obj->path = $path.$obj->name;
+                $rev = $entry->commit->attrs->revision;
+                if($commitLogs[$rev])
+                {
+                    $commitLog = $commitLogs[$rev];
+                }
+                else
+                {
+                    $commitLog = $this->getLog($path, $rev, null, false, 1);
+                    $commitLogs[$rev] = $commitLog;
+                }
+                $obj->revision = $commitLog[0]->revision;
+                $obj->author = $commitLog[0]->author;
+                $obj->date = $this->getDateStr("Y-m-d H:i",$commitLog[0]->date);
+                $obj->gap = $this->getTimeGap($commitLog[0]->date);
+                $obj->msg = $this->linkXE($commitLog[0]->msg);
+                
+                if($entry->attrs->kind=='dir') 
+                {   
+                    if(substr($obj->path, '/') != -1)
+                    {
+                        $obj->path .= '/';
+                    }
+                    $obj->type = 'directory';
+                    $directory_list[] = $obj;
+                }
+                else 
+                {
+                    $obj->type = 'file';
+                    $file_list[] = $obj;
+                }
             }
             return array_merge($directory_list, $file_list);
         }
@@ -118,7 +138,6 @@
                 $path,
                 $revs?'@'.$revs:null
             );
-
             $content = $this->execCmd($command, $error);
 
             $log = $this->getLog($path, $revs, null, false, 1);
@@ -244,6 +263,7 @@
                 $path
             );
 
+
             $output = $this->execCmd($command, $error);
             
             $xmlDoc = $this->oXml->parse($output);
@@ -286,6 +306,8 @@
 
         function execCmd($command, &$error) {
             $err = false;
+            $env = array();
+            $env["LANG"] = "en_US.UTF-8";
 
             $descriptorspec = array ( 
                 0 => array('pipe', 'r'),
@@ -293,7 +315,7 @@
                 2 => array('pipe', 'w')
             );
 
-            $fp = proc_open($command, $descriptorspec, $pipes);
+            $fp = proc_open($command, $descriptorspec, $pipes, NULL, $env);
 
             if (!is_resource($fp)) return;
 
@@ -314,7 +336,6 @@
             fclose($pipes[2]);
 
             proc_close($fp);
-
             return $output;
         }
 

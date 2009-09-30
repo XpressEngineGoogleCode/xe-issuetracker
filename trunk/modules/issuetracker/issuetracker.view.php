@@ -165,6 +165,7 @@
 
             $path = urldecode(Context::get('path'));
             if(!$path) $path = '/';
+            Context::set('svn_url', $this->module_info->svn_url);
             Context::set('path', $path);
 
             $revs = Context::get('revs');
@@ -281,9 +282,23 @@ dpScript;
                 default :
                         $path_tree = Svn::explodePath($path, false);
                         Context::set('path_tree', $path_tree);
-
                         $list = $oSvn->getList($path, $revs);
                         Context::set('list', $list);
+                        $text_list = array("sql","c","cpp","h","hpp","vb","java","rb","py","xml","html","php","csharp","txt","text","css","js");
+                        foreach($list as $key => $item)
+                        {
+                            if($item->type == "dir") continue;
+                            $ext = array_pop(explode(".",$item->name));
+                            if(in_array($ext, $text_list))
+                            {
+                                $item->ext_type = "text";
+                            }
+                            else
+                            {
+                                $item->ext_type = "bin";
+                            }
+                            $list[$key] = $item;
+                        }
                         $this->setTemplateFile('source_list');
                     break;
             }

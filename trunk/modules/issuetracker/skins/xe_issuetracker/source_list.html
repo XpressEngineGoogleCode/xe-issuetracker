@@ -21,7 +21,13 @@
             {@ $type = '' }
         <!--@end-->
     <tr onmouseover="this.className='over'" onmouseout="this.className=''" >    
-        <td class="{$item->type}"><a href="{getUrl('type',$type, path, urlencode($item->path), 'revs', $revs)}">{$item->name}</a></td>
+        <td class="{$item->type}">
+        <!--@if($item->type == "directory" || $item->ext_type == "text")-->
+        <a href="{getUrl('type',$type, path, urlencode($item->path), 'revs', $revs)}">{$item->name}</a>
+        <!--@else-->
+        <a href="{$svn_url}{$item->path}">{$item->name}</a>
+        <!--@end-->
+        </td>
         <td class="log"><a href="{getUrl('type','log','path',urlencode($item->path),'erev',$revs?$revs:'')}">{$item->revision}</a></td>
         <td class="age">{$item->gap}</td>
         <td class="summaryText"><div class="close"><span class="author">{$item->author}</span> {htmlspecialchars($item->msg?': '.$item->msg:'')}</div></td>
