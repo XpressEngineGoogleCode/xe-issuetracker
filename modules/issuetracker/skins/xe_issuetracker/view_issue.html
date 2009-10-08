@@ -226,19 +226,17 @@
         <tr>
             <th><label for="inputPackage">{$lang->occured_version}</label></th>
             <td>
-                <select name="package_srl" id="inputPackage">
+                <select name="package_srl" id="inputPackage" onchange="showRelease(this,this.form);">
                     <option value="">{$lang->package}</option>
                     <!--@foreach($project->packages as $key => $val)-->
-                    <option value="{$val->package_srl}" <!--@if($val->package_srl==$oIssue->get('package_srl'))-->selected="selected"<!--@end-->>{$val->title}</option>
+                    <option value="{$val->package_srl}" <!--@if($val->package_srl==$oIssue->get('package_srl'))-->selected="selected" {@ $curPackage_srl = $val->package_srl} <!--@end-->>{$val->title}</option>
                     <!--@end-->
                 </select>
-                <select name="occured_version_srl">
+                <select name="release_srl">
                     <option value="">{$lang->release}</option>
-                    <!--@foreach($project->packages as $key => $val)-->
                     <!--@foreach($project->releases as $k => $v)-->
-                    <!--@if($val->package_srl == $v->package_srl)-->
+                    <!--@if($v->package_srl == $curPackage_srl)-->
                     <option value="{$v->release_srl}" <!--@if($v->release_srl==$oIssue->get('occured_version_srl'))-->selected="selected"<!--@end-->>{$v->title}</option>
-                    <!--@end-->
                     <!--@end-->
                     <!--@end-->
                 </select>
@@ -291,5 +289,24 @@
 </form>
 <!--@end-->
 <!--@end-->
+<form action="{Context::getRequestUri()}" method="get" style="display:none;">
+<input type="hidden" name="vid" value="{$vid}" />
+<!--@foreach($project->packages as $key => $val)-->
+<select id="release_{$val->package_srl}">
+    <option value="">{$lang->release}</option> 
+    <!--@foreach($project->releases as $k => $v)-->
+    <!--@if($val->package_srl == $v->package_srl)-->
+    <option value="{$v->release_srl}">{$v->title}</option> 
+    <!--@end-->
+    <!--@end-->
+</select>
+<!--@end-->
+<script type="text/javascript">
+    package = new Array();
+    <!--@foreach($project->releases as $k => $v)-->
+    if(!package['{$v->package_srl}']) package['{$v->package_srl}'] = new Array();
+    package['{$v->package_srl}'][package['{$v->package_srl}'].length] = new Array('{$v->release_srl}','{$v->title}');
+    <!--@end-->
+</script>
 
 <!--#include("footer.html")-->
