@@ -83,7 +83,7 @@
             $buff = $this->execCmd($command, $error);
             $xmlDoc = $this->oXml->parse($buff);
             $list = $xmlDoc->lists->list->entry;
-            if(!count($list)) return null;
+            if(!count($list)) return array();
             if(!is_array($list)) $list = array($list);
             $file_list = $directory_list = $output = array();
             $commitLogs = array();
