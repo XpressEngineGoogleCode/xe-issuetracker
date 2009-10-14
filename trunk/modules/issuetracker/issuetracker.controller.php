@@ -409,7 +409,11 @@
 
             // 원 이슈를 가져옴
             $target_srl = Context::get('target_srl');
-            $args = Context::gets('milestone_srl', 'priority_srl', 'type_srl', 'component_srl', 'package_srl', 'occured_version_srl', 'action', 'status', 'assignee_srl');
+            $args = Context::gets('milestone_srl', 'priority_srl', 'type_srl', 'component_srl', 'package_srl', 'occured_version_srl', 'action', 'status', 'assignee_srl','release_srl');
+            if($args->release_srl)
+            {
+                $args->occured_version_srl = $args->release_srl;
+            }
             $output = $this->insertHistory($target_srl, $args, $this->module_srl, $this->grant->commiter);
             if(!$output->toBool())
             {
