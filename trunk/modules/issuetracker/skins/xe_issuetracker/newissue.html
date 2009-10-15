@@ -32,7 +32,9 @@
 			<select name="milestone_srl" id="inputMilestone">
 				<option value="0">{$lang->milestone}</option> 
 			<!--@foreach($project->milestones as $val)-->
+            <!--@if($val->is_completed != 'Y')-->
 				<option value="{$val->milestone_srl}" <!--@if($val->is_default == 'Y')-->selected="selected"<!--@end-->>{$val->title}</option>
+            <!--@endif-->
 			<!--@end-->
 			</select>
 		</td>
