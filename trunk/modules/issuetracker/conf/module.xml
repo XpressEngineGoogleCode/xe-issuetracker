@@ -6,36 +6,42 @@
             <title xml:lang="zh-CN">查看计划</title>
             <title xml:lang="zh-TW">檢視專案</title>
             <title xml:lang="jp">チケット閲覧</title>
+            <title xml:lang="en">View Issues</title>
         </grant>
         <grant name="ticket_write" default="guest">
             <title xml:lang="ko">티켓 생성</title>
             <title xml:lang="zh-CN">生成计划</title>
             <title xml:lang="zh-TW">建立專案</title>
             <title xml:lang="jp">チケット発行</title>
+            <title xml:lang="en">Create Issues</title>
         </grant>
         <grant name="timeline" default="guest">
             <title xml:lang="ko">타임라인</title>
             <title xml:lang="zh-CN">时间轴</title>
             <title xml:lang="zh-TW">Timeline</title>
             <title xml:lang="jp">Timeline</title>
+            <title xml:lang="en">Timeline</title>
         </grant>
         <grant name="browser_source" default="guest">
             <title xml:lang="ko">소스 열람</title>
             <title xml:lang="zh-CN">查看代码</title>
             <title xml:lang="zh-TW">檢視原始碼</title>
             <title xml:lang="jp">ソース閲覧</title>
+            <title xml:lang="en">View Source</title>
         </grant>
         <grant name="commiter" default="member">
             <title xml:lang="ko">개발자</title>
             <title xml:lang="zh-CN">开发者</title>
             <title xml:lang="zh-TW">開發</title>
             <title xml:lang="jp">開発者</title>
+            <title xml:lang="en">Developer</title>
         </grant>
         <grant name="download" default="guest">
             <title xml:lang="ko">다운로드</title>
             <title xml:lang="zh-CN">下载</title>
             <title xml:lang="zh-TW">下載</title>
             <title xml:lang="jp">ダウンロード</title>
+            <title xml:lang="en">Download</title>
         </grant>
     </grants>
     <permissions />
