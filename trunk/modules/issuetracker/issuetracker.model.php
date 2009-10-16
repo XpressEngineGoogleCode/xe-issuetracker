@@ -6,6 +6,7 @@
      **/
 
     require_once(_XE_PATH_.'modules/issuetracker/issuetracker.item.php');
+    require_once(_XE_PATH_."modules/issuetracker/issuetracker.history.php");
 
     function _compare($a, $b)
     {
@@ -179,30 +180,9 @@
             $histories = $output->data;
             $cnt = count($histories);
             for($i=0;$i<$cnt;$i++) {
-                $history = unserialize($histories[$i]->history);
-                if($history && count($history)) {
-                    $h = array();
-                    foreach($history as $key => $val) {
-                        if($val[0]) $str = Context::getLang('history_format');
-                        else $str = Context::getLang('history_format_not_source');
-                        $str = str_replace('[source]', $val[0], $str);
-                        $str = str_replace('[target]', $val[1], $str);
-                        $str = str_replace('[key]', Context::getLang($key), $str);
-                        $h[] = $str;
-                    }
-                    $histories[$i]->history = $h;
-                } else {
-                    $histories[$i]->history = null;
-                }
-
-                preg_match_all('/r([0-9]+)/',$histories[$i]->content, $mat);
-                for($k=0;$k<count($mat[1]);$k++) {
-                    $histories[$i]->content = str_replace('r'.$mat[1][$k], sprintf('<a href="%s" onclick="window.open(this.href); return false;">%s</a>',getUrl('','mid',Context::get('mid'),'act','dispIssuetrackerViewSource','type','compare','erev',$mat[1][$k],'brev',''), 'r'.$mat[1][$k]), $histories[$i]->content);
-                }
-                preg_match_all('/\[([0-9]+)\]/',$histories[$i]->content, $mat);
-                for($k=0;$k<count($mat[1]);$k++) {
-                    $histories[$i]->content = str_replace('['.$mat[1][$k].']', sprintf('<a href="%s" onclick="window.open(this.href); return false;">%s</a>',getUrl('','mid',Context::get('mid'),'act','dispIssuetrackerViewSource','type','compare','erev',$mat[1][$k],'brev',''), '['.$mat[1][$k].']'), $histories[$i]->content);
-                }
+                $history = new issueHistory();
+                $history->populate($histories[$i]);
+                $histories[$i] = $history;
             }
             return $histories;
         }
