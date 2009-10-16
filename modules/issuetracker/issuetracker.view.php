@@ -410,7 +410,7 @@ dpScript;
         }
 
         /**
-         * @brief Displaying form to write a issue
+         * @brief Display a form to write an issue
          */
         function dispIssuetrackerNewIssue()
         {

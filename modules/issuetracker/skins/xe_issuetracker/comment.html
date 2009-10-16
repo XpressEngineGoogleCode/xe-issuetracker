@@ -33,7 +33,20 @@
                         <li class="content"><div class="xe_content">{nl2br($history->content)}</div></li>
                         <!--@end-->
                     </ul>
+            <!--@if($history->hasUploadedFIles())-->
+                <div class="attachedFile">
+                    <ul>
+                        {@ $_uploaded_files = $history->getUploadedFiles() }
+                        <!--@foreach($_uploaded_files as $key => $file)-->
+                        <li><a href="{getUrl('')}{$file->download_url}">{$file->source_filename} ({FileHandler::filesize($file->file_size)})({number_format($file->download_count)})</a></li>
+                        <!--@end-->
+                    </ul>
+                    <div class="clear"></div>
                 </div>
+            <!--@end-->
+                </div>
+
+
             </div>
 		</div>
 		<!--@end-->
