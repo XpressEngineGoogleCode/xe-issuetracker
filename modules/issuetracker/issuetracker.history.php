@@ -39,14 +39,13 @@
             } else {
                 $this->history = null;
             }
-
             preg_match_all('/r([0-9]+)/',$this->content, $mat);
             for($k=0;$k<count($mat[1]);$k++) {
-                $this->content = str_replace('r'.$mat[1][$k], sprintf('<a href="%s" onclick="window.open(this.href); return false;">%s</a>',getUrl('','mid',Context::get('mid'),'act','dispIssuetrackerViewSource','type','compare','erev',$mat[1][$k],'brev',''), 'r'.$mat[1][$k]), $histories[$i]->content);
+                $this->content = str_replace('r'.$mat[1][$k], sprintf('<a href="%s" onclick="window.open(this.href); return false;">%s</a>',getUrl('','mid',Context::get('mid'),'act','dispIssuetrackerViewSource','type','compare','erev',$mat[1][$k],'brev',''), 'r'.$mat[1][$k]), $this->content);
             }
             preg_match_all('/\[([0-9]+)\]/',$this->content, $mat);
             for($k=0;$k<count($mat[1]);$k++) {
-                $this->content = str_replace('['.$mat[1][$k].']', sprintf('<a href="%s" onclick="window.open(this.href); return false;">%s</a>',getUrl('','mid',Context::get('mid'),'act','dispIssuetrackerViewSource','type','compare','erev',$mat[1][$k],'brev',''), '['.$mat[1][$k].']'), $histories[$i]->content);
+                $this->content = str_replace('['.$mat[1][$k].']', sprintf('<a href="%s" onclick="window.open(this.href); return false;">%s</a>',getUrl('','mid',Context::get('mid'),'act','dispIssuetrackerViewSource','type','compare','erev',$mat[1][$k],'brev',''), '['.$mat[1][$k].']'), $this->content);
            }
         }
 
