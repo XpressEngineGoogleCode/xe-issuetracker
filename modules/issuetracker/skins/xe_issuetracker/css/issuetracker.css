@@ -231,7 +231,7 @@
 .feedbackList .item .header a:active,
 .feedbackList .item .header a:focus{ text-decoration:underline;}
 
-.feedbackList .item .itemContent { position:relative; padding:1em 0 1em 100px; *zoom:1; z-index:1;}
+.feedbackList .item .itemContent { position:relative; padding:1em 0 1em 100px; *zoom:1; z-index:2;}
 .feedbackList .item .itemContent:after{ content:""; display:block; clear:both;}
 .feedbackList .item .itemContent *{ margin-top:0;}
 .feedbackList .item .itemContent .xe_content{ width:auto !important;}
@@ -259,7 +259,7 @@
 
 .feedbackList .item.itemOnly{ border-top:0;}
 
-.feedbackList .item .itemAside{ position:relative; float:left; width:140px; margin-right:-140px; padding:1em 0 0 0; *zoom:1; text-align:left; z-index:2;}
+.feedbackList .item .itemAside{ position:relative; float:left; width:140px; margin-right:-140px; padding:1em 0 0 0; *zoom:1; text-align:left; z-index:1;}
 .feedbackList .item .itemAside a{ text-decoration:none;}
 .feedbackList .item .itemAside a:hover,
 .feedbackList .item .itemAside a:active,
