@@ -285,7 +285,8 @@
             else $document_srl_list = array();
 
             $document_srl_count = count($document_srl_list);
-            $objs = Context::gets('priority_srl', 'component_srl', 'type_srl', 'milestone_srl');
+            $objs = Context::gets('priority_srl', 'component_srl', 'type_srl', 'milestone_srl','status');
+            if($objs->status) $objs->action = "resolve";
             $oController = &getController('issuetracker');
             foreach($document_srl_list as $target_srl)
             {
