@@ -67,6 +67,18 @@
             </select>
         </td>
     </tr>
+    <tr>
+        <th><div><label for="inputStatus">{$lang->status} :</label></div></th>
+        <td>
+            <select name="status">
+            <!--@foreach($lang->status_list as $key=> $val)-->
+            <option value="{$key}">{$val}</option>
+            <!--@endforeach-->
+            </select>
+        </td>
+        <td colspan="2">
+        </td>
+    </tr>
     <!--@end-->
     </table>
 </div>
