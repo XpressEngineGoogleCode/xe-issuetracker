@@ -1,8 +1,8 @@
 <filter name="insert" module="issuetracker" act="procIssuetrackerInsertIssue" confirm_msg_code="confirm_submit">
   <form>
     <node target="title" required="true" minlength="1" maxlength="250" />
-    <node target="type_srl" required="true" />
-    <node target="component_srl" required="true" />
+    <node target="type_srl" />
+    <node target="component_srl" />
     <node target="package_srl" required="true" />
     <node target="occured_version_srl" required="true"/>
     <node target="nick_name" required="true" />
