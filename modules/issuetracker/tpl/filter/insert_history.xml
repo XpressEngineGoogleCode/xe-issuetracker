@@ -2,8 +2,8 @@
   <form>
     <node target="milestone_srl" />
     <node target="priority_srl" />
-    <node target="type_srl" required="true" />
-    <node target="component_srl" required="true" />
+    <node target="type_srl" />
+    <node target="component_srl" />
     <node target="package_srl" />
     <node target="occured_version_srl" />
     <node target="action" />

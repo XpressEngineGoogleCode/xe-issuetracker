@@ -14,7 +14,6 @@
     <!--@end-->
 
     <table border="1" cellspacing="0" summary="Extra Form" class="extraVarsList">
-	<caption><em>*</em> : {$lang->is_required}</caption>
     <!--@if(count($extra_keys))-->
     <!--@foreach($extra_keys as $key => $val)-->
     <tr>
@@ -26,6 +25,7 @@
 
     <!--@if(!$oIssue->isExists())-->
     <!--@if($grant->commiter)-->
+    <!--@if(count($project->milestones) > 0)-->
 	<tr>
 	    <th scope="row"><label for="inputMilestone">{$lang->milestone}</label></th>
 		<td>
@@ -39,6 +39,8 @@
 			</select>
 		</td>
     </tr>
+    <!--@endif-->
+    <!--@if(count($project->priorities) > 0)-->
     <tr>
 		<th scope="row"><label for="inputPriority">{$lang->priority}</label></th>
 		<td>
@@ -50,7 +52,8 @@
 			</select>
 		</td>
     </tr>
-    <!--@end-->
+    <!--@endif-->
+    <!--@endif-->
     <!--@if($grant->commiter && count($project->packages))-->
     <tr>
         <th scope="row"><label for="inputPackage">{$lang->occured_version}</label> <em>*</em></th>
@@ -80,8 +83,9 @@
         </td>
     </tr>
     <!--@end-->
+    <!--@if(count($project->types) > 0)-->
     <tr>
-        <th scope="row"><label for="inputType">{$lang->type}</label> <em>*</em></th>
+        <th scope="row"><label for="inputType">{$lang->type}</label></th>
         <td>
             <select name="type_srl" id="inputType">
                 <option value="">{$lang->type}</option> 
@@ -91,8 +95,10 @@
             </select>
         </td>
     </tr>
+    <!--@endif-->
+    <!--@if(count($project->components) > 0)-->
     <tr>
-        <th scope="row"><label for="inputComponent">{$lang->component}</label> <em>*</em></th>
+        <th scope="row"><label for="inputComponent">{$lang->component}</label></th>
         <td>
             <select name="component_srl" id="inputComponent">
                 <option value="">{$lang->component}</option> 
@@ -102,7 +108,9 @@
             </select>
         </td>
     </tr>
+    <!--@end-->
     <!--@if($grant->commiter)-->
+    <!--@if(count($commiters) > 0)-->
     <tr>
         <th scope="row"><label for="inputAssignee">{$lang->assignee}</label></th>
         <td>
@@ -114,7 +122,8 @@
             </select>
         </td>
     </tr>
-    <!--@end-->
+    <!--@endif-->
+    <!--@endif-->
     <!--@end-->
     </table>
 
