@@ -109,7 +109,7 @@
                 if(!$changeset->target_srl) continue;
                 if(!$issues[$changeset->target_srl])
                 {
-                    $issues[$changeset->target_srl] = $oModel->getIssue($changeset->target_srl); 
+                    $issues[$changeset->target_srl] = $oModel->getIssue($changeset->target_srl, false, false); 
                 }
             }
             Context::set('issues', $issues);
