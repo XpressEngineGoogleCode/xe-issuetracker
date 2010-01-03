@@ -13,7 +13,6 @@
         var $closed_status = array('invalid', 'resolve');
         
         function issueItem($document_srl = 0, $load_extra_vars = true) {
-            debugPrint($load_extra_vars);
             parent::documentItem($document_srl, $load_extra_vars);
         }
 
