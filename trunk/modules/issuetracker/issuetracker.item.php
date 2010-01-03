@@ -12,8 +12,9 @@
         var $occured_version = null;
         var $closed_status = array('invalid', 'resolve');
         
-        function issueItem($document_srl = 0) {
-            parent::documentItem($document_srl);
+        function issueItem($document_srl = 0, $load_extra_vars = true) {
+            debugPrint($load_extra_vars);
+            parent::documentItem($document_srl, $load_extra_vars);
         }
 
         function setIssue($document_srl) {
@@ -85,8 +86,8 @@
             }
         }
 
-        function _loadFromDB() {
-            parent::_loadFromDB();
+        function _loadFromDB($load_extra_vars=true) {
+            parent::_loadFromDB($load_extra_vars);
 
             $obj->target_srl = $this->document_srl;
             $output = executeQuery("issuetracker.getIssue", $obj);

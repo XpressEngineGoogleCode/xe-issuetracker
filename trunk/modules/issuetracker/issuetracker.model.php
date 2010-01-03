@@ -40,11 +40,11 @@
             return $projectInfo[$module_srl];
         }
 
-        function getIssue($document_srl=0, $is_admin = false) {
+        function getIssue($document_srl=0, $is_admin = false, $load_extra_vars=true) {
             if(!$document_srl) return new issueItem();
 
             if(!$GLOBALS['__IssueItem__'][$document_srl]) {
-                $oIssue = new issueItem($document_srl);
+                $oIssue = new issueItem($document_srl, $load_extra_vars);
                 if($is_admin) $oIssue->setGrant();
                 $GLOBALS['__IssueItem__'][$document_srl] = $oIssue;
             }
