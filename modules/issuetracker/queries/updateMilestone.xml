@@ -6,7 +6,7 @@
         <column name="title" var="title" notnull="notnull" />
         <column name="description" var="description" />
         <column name="deadline" var="deadline" />
-        <column name="is_completed" var="is_completed" />
+        <column name="is_completed" var="is_completed" default="N" />
         <column name="is_default" var="is_default" />
         <column name="released_date" var="released_date" />
     </columns>
