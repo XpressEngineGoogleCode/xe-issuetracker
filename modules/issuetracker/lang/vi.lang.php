@@ -109,4 +109,5 @@
         'issue_changed' => 'Issue đã thay đổi',
         'commit' => 'Kiểm tra kho chứa'
         );
+	$lang->not_using_repository = 'This project is not using repository.';
 ?>

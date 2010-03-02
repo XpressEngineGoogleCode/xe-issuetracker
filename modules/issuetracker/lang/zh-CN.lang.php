@@ -107,4 +107,5 @@
         'issue_changed' => '修改过的问题',
         'commit' => '代码更新'
         );
+	$lang->not_using_repository = 'This project is not using repository.';
 ?>

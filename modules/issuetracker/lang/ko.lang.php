@@ -108,4 +108,6 @@
         'issue_changed' => '변경된 이슈',
         'commit' => '소스변경'
         );
+
+	$lang->not_using_repository = '저장소를 사용하지 않고 있습니다';
 ?>
