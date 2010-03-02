@@ -160,7 +160,8 @@
          **/
         function dispIssuetrackerViewSource() {
             // 접근 권한 체크
-            if(!$this->grant->browser_source || !$this->module_info->svn_url) return $this->dispIssuetrackerMessage('msg_not_permitted');
+            if(!$this->grant->browser_source) return $this->dispIssuetrackerMessage('msg_not_permitted');
+			if(!$this->module_info->svn_url) return $this->dispIssuetrackerMessage('not_using_repository');
             require_once($this->module_path.'classes/svn.class.php');
 
             $path = urldecode(Context::get('path'));

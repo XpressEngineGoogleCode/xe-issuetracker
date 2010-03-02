@@ -107,4 +107,6 @@
         'issue_changed' => 'Changed issues',
         'commit' => 'Repository checkins'
         );
+
+	$lang->not_using_repository = 'This project is not using repository.';
 ?>

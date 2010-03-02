@@ -108,4 +108,5 @@
         'issue_changed' => '変更されたイシュー',
         'commit' => 'リポジトリのソース変更(checkin)'
         );
+	$lang->not_using_repository = 'This project is not using repository.';
 ?>
