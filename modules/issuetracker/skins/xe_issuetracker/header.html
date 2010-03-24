@@ -1,12 +1,9 @@
 <!--%import("css/issuetracker.css")-->
-<!--%import("css/button.css")-->
-<!--%import("css/pagination.css")-->
-<!--%import("css/white.css")-->
-
+<!--%import("js/issuetracker.js")-->
 {$module_info->header_text}
 
-<div class="issuetracker">
-    <div class="issuetrackerHeader">
+<div class="issuetracker cPurple">
+    <div id="pxeHeader">
 		<!--@if($module_info->projectTitle)-->
 		<div class="issuetrackerTitle">
 			<h2 class="issuetrackerTitleText"><a href="{getUrl('','mid',$mid)}">{$module_info->projectTitle}</a></h2>
@@ -16,12 +13,35 @@
 		<!--@if($module_info->projectDescription)-->
 		<p class="issuetrackerDescription">{$module_info->projectDescription}</p>
 		<!--@end-->
-    </div>
 
-    <!--@if($lang->project_menus)-->
-    <ul class="issueNav">
-    <!--@foreach($lang->project_menus as $key => $value)-->
-        <li class="<!--@if($act==$key)-->on<!--@end-->"><a href="{getUrl('','mid',$mid,'act',$key)}">{$value}</a></li>
-    <!--@end-->
-    </ul>
-    <!--@end-->
+	<div class="menu">
+		<div class="inset">
+			<div class="major">
+				<ul class="issueNav">
+				<!--@foreach($lang->new_project_menus as $key => $value)-->
+					<li class="<!--@if($act==$value[0])-->on<!--@end-->"><a href="{getUrl('','mid',$mid,'act',$value[0])}"><span>{$key}</span></a>
+					<!--@if($value[1])-->
+						<div class="sub">
+							<ul>
+							<!--@foreach($value[1] as $subkey => $sub)-->
+								<li><a href="{getUrl('','mid',$mid,'act',$sub[0])}"><span>{$subkey}</span></a>
+							<!--@end-->
+							</ul>
+						</div>
+					<!--@end-->
+					</li>
+				<!--@endforeach-->
+				</ul>
+			</div> <!--//major-->
+			<!--@if($grant->manager)-->
+			<div class="aside">
+				<ul>
+					<li class="m2"><a href="{getUrl('','mid',$mid,'act','dispIssuetrackerAdminProjectSetting')}"><span>프로젝트 설정</span></a>
+				</ul>
+			</div>
+			<span class="gradient"></span>
+			<!--@endif-->
+		</div> <!--//inset-->
+		<span class="shadow"></span>
+	</div>
+	</div><!--//pxeHeader-->

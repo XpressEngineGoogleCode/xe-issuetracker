@@ -157,6 +157,7 @@
             $output = array();
             $obj = null;
             $idx = 0;
+            $blockobj = null;
             for($i=0;$i<$cnt;$i++) {
                 $str = $list[$i];
                 $str = rtrim($str);
@@ -164,6 +165,7 @@
                     if($blockobj != null) 
                     {
                         $obj->blocks[$blockobj->before_line_start] = $blockobj;
+                        $blockobj = null;
                         ksort($obj->blocks);
                     }
                     if($obj!==null) $output[] = $obj;

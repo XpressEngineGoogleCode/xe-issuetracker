@@ -27,6 +27,42 @@
         function init() {
         }
 
+		function getIssueCount($module_srl)
+		{
+			if(!$module_srl) return 0;
+			$args->module_srl = $module_srl;
+			$output = executeQuery("issuetracker.getIssueCount", $args);
+			if(!$output->data) return 0;
+			return $output->data->count;
+		}
+
+		function getChangesetCount($module_srl)
+		{
+			if(!$module_srl) return 0;
+			$args->module_srl = $module_srl;
+			$output = executeQuery("issuetracker.getChangesetCount", $args);
+			if(!$output->data) return 0;
+			return $output->data->count;
+		}
+
+		function getOldestIssue($module_srl)
+		{
+			if(!$module_srl) return NULL;
+			$args->module_srl = $module_srl;
+			$output = executeQuery("issuetracker.getOldestIssue", $args);
+			if(!$output->data) return NULL;
+			return $output->data->regdate;
+		}
+
+		function getOldestChange($module_srl)
+		{
+			if(!$module_srl) return NULL;
+			$args->module_srl = $module_srl;
+			$output = executeQuery("issuetracker.getOldestChange", $args);
+			if(!$output->data) return NULL;
+			return $output->data->regdate;
+		}
+
         function &getProjectInfo($module_srl) {
             static $projectInfo = array();
             if(!isset($projectInfo[$module_srl])) {
@@ -67,6 +103,82 @@
             if(!$output->toBool() || !$output->data) return 0;
             return $output->data->count;
         }
+
+		function getIssuetrackerMoreChangesets() {
+			$template_path = sprintf("%sskins/%s/",$this->module_path, $this->module_info->skin);
+			$enddate = Context::get('lastdatetime');
+			$displayedDate = Context::get('displayed_date');
+            $targets = Context::get('targets');
+            if(!$targets || !is_array($targets) || !count($targets))
+            {
+                $targets = array('issue_created', 'issue_changed', 'commit');
+                Context::set('targets', $targets);
+            }
+			$res = $this->getChangesets($this->module_srl, $enddate, 20, $targets );
+			$changesets = $res->data;
+			$issues = array();
+            foreach($changesets as $changeset)
+            {
+                if(!$changeset->target_srl) continue;
+                if(!$issues[$changeset->target_srl])
+                {
+                    $issues[$changeset->target_srl] = $this->getIssue($changeset->target_srl, false, false); 
+                }
+            }
+            Context::set('issues', $issues);
+			$count = 0;
+			foreach($changesets as $changeset)
+			{
+				if(zdate($changeset->date, "Y.m.d") == $displayedDate)
+				{
+					$count ++;
+				}
+				else 
+				{
+					break;	
+				}
+			}
+			$templateHandler = new TemplateHandler();
+			if($count > 0)
+			{
+				$lastChangesets = array_slice($changesets, 0, $count);
+				Context::set('lastChangesets', $lastChangesets);
+				$lastItems = $templateHandler->compile($template_path, "changeset_items.html");
+				$this->add('lastitems', $lastItems);
+				$changesets = array_slice($changesets, $count);
+			}
+			if($res->lastdate) $this->add('lastdate', $res->lastdate);
+			if(count($changesets > 0))
+			{
+				Context::set('changesets', $changesets);
+				$changesetsCompiled = $templateHandler->compile($template_path, "changesets");
+				$this->add("changesets", $changesetsCompiled);
+			}
+		}
+
+		function getIssuetrackerMoreLog() {
+            require_once($this->module_path.'classes/svn.class.php');
+            if(!$this->module_info->svn_cmd) $this->module_info->svn_cmd = '/usr/bin/svn';
+            $oSvn = new Svn($this->module_info->svn_url, $this->module_info->svn_cmd, $this->module_info->svn_userid, $this->module_info->svn_passwd);
+			$erev = Context::get('lastrev');
+			$path = Context::get('path'); 
+			$logs = $oSvn->getLog($path, $erev, $brev, false, 21);
+			if(!$logs) $logs = array();
+			foreach($logs as $key => $val)
+			{
+				if($val->paths[0]->path)
+				{
+					$p = $val->paths[0]->path;
+				}
+				else
+				{
+					$p = $path;
+				}
+				$logs[$key]->p = urlencode($p);
+				$logs[$key]->msg = htmlspecialchars($logs[$key]->msg);
+			}
+			$this->add('logs', $logs);
+		}
 
         function getIssueList($args) {
             // 기본으로 사용할 query id 지정 (몇가지 검색 옵션에 따라 query id가 변경됨)
@@ -370,25 +482,34 @@
         }
 
 
-        function getChangesets($module_srl, $enddate = null, $limit = 10, $targets, $list_count = 0)
+        function getChangesets($module_srl, $enddate = null, $list_count = 20, $targets)
         {
             if(!$enddate)
             {
                 $enddate = date("Ymd");
+				$args->enddate = date("Ymd", ztime($enddate)+24*60*60);
             }
-            $args->enddate = date("Ymd", ztime($enddate)+24*60*60);
-            $args->startdate = date("Ymd", ztime($enddate)-24*60*60*$limit);
+			else
+			{
+				$args->enddate = $enddate; 
+			}
+
+            //$args->startdate = date("Ymd", ztime($enddate)-24*60*60*$limit);
+
             $args->module_srl = $module_srl;
-            if($list_count) $args->list_count = $list_count;
+			$args->list_count = $list_count+1;
             if(in_array('commit', $targets))
             {
                 $output = executeQueryArray("issuetracker.getChangesets", $args);
+				debugPrint($output);
                 if(!$output->toBool()) return array();
                 if(!$output->data) $output->data = array();
 
                 // message에 htmlspecialchars() 적용
                 foreach($output->data as $key => $changeset)
+				{
                     $changeset->message = $this->_linkXE(htmlspecialchars($changeset->message));
+				}
             }
 
             if(in_array('issue_changed', $targets))
@@ -441,8 +562,16 @@
             }
 
             usort($output->data, _compare);
+			$output->data = array_slice($output->data, 0, $list_count+1);
+			$res = null;
+			if(count($output->data) > $list_count)
+			{
+				$lastitem = array_pop($output->data);
+				$res->lastdate = $lastitem->date;
+			}
+			$res->data = $output->data;
 
-            return $output->data;
+            return $res;
         }
     }
 ?>

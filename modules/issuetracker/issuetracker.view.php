@@ -93,16 +93,36 @@
             $oController = &getController('issuetracker');
             $oController->syncChangeset($this->module_info);
             $oModel = &getModel('issuetracker');
-            $duration = Context::get('duration');
-            if(!$duration) $duration = 10;
+			Context::set('issue_count', $oModel->getIssueCount($this->module_srl));
+			Context::set('changeset_count', $oModel->getChangesetCount($this->module_srl));
+			$oldestIssue = $oModel->getOldestIssue($this->module_srl);
+			$oldestChange = $oModel->getOldestChange($this->module_srl);
+			if(!$oldestIssue)
+			{
+				Context::set('oldestItem', $oldestChange);
+			}
+			else if(!$oldestChange)
+			{
+				Context::set('oldestItem', $oldestIssue);
+			}
+			else if($oldestChange > $oldestIssue)
+			{
+				Context::set('oldestItem', $oldestIssue);	
+			}
+			else
+			{
+				Context::set('oldestItem', $oldestChange);
+			}
             $targets = Context::get('targets');
             if(!$targets || !is_array($targets) || !count($targets))
             {
                 $targets = array('issue_created', 'issue_changed', 'commit');
                 Context::set('targets', $targets);
             }
-            $changesets = $oModel->getChangesets($this->module_info->module_srl, Context::get('enddate'), $duration, $targets);
+            $res = $oModel->getChangesets($this->module_info->module_srl, Context::get('enddate'), 20, $targets);
+			$changesets = $res->data;
             Context::set('changesets', $changesets);
+			if($res->lastdate) Context::set('lastdate', $res->lastdate);
             $issues = array();
             foreach($changesets as $changeset)
             {
@@ -191,7 +211,13 @@
                     break;
                 case 'log' :
                         if(!$erev) $erev = $current->revision;
-                        $logs = $oSvn->getLog($path, $erev, $brev, false, 50);
+                        $logs = $oSvn->getLog($path, $erev, $brev, false, 21);
+						if(count($logs) > 20)
+						{
+							$lastrev = array_pop($logs);
+							Context::set('lastrev', $lastrev->revision);
+						}
+
                         Context::set('logs', $logs);
 
                         if(!$erev) $erev = $current->erev;
@@ -497,7 +523,7 @@ dpScript;
                 $package_list[$release->package_srl]->releases[$release->release_srl] = $release;
             } else {
                 if(!$package_srl) {
-                    $package_list = $oIssuetrackerModel->getPackageList($this->module_srl, 0, 1);
+                    $package_list = $oIssuetrackerModel->getPackageList($this->module_srl, 0, 0);
                 } else {
                     $package_list = $oIssuetrackerModel->getPackageList($this->module_srl, $package_srl, 0);
                 }

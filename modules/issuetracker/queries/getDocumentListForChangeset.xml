@@ -10,8 +10,11 @@
     <conditions>
         <condition operation="in" column="module_srl" var="module_srl" filter="number" />
         <group pipe="and">
-            <condition operation="more" column="regdate" var="startdate" pipe="and" />
             <condition operation="less" column="regdate" var="enddate" pipe="and" />
         </group>
     </conditions>
+    <navigation>
+        <index var="sort_index" default="list_order" order="asc" />
+        <list_count var="list_count" default="9999999" />
+    </navigation>
 </query>

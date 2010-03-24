@@ -106,6 +106,8 @@
         <action name="procIssuetrackerAdminDeleteFile" type="controller" standalone="true" />
         <action name="procIssuetrackerAdminAttachRelease" type="controller" standalone="true" />
         <action name="procIssuetrackerAdminManageCheckedIssue" type="controller" standalone="true" />
+		<action name="getIssuetrackerMoreLog" type="model" />
+		<action name="getIssuetrackerMoreChangesets" type="model" />
 
     </actions>
 </module>

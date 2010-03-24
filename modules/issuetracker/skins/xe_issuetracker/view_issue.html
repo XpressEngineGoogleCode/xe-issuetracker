@@ -1,90 +1,75 @@
 <!--#include("header.html")-->
-
-<div class="issuetrackerRead">
-
-	<div class="issuetrackerReadHeader">
-
-		<div class="titleArea">
-			<h3 class="title"><a href="{$oIssue->getPermanentUrl()}">{$oIssue->getTitle()}</a></h3>
-			<span class="sum">
-				<span class="read">{$lang->readed_count} <span class="num">{$oIssue->get('readed_count')}</span></span>
-				<span class="vote">{$lang->voted_count} <span class="num">{$oIssue->get('voted_count')}</span></span>
-				<span class="date">{$oIssue->getRegdate('Y.m.d')} {$oIssue->getRegdate('H:i:s')}</span>
-			</span>
-		</div>
-		<div class="authorArea">
-			<!--@if(!$oIssue->getMemberSrl())-->
-				<!--@if($oIssue->isExistsHomepage())-->
-					<a href="{$oIssue->getHomepageUrl()}" onclick="window.open(this.href);return false;" class="author">{$oIssue->getNickName()}</a>
-				<!--@else-->
-					{$oIssue->getNickName()}
+<!--%import("js/toggle.js")-->
+	<!-- #pxeBody -->
+	<div id="pxeBody">
+	
+		<!-- #pxeContent -->
+		<div id="pxeContent">
+			
+			<div class="pxeHeading">
+				<h2>이슈보기</h2>
+			</div>
+			
+			<div class="pxeReadHeader">
+				<h1><em class="id">#{$oIssue->document_srl}</em> <em class="status {$oIssue->get('status')}">{$lang->status_list[$oIssue->get('status')]}</em> {$oIssue->getTitle()}</h1>
+				<div class="meta"><strong>{$oIssue->getNickName()}</strong> <span class="time">({$oIssue->getRegdate('y.m.d H:i')})</span></div>
+			</div>
+			
+			<table border="1" cellspacing="0" class="pxeT5">
+				<!--@foreach($oIssue->getExtraVars() as $key => $val)-->
+				<tr>
+					<th scope="row">{$val->name}</th>
+					<td>{$val->getValueHTML()}&nbsp;</td>
+				</tr>
+				<!--@endforeach-->
+				
+				<!--@if(!$oIssue->isSecret() || $oIssue->isAccessible())-->
+				<tr>
+					<th scope="row">{$lang->milestone}</th>
+					<td>{$oIssue->getMilestoneTitle()}&nbsp;</td>
+				</tr>
+				<tr>
+					<th scope="row">{$lang->priority}</th>
+					<td>{$oIssue->getPriorityTitle()}&nbsp;</td>
+				</tr>
+				<tr>
+					<th scope="row">{$lang->type}</th>
+					<td>{$oIssue->getTypeTitle()}&nbsp;</td>
+				</tr>
+				<tr>
+					<th scope="row">{$lang->component}</th>
+					<td>{$oIssue->getComponentTitle()}&nbsp;</td>
+				</tr>
+				<tr>
+					<th scope="row">{$lang->assignee}</th>
+					<td>
+						<!--@if($oIssue->get('assignee_srl'))-->
+						<span class="member_{$oIssue->get('assignee_srl')}">{$oIssue->get('assignee_name')}</span>
+						<!--@else-->
+						&nbsp;
+						<!--@end-->
+					</td>
+				</tr>
+				<!--@if(count($project->packages))-->
+				<tr>
+					<th scope="row">{$lang->package}</th>
+					<td>{$oIssue->getPackageTitle()}&nbsp;</td>
+				</tr>
+				<tr>
+					<th scope="row">{$lang->occured_version}</th>
+					<td>{$oIssue->getReleaseTitle()}&nbsp;</td>
+				</tr>
 				<!--@end-->
-			<!--@else-->
-				<a href="#popup_menu_area" class="member_{$oIssue->get('member_srl')} author" onclick="return false">{$oIssue->getNickName()}</a>
-			<!--@end-->
-			<span class="ipAddress"><!--@if($grant->manager)-->{$oIssue->getIpaddress()}<!--@end--></span>
-			<a href="{$oIssue->getPermanentUrl()}" class="permaLink">{$oIssue->getPermanentUrl()}</a>
-		</div>
+				<!--@end-->
+			</table>
+			
+			<div class="xe_content pxeRead">
 
-	</div>
-
-    <table border="1" cellspacing="0" summary="Extra Form" class="extraVarsList">
-    <!--@foreach($oIssue->getExtraVars() as $key => $val)-->
-    <tr>
-        <th>{$val->name}</th>
-        <td>{$val->getValueHTML()}&nbsp;</td>
-    </tr>
-    <!--@end-->
-    <!--@if(!$oIssue->isSecret() || $oIssue->isAccessible())-->
-    <tr>
-        <th>{$lang->milestone}</th>
-        <td>{$oIssue->getMilestoneTitle()}&nbsp;</td>
-    </tr>
-    <tr>
-        <th>{$lang->priority}</th>
-        <td>{$oIssue->getPriorityTitle()}&nbsp;</td>
-    </tr>
-    <tr>
-        <th>{$lang->type}</th>
-        <td>{$oIssue->getTypeTitle()}&nbsp;</td>
-    </tr>
-    <tr>
-        <th>{$lang->component}</th>
-        <td>{$oIssue->getComponentTitle()}&nbsp;</td>
-    </tr>
-    <tr>
-        <th>{$lang->status}</th>
-        <td>{$oIssue->getStatus()}&nbsp;</td>
-    </tr>
-    <tr>
-        <th>{$lang->assignee}</th>
-        <td>
-            <!--@if($oIssue->get('assignee_srl'))-->
-                <span class="member_{$oIssue->get('assignee_srl')}">{$oIssue->get('assignee_name')}</span>
-            <!--@else-->
-                &nbsp;
-            <!--@end-->
-        </td>
-    </tr>
-    <!--@if(count($project->packages))-->
-    <tr>
-        <th>{$lang->package}</th>
-        <td>{$oIssue->getPackageTitle()}&nbsp;</td>
-    </tr>
-    <tr>
-        <th>{$lang->occured_version}</th>
-        <td>{$oIssue->getReleaseTitle()}&nbsp;</td>
-    </tr>
-    <!--@end-->
-    <!--@end-->
-    </table>
-
-	<div class="issuetrackerReadBody">
-		<!--@if($oIssue->isSecret() && !$oIssue->isGranted())-->
-			<form action="./" method="get" onsubmit="return procFilter(this, input_password)" class="secretMessage">
-			<input type="hidden" name="mid" value="{$mid}" />
-			<input type="hidden" name="page" value="{$page}" />
-			<input type="hidden" name="document_srl" value="{$oIssue->document_srl}" />
+				<!--@if($oIssue->isSecret() && !$oIssue->isGranted())-->
+				<form action="./" method="get" onsubmit="return procFilter(this, input_password)" class="secretMessage">
+				<input type="hidden" name="mid" value="{$mid}" />
+				<input type="hidden" name="page" value="{$page}" />
+				<input type="hidden" name="document_srl" value="{$oIssue->document_srl}" />
 
 				<p>&quot;{$lang->msg_is_secret}&quot;</p>
 				<dl>
@@ -92,92 +77,62 @@
 					<dd><input type="password" name="password" id="cpw" class="inputText" /><span class="buttonOfficial"><input type="submit" value="{$lang->cmd_input}" /></span></dd>
 				</dl>
 
-			</form>
-		<!--@else-->
-			{$oIssue->getContent(false,true)}
-		<!--@end-->
-	</div>
-
-	<div class="issuetrackerReadFooter">
-	
-        <!--@if($oIssue->getProfileImage() || $oIssue->getSignature())-->
-			<div class="memberSignature">
-			<!--@if($oIssue->getProfileImage())-->
-				<img src="{$oIssue->getProfileImage()}" alt="profile" class="profile" align="left" />
-			<!--@end-->
-			<!--@if($oIssue->getSignature())-->
-				{$oIssue->getSignature()}
-			<!--@end-->
+				</form>
+				<!--@else-->
+				{$oIssue->getContent(false,true)}
+				<!--@end-->
 			</div>
-		<!--@end-->
-		
-		{@ $tag_list = $oIssue->get('tag_list') }
-		<!--@if(count($tag_list))-->
-		<dl class="tag">
-			<dt><img src="./img/common/iconTag.gif" width="27" height="11" alt="{$lang->tag}" /></dt>
-			<!--@for($i=0;$i<count($tag_list);$i++)-->
+			{@ $tag_list = $oIssue->get('tag_list') }
+			<!--@if(count($tag_list))-->
+			<dl class="pxeTagList">
+				<dt>Tag:</dt>
+				<dd>
+				<!--@for($i=0;$i<count($tag_list);$i++)-->
 				{@ $tag = $tag_list[$i]; }
-				<dd><a href="{getUrl('search_target','tag','search_keyword',$tag,'document_srl','')}" rel="tag">{htmlspecialchars($tag)}</a></dd>
-			<!--@end-->
-		</dl>
-		<!--@end-->
-		
-		<!--@if($oIssue->hasUploadedFiles() && !$oIssue->isSecret() && $oIssue->isAccessible())-->
-        <dl class="attachedFile">
-            <dt><img src="./img/common/iconFiles.gif" width="27" height="11" alt="{$lang->uploaded_file}" /> <button type="button" class="fileToggle" onclick="jQuery(this).parents('dl.attachedFile').toggleClass('open');return false;">{$lang->uploaded_file} ({$oIssue->get('uploaded_count')})</button></dt>
-            <dd>
-                <ul class="files">
+				<a href="{getUrl('search_target','tag','search_keyword',$tag,'document_srl','')}" rel="tag">{htmlspecialchars($tag)}</a>
+				<!--@end-->
+				</dd>
+			</dl>
+			<!--@endif-->
+
+			<!--@if($oIssue->hasUploadedFiles() && !$oIssue->isSecret() && $oIssue->isAccessible())-->
+			<dl class="pxeFileList">
+				<dt>File:</dt>
+				<dd>
                     {@ $uploaded_list = $oIssue->getUploadedFiles() }
                     <!--@foreach($uploaded_list as $key => $file)-->
-                    <li><a href="{getUrl('')}{$file->download_url}">{$file->source_filename} <span class="bubble">[File Size:{FileHandler::filesize($file->file_size)}/Download:{number_format($file->download_count)}]</span></a></li>
+                    <a href="{getUrl('')}{$file->download_url}">{$file->source_filename} <span class="bubble">[File Size:{FileHandler::filesize($file->file_size)}/Download:{number_format($file->download_count)}]</span></a> 
                     <!--@end-->
-                </ul>
-            </dd>
-        </dl>
-		<!--@end-->
-        
-        <!--@if(!$oIssue->getTrackbackCount())-->
-		<dl class="trackbackURL">
-			<dt>{$lang->trackback} </dt>
-			<dd><a href="{$oIssue->getTrackbackUrl()}" onclick="return false;">{$oIssue->getTrackbackUrl()}</a></dd>
-		</dl>
-        <!--@end-->
-		
-	</div>
+				</dd>
+			</dl>
+			<!--@end-->
 
-    <div class="issuetrackerNavigation">
-        <div class="buttonLeft">
-			<a href="{getUrl('document_srl','')}" class="buttonOfficial"><span>{$lang->cmd_list}</span></a>
-		</div>
-		
-        <!--@if($oIssue->isGranted())-->
-		<div class="buttonRight">
-            <a href="{getUrl('act','dispIssuetrackerDeleteIssue')}" class="buttonOfficial"><span>{$lang->cmd_delete}</span></a>
-            <a href="{getUrl('act','dispIssuetrackerNewIssue')}" class="buttonOfficial"><span>{$lang->cmd_modify}</span></a>
-		</div>
-        <!--@end-->
-    </div>
-</div>
-
-<!--@if($oIssue->allowTrackback())-->
-<a name="trackback"></a>
-<!--#include("./trackback.html")-->
-<!--@end-->
-
-<!--@if($oIssue->allowComment())-->
-<a name="comment"></a>
-<!--#include("./comment.html")-->
-
+			<div class="buttonArea">
+				<div class="fLeft">
+					<span class="btnPxe"><a href="{getUrl('document_srl','')}">{$lang->cmd_list}</a></span>
+				</div>
+				<!--@if($oIssue->isGranted())-->
+				<div class="fRight">
+					<span class="btnPxe"><a href="{getUrl('act','dispIssuetrackerDeleteIssue')}">{$lang->cmd_delete}</a></span>
+					<span class="btnPxe"><a href="{getUrl('act','dispIssuetrackerNewIssue')}">{$lang->cmd_modify}</a></span>
+				</div>
+				<!--@endif-->
+			</div>
+			<!--@if($oIssue->allowComment())-->
+			<a name="comment"></a>
+			<!--#include("./comment.html")-->
 <!--@if($grant->ticket_write || $grant->commiter)-->
-<form action="./" method="post" onsubmit="return procFilter(this, insert_history)" class="issuetrackerEditor" >
+<form action="./" method="post" onsubmit="return procFilter(this, insert_history)" class="pxeWrite pxeReplyForm" >
 <input type="hidden" name="mid" value="{$mid}" />
 <input type="hidden" name="target_srl" value="{$oIssue->get('target_srl')}" />
 <input type="hidden" name="history_srl" value="" />
 <input type="hidden" name="content" value="" />
-    <div class="issuetrackerWrite commentEditor">
+
+    <div class="editor">
+		<div class="xpress-editor">
 
         <!--@if($grant->commiter)-->
-        <table border="1" cellspacing="0" summary="Extra Form" class="extraVarsList">
+        <table border="1" cellspacing="0" summary="Extra Form" class="pxeT5">
         <tr>
             <th><label for="inputMilestone">{$lang->milestone}</label></th>
             <td>
@@ -248,7 +203,7 @@
         <tr>
             <th><label>{$lang->action}</label></th>
             <td>
-                <ul>
+                <ul class="issue_action">
                     <li>
                         <input type="radio" name="action" value="resolve" id="actResolve" /><label for="actResolve">{$lang->cmd_resolve_as}</label>
                         <select name="status" onchange="xGetElementById('actResolve').checked='checked'">
@@ -271,45 +226,28 @@
         </tr>
         </table>
         <!--@end-->
-
-        <div class="editor">{$oIssue->getCommentEditor()}</div>
+        	<div class="editor">{$oIssue->getCommentEditor()}</div>
+    	</div>
+	</div>
 
         <!--@if(!$is_logged)-->
-        <div class="editorOption">
-           <input type="text" name="nick_name" class="inputText userName" value="{$lang->writer}" onfocus="this.value=''" />
-           <input type="password" name="password" class="inputText userPw" value="{$lang->password}" onfocus="this.value=''" />
-           <input type="text" name="email_address" class="inputText emailAddress" value="{$lang->email_address}" onfocus="this.value=''" />
-           <input type="text" name="homepage" class="inputText homePage" value="{$lang->homepage}" onfocus="this.value=''" />
+        <div class="guest">
+			<span class="item"><label for="author" class="iLabel">{$lang->writer}</label><input name="nick_name" type="text" id="author" class="iText" title="{$lang->writer}" /></span>
+			<span class="item"><label for="password" class="iLabel">{$lang->password}</label><input name="password" type="password" id="password" class="iText" title="{$lang->password}" /></span>
+			<span class="item"><label for="email" class="iLabel">{$lang->email_address}</label><input name="email_address" type="text" id="email" class="iText" title="{$lang->email_address}" /></span>
+			<span class="item"><label for="site" class="iLabel">{$lang->homepage}</label><input name="homepage" type="text" id="site" class="iText" title="{$lang->homepage}" /></span>
         </div>
         <!--@end-->
-    
-        <div class="issuetrackerNavigation">
-            <span class="buttonOfficial"><input type="submit" value="{$lang->cmd_registration}" accesskey="s" /></span>
-        </div>
-    </div>
-
+		<div class="buttonArea">
+			<span class="btnPxe strong"><input name="" type="submit" value="{$lang->cmd_registration}" accesskey="s" /></span>
+		</div>
 </form>
 <!--@end-->
 <!--@end-->
-<form action="{Context::getRequestUri()}" method="get" style="display:none;">
-<input type="hidden" name="vid" value="{$vid}" />
-<!--@foreach($project->packages as $key => $val)-->
-<select id="release_{$val->package_srl}">
-    <option value="">{$lang->release}</option> 
-    <!--@foreach($project->releases as $k => $v)-->
-    <!--@if($val->package_srl == $v->package_srl)-->
-    <option value="{$v->release_srl}">{$v->title}</option> 
-    <!--@end-->
-    <!--@end-->
-</select>
-<!--@end-->
-</form>
-<script type="text/javascript">
-    package = new Array();
-    <!--@foreach($project->releases as $k => $v)-->
-    if(!package['{$v->package_srl}']) package['{$v->package_srl}'] = new Array();
-    package['{$v->package_srl}'][package['{$v->package_srl}'].length] = new Array('{$v->release_srl}','{$v->title}');
-    <!--@end-->
-</script>
-
+			
+		</div>
+		<!-- /#pxeContent -->
+		
+	</div>
+	<!-- /#pxeBody -->
 <!--#include("footer.html")-->

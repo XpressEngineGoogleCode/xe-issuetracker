@@ -1,41 +1,93 @@
-<!--#include('header.html')-->
+<!--#include("header.html")-->
+<!--%import("js/toggle.js")-->
+<div id="pxeBody">
+<!-- #pxeContent -->
+<div id="pxeContent">
+			
+	<div class="pxeHeading">
+		<h2>{$lang->project_menus["dispIssuetrackerViewMilestone"]}</h2>
+		<ul class="legend">
+			<li><span style="background:#ef7589;"></span>{$lang->status_list["new"]}</li>
+			<li><span style="background:#d9d18f;"></span>{$lang->status_list["reviewing"]}</li>
+			<li><span style="background:#8fccd9;"></span>{$lang->status_list["assign"]}</li>
+			<li><span style="background:#7cd039;"></span>{$lang->status_list["resolve"]}</li>
+			<li><span style="background:#ca0021;"></span>{$lang->status_list["reopen"]}</li>
+		</ul>
+	</div>
+	<table border="1" cellspacing="0" class="pxeT2">
+	<thead>
+	<tr>
+		<th scope="col" style="text-align:left">{$lang->milestone}</th>
+		<th scope="col" class="progress">진행률</th>
+		<th scope="col">{$lang->deadline}</th>
+		<th scope="col">{$lang->completed_date}</th>
+		<!--@if($grant->is_admin)-->
+		<th scope="col">{$lang->cmd_modify}</th>
+		<!--@end-->
+		<th scope="col"><button type="button" class="toggleTable" onclick="button_table_click_t2(this);"><span class="alt">열기/닫기</span></button></th>
+	</tr>
+	</thead>
+	<tbody>
+	{@ $main_status = array("new", "reviewing", "assign", "resolve", "reopen"); } 
+	<!--@foreach($milestones as $val)-->
+	<!--@if($val->milestone_srl == 0)-->
+		{@ $val->title = $lang->not_assigned}
+		{@ $val->description = $lang->not_assigned_description}
+	<!--@end-->
+	{@ debugPrint($val) }
+	<tr <!--@if($val->is_completed != 'Y')-->class="open"<!--@end--> >
+		<th scope="row"><a href="{getUrl('','mid',$mid,'act','dispIssuetrackerViewIssue','milestone_srl', $val->milestone_srl)}">{$val->title}</a></th>
+		<td class="progress">
+			<!--@if($val->issues["total"] > 0)-->
+			<ul class="pBar">
+				<!--@foreach($main_status as $status)-->
+				<!--@if($val->issues[$status] > 0)-->
+				{@ $per = sprintf("%3.1f", floor($val->issues[$status]/$val->issues["total"]*1000)/10); }
+				<li class="{$status}" style="width:{$per}%" title="{$lang->status_list[$status]}"><span class="alt">{$lang->status_list[$status]}</span> {$per}%</li>
+				<!--@endif-->
+				<!--@endforeach-->
+			</ul>
+			<!--@else-->
+			<ul class="pBar">
+				<li style="width:100%; border-color:#ccc; background-color:#ccc;">등록된 이슈가 없습니다.</li> 
+			</ul>
+			<!--@end-->
+			<div class="pData">
+				<table border="1" cellspacing="0" summary="Issue Status">
+				<tr>
+					<th rowspan="2" class="total" scope="row">
+						<div>{$lang->total_issue}<br /><em>{$val->issues["total"]}</em></div>
+					</th>
+					<!--@foreach($main_status as $status)-->
+					<th scope="col"><a href="{getUrl('','mid',$mid,'act','dispIssuetrackerViewIssue','milestone_srl', $val->milestone_srl,'status[]',$status)}">{$lang->status_list[$status]}</a></th>
+					<!--@end-->
+				</tr>
+				<tr>
+					<!--@foreach($main_status as $status)-->
+					<td class="{$status}">{$val->issues[$status]}</td>
+					<!--@end-->
+				</tr>
+				</table>
+				<ul>
+					<li>{$lang->status_list["postponed"]} <em>{$val->issues["postponed"]}</em></li>
+					<li>{$lang->status_list["duplicated"]} <em>{$val->issues["duplicated"]}</em></li>
+					<li>{$lang->status_list["invalid"]} <em>{$val->issues["invalid"]}</em></li>
+				</ul>
+				<p>{nl2br($val->description)}</p>
+			</div>
+		</td>
+		<td class="num">{zdate($val->deadline, 'Y-m-d')}&nbsp;</td>
+		<td class="num">{zdate($val->released_date, "Y-m-d")}&nbsp;</td>
+		<!--@if($grant->is_admin)-->
+		<td><!--@if($val->milestone_srl)--><span class="btnPxe small"><a href="{getUrl('milestone_srl',$val->milestone_srl,'act','dispIssuetrackerAdminModifyMilestone')}">수정</a></span><!--@endif--></td>
+		<!--@end-->
+		<td><button type="button" class="toggleTr" onclick="button_tr_click(this);"><span class="alt">열기/닫기</span></button></td>
+	</tr>
+	<!--@end-->
+	</tbody>
+	</table>
 
-{@ $col_count = 3 }
-<table cellspacing="0" border="1" summary="List of Articles" class="issuetrackerList">
-    <thead>
-        <tr>
-            <th scope="col">{$lang->completed_date}</th>
-            <th scope="col">{$lang->deadline}</th>
-            <!--@foreach($lang->status_list as $k => $v)-->
-            {@ $col_count += 1 }
-            <th scope="col" class="issue_{$k}">{$v}</th>
-            <!--@end-->
-            <th scope="col">{$lang->total_issue}</th>
-        </tr>
-    </thead>
-    <tbody>
-        <!--@foreach($milestones as $val)-->
-        <!--@if($val->milestone_srl == 0)-->
-        {@ $val->title = $lang->not_assigned}
-        {@ $val->description = $lang->not_assigned_description}
-        <!--@end-->
-        <tr class="title">
-            <td class="title <!--@if($val->is_completed=='Y')-->completed<!--@end-->" colspan="{$col_count}" >
-                {@$resolved = $val->issues['resolve'] + $val->issues['postponed'] + $val->issues['duplicated'] + $val->issues['invalid']}
-                <strong><a href="{getUrl('','mid',$mid,'act','dispIssuetrackerViewIssue','milestone_srl', $val->milestone_srl)}">{$val->title}</a></strong>
-                <p class="summary">{nl2br($val->description)}&nbsp;</p>
-            </td>
-        </tr>
-        <tr>
-            <td class="date">{zdate($val->released_date, "Y-m-d")}&nbsp;</td>
-            <td class="date">{zdate($val->deadline, 'Y-m-d')}&nbsp;</td>
-            <!--@foreach($lang->status_list as $k => $v)-->
-            <td class="status issue_{$k}"> <a href="{getUrl('','mid',$mid,'act','dispIssuetrackerViewIssue','milestone_srl', $val->milestone_srl,'status[]',$k)}">{number_format($val->issues[$k])}</a></td>
-            <!--@end-->
-            <td class=""> <a href="{getUrl('','mid',$mid,'act','dispIssuetrackerViewIssue','milestone_srl', $val->milestone_srl,'status[]','')}">{number_format($val->issues['total'])}</a></td>
-        </tr>
-        <!--@end-->
-    </tbody>
-</table>
+</div>
+</div>
 
-<!--#include('footer.html')-->
+<!--#include("footer.html")-->
