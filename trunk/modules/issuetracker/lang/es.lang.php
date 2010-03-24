@@ -109,4 +109,10 @@
         'commit' => 'Repository checkins'
         );
 	$lang->not_using_repository = 'This project is not using repository.';
+	$lang->revision = "Revision";
+	$lang->repos_path = "Repository path";
+	$lang->view_log = "View logs";
+	$lang->compare_with_previous = "Compare with prev. version";
+	$lang->issue_id = "ID";
+	$lang->cmd_detailed_search = "Advanced Search";
 ?>

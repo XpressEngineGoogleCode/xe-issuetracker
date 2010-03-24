@@ -1,70 +1,26 @@
 {@ $histories = $oIssue->get('histories') }
 <!--@if($histories)-->
-<hr class="hr" />
-<div class="feedbackList" id="reply">
-	
-	<div class="replyList">
-        <!--@foreach($histories as $history)-->
-        <div class="item" id="comment_{$history->history_srl}">
-            <div class="indent">
-                <div class="itemAside">
-                    <h4 class="header">
-                        <a href="#popup_menu_area" class="member_{$history->member_srl}" onclick="return false">{$history->nick_name}</a>
-                    </h4>
-
-                    <p class="meta">
-                        {zdate($history->regdate,'Y.m.d')}
-                        {zdate($history->regdate,'H:i:s')}
-                    </p>
-                </div>
-
-                <div class="itemContent">
-                    <ul>
-                        <!--@if($history->history && count($history->history))-->
-                        <li>
-                            <ol>
-                            <!--@foreach($history->history as $key => $val)-->
-                                <li>{$val}</li>
-                            <!--@end-->
-                            </ol>
-                        </li>
-                        <!--@end-->
-                        <!--@if($history->content)-->
-                        <li class="content"><div class="xe_content">{nl2br($history->content)}</div></li>
-                        <!--@end-->
-                    </ul>
-            <!--@if($history->hasUploadedFIles())-->
-                <div class="attachedFile">
-                    <ul>
-                        {@ $_uploaded_files = $history->getUploadedFiles() }
-                        <!--@foreach($_uploaded_files as $key => $file)-->
-                        <li><a href="{getUrl('')}{$file->download_url}">{$file->source_filename} ({FileHandler::filesize($file->file_size)})({number_format($file->download_count)})</a></li>
-                        <!--@end-->
-                    </ul>
-                    <div class="clear"></div>
-                </div>
-            <!--@end-->
-                </div>
-
-
-            </div>
+<ul class="pxeFeedback">
+<!--@foreach($histories as $history)-->
+	<li>
+		<div class="author">
+			<a href="#popup_menu_area" class="member_{$history->member_srl}" onclick="return false"><strong>{$history->nick_name}</strong></a> 
+			<em>{zdate($history->regdate, "Y.m.d H:i")}</em>
 		</div>
-		<!--@end-->
-    </div>
-
-    <!--@if($oIssue->comment_page_navigation)-->
-    <div class="pagination">
-        <a href="{getUrl('cpage',1)}#comment" class="prevEnd">{$lang->first_page}</a> 
-        <!--@while($page_no = $oIssue->comment_page_navigation->getNextPage())-->
-            <!--@if($cpage == $page_no)-->
-                <strong>{$page_no}</strong> 
-            <!--@else-->
-                <a href="{getUrl('cpage',$page_no)}#comment">{$page_no}</a>
-            <!--@end-->
-        <!--@end-->
-        <a href="{getUrl('cpage',$oIssue->comment_page_navigation->last_page)}#comment" class="nextEnd">{$lang->last_page}</a>
-    </div>
-    <!--@end-->
-
-</div>
+		<div class="fContent">
+			<!--@if($history->history && count($history->history))-->
+			<ul class="change">
+				<!--@foreach($history->history as $key => $val)-->
+				<li>{$val}</li>
+				<!--@end-->
+			</ul>
+			<!--@endif-->
+			<!--@if($history->content)-->
+			<div class="xe_content">{nl2br($history->content)}</div>
+			<!--@endif-->
+		</div>
+	</li>
 <!--@end-->
+</ul>
+<!--@end-->
+<!--첨부파일, pagination-->

@@ -80,13 +80,23 @@
 
      $lang->project_menus = array(
              'dispIssuetrackerViewMilestone' => '개발계획',
-             'dispIssuetrackerViewIssue' => '문제 열람',
-             'dispIssuetrackerNewIssue' => '문제 작성',
+             'dispIssuetrackerViewIssue' => '이슈 열람',
+             'dispIssuetrackerNewIssue' => '이슈 등록',
              'dispIssuetrackerTimeline' => '타임 라인',
              'dispIssuetrackerViewSource' => '코드 열람',
              'dispIssuetrackerDownload' => '다운로드',
              'dispIssuetrackerAdminProjectSetting' => '설정',
     );
+
+	$lang->new_project_menus = array(
+		'개발계획' => array('dispIssuetrackerViewMilestone'),
+		'이슈' => array('dispIssuetrackerViewIssue', array(
+			'이슈 열람' => array('dispIssuetrackerViewIssue'),
+			'이슈 등록' => array('dispIssuetrackerNewIssue'))),
+		'코드' => array('dispIssuetrackerViewSource', array(
+			'코드 열람' => array('dispIssuetrackerViewSource'))),
+		'타임라인' => array('dispIssuetrackerTimeline'),
+		'다운로드' => array('dispIssuetrackerDownload'));
 
     $lang->msg_not_attched = '파일을 첨부해주세요';
     $lang->msg_attached = '파일이 등록되었습니다';
@@ -96,8 +106,8 @@
     $lang->not_assigned = '할당 안됨';
     $lang->not_assigned_description = '할당 안된 문제들의 목록입니다.';
     $lang->timeline_msg = array(
-        'changed' => '변경',
-        'created' => '생성'
+        'changed' => '이슈변경',
+        'created' => '이슈생성'
     );
 
     $lang->cmd_manage_issue = '이슈 관리';
@@ -110,4 +120,10 @@
         );
 
 	$lang->not_using_repository = '저장소를 사용하지 않고 있습니다';
+	$lang->revision = "리비전";
+	$lang->repos_path = "저장소 경로";
+	$lang->view_log = "로그 보기";
+	$lang->compare_with_previous = "이전 버전과 비교";
+	$lang->issue_id = "ID";
+	$lang->cmd_detailed_search = "상세검색";
 ?>

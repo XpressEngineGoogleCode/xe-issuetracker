@@ -13,8 +13,8 @@
         var $search_option = array('title','content','title_content','user_name','nick_name','user_id','tag');
 
         // 이슈 목록 노출 대상
-        var $display_option = array('no','title','milestone','priority','type','component','status','occured_version','package','regdate','assignee', 'writer');
-        var $default_enable = array('no','title','status','release','regdate','assignee','writer');
+        var $display_option = array('issue_id','status','title','milestone','priority','type','component','package','occured_version','assignee', 'writer');
+        var $default_enable = array('issue_id','title','status','assignee','writer');
 
         function moduleInstall()
         {
