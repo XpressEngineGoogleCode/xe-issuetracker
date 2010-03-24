@@ -516,7 +516,8 @@ ul.pData li{ font-size:12px; margin:0 0 5px 0;}
 .pxeSrch .issue .first ul{ border-left:1px solid #d3d3d3;}
 .pxeSrch .issue .last ul{ border-right:1px solid #d3d3d3;}
 .pxeSrch .issue li{ position:relative; height:21px; vertical-align:top;}
-.pxeSrch .issue .iRadio{ position:absolute; z-index:1; display:block; width:100%; height:21px; margin:0 0 -21px 0; padding:0;}
+.pxeSrch .issue li .iRadio,
+.pxeSrch .issue li .iCheck{ position:absolute; z-index:1; display:block; width:100%; height:21px; margin:0 0 -21px 0; padding:0;}
 .pxeSrch .issue .sOption label{ position:absolute; width:100%; z-index:2; display:block; line-height:21px; padding:0 0 0 10px; cursor:pointer; white-space:nowrap; background:#fff; white-space:nowrap; color:#7a7d85;}
 .pxeSrch .issue .sOption label.selected{ background:#e8eef7; color:#000;}
 

@@ -68,7 +68,8 @@ jQuery(function($){
 	// Multi Select Emulator
 	var option_ui = $('ul.sOption');
 
-	function option_select(){
+	// Single Select
+	function single_select(){
 		var ul = $(this).parents('ul.sOption:first');
 
 		ul.find('li>label').removeClass('selected');
@@ -77,7 +78,40 @@ jQuery(function($){
 	}
 
 	option_ui.find('>li>input.iRadio')
-		.change(option_select)
+		.change(single_select)
+		.filter('[checked]')
+		.each(function(){
+			var t = $(this);
+			var chk = t.parents('div.item:first').find('>h4>input[type=checkbox]');
+			
+			if (chk.attr('checked')) {
+				t.change();
+			} else {
+				t.removeAttr('checked');
+			}
+		});
+		
+	option_ui.find('>li>.iRadio').next('label').click(function(){
+		var t = $(this);
+		t.toggleClass('selected');
+		
+		if(t.prev('.iRadio[checked]').length){
+			t.prev('.iRadio[checked]').removeAttr('checked');
+			t.parents('.item:first').find('h4>input[type=checkbox]').removeAttr('checked');
+			return false;
+		}
+	});
+		
+	// Multi Select
+	function multi_select(){
+		var ul = $(this).parents('ul.sOption:first');
+
+		ul.prev('h4').find('input[type=checkbox]').attr('checked', 'checked');
+		$(this).next('label').toggleClass('selected');
+	}
+
+	option_ui.find('>li>input.iCheck')
+		.change(multi_select)
 		.filter('[checked]')
 		.each(function(){
 			var t = $(this);
