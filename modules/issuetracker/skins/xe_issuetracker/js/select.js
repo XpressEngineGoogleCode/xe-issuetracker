@@ -10,7 +10,7 @@ jQuery(function($){
 	
 	// Radio Default Value
 	$('div.myValue').each(function(){
-		var default_value = $(this).next('ul').find('label:first').text();
+		var default_value = $(this).next('.iList').find('input[checked]').next('label').text();
 		$(this).append(default_value);
 	});
 	
@@ -42,20 +42,21 @@ jQuery(function($){
 	// Set Input
 	function set_label(){
 		var v = $(this).next('label').text();
-		$(this).parents('ul:first').prev(select_value).text('').append(v);
-		$(this).parents('ul:first').prev(select_value).addClass('selected');
+		$(this).parents('ul:first').prev('.myValue').text('').append(v);
+		$(this).parents('ul:first').prev('.myValue').addClass('selected');
+		return false;
 	}
 	
 	// Set Anchor
 	function set_anchor(){
 		var v = $(this).text();
-		$(this).parents('ul:first').prev(select_value).text('').append(v);
-		$(this).parents('ul:first').prev(select_value).addClass('selected');
+		$(this).parents('ul:first').prev('.myValue').text('').append(v);
+		$(this).parents('ul:first').prev('.myValue').addClass('selected');
 	}
 
 	// Anchor Focus Out
 	$('*:not("div.select a")').focus(function(){
-		select_root.removeClass('open');
+		$('.aList').parent('.select').removeClass('open');
 	});
 			
 	select_value.click(show_option);
@@ -64,7 +65,7 @@ jQuery(function($){
 	select_a.click(set_anchor).click(hide_option).focus(i_hover).hover(i_hover);
 	select_input.change(set_label).focus(set_label);
 	select_label.hover(i_hover).click(hide_option);
-	
+		
 	// Multi Select Emulator
 	var option_ui = $('ul.sOption');
 

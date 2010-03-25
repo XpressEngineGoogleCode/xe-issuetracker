@@ -5,12 +5,6 @@ jQuery(function($){
 	input_search.focus(function(){$(this).attr('style','color:#767676')});
 	input_search.bind('focusout',function(){$(this).removeAttr('style')});
 	
-	// .pxeT2 .pxeT3 상세보기
-	var button_tr = $('button.toggleTr');
-	var button_table = $('button.toggleTable');
-	var pxeT2_tr = $('table.pxeT2>tbody>tr');
-	var pxeT3_tr = $('table.pxeT3>tbody>tr');
-	
 	// 이슈목록 상세검색
 	$('form.search').removeClass('openSrch');
 	$('button.toggleSrch').click(function(){
@@ -49,42 +43,58 @@ jQuery(function($){
 		$(this).removeClass('fOpen');
 	});
 
-	var iText = $('label.iLabel').next('.iText');
+	// Input Clear
+	var iText = $('.item>.iLabel').next('.iText');
+	$('.item>.iLabel').css('position','absolute');
 	iText
 		.focus(function(){
-			$(this).prev('label.iLabel').attr('style','visibility:hidden');
+			$(this).prev('.iLabel').css('visibility','hidden');
 		})
 		.blur(function(){
 			if($(this).val() == ''){
-				$(this).prev('label.iLabel').attr('style','visibility:visible');
+				$(this).prev('.iLabel').css('visibility','visible');
+			} else {
+				$(this).prev('.iLabel').css('visibility','hidden');
 			}
-		});
-	
-});
+		})
+		.blur();
 
-function button_tr_click(element)
-{
-	jQuery(element).parents('tr:first').toggleClass('open');	
-}
+	// 개발계획 및 타임라인 토글
+	window.button_tr_click = button_tr_click;
+	window.button_table_click = button_table_click;
+	window.button_table_click_t2 = button_table_click_t2;
 
-function button_table_click(element)
-{
-	if(jQuery(element).toggleClass('all').hasClass('all')){
-		jQuery(element).parents('.pxeT3').find('tr').addClass('open');
-	} else {
-		jQuery(element).parents('.pxeT3').find('tr').removeClass('open');
-	}	
-}
+	var button_tr = $('button.toggleTr');
+	var button_table = $('button.toggleTable');
+	var pxeT2_tr = $('table.pxeT2>tbody>tr');
+	var pxeT3_tr = $('table.pxeT3>tbody>tr');
 
-function button_table_click_t2(element)
-{
-	var pxeT2_tr = jQuery('table.pxeT2>tbody>tr');
-	if(jQuery(element).toggleClass('all').hasClass('all')){
-		pxeT2_tr.addClass("open");
-	}
-	else
+	function button_tr_click(element)
 	{
-		pxeT2_tr.removeClass("open");
+		jQuery(element).parents('tr:first').toggleClass('open');	
 	}
-}
+	
+	// 타임라인
+	function button_table_click(element){
+		if(jQuery(element).toggleClass('all').hasClass('all')){
+			jQuery(element).parents('.pxeT3').find('tr').addClass('open');
+		} else {
+			jQuery(element).parents('.pxeT3').find('tr').removeClass('open');
+		}	
+	}
+	
+	// 개발계획
+	if($('.pxeT2>tbody>tr').length == $('.pxeT2>tbody>tr.open').length){
+		$('.pxeT2 .toggleTable').addClass('all');
+	}
+	
+	function button_table_click_t2(element){
+		var pxeT2_tr = jQuery('table.pxeT2>tbody>tr');
+		if(jQuery(element).toggleClass('all').hasClass('all')){
+			pxeT2_tr.addClass("open");
+		} else {
+			pxeT2_tr.removeClass("open");
+		}
+	}
 
+});

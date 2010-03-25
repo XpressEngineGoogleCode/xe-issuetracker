@@ -6,7 +6,8 @@ body,
 input, 
 textarea,
 select,
-button{ font-size:12px; font-family:Dotum, 돋움, Tahoma;}
+button,
+table{ font-size:12px; font-family:Dotum, 돋움, Tahoma;}
 body{ margin:0; background:url(../img/bgBody.gif) repeat-x;}
 em{ font-style:normal;}
 form,
@@ -309,7 +310,7 @@ a:focus{ text-decoration:underline;}
 .pagination .direction:focus{ background-color:#fff; color:#333;}
 
 /* Button Area */
-.buttonArea{ margin:15px 0; *zoom:1; text-align:center;}
+.buttonArea{ clear:both; margin:15px 0; *zoom:1; text-align:center;}
 .buttonArea:after{ content:""; display:block; clear:both;}
 
 /* btnPxe */
@@ -322,6 +323,10 @@ a:focus{ text-decoration:underline;}
 .btnPxe.small{ background-position:left -29px;}
 .btnPxe.small *{ background-position:right -29px; color:#515151; font-size:11px; padding:0 5px 0 4px;}
 .btnPxe.strong *{ font-weight:bold !important;}
+
+#moreButton{ float:none !important; margin:0 2px 0 0;}
+#moreButton .btnPxe{ width:100%;}
+#moreButton .btnPxe button{ width:100%;}
 
 /* pxeT1 */
 .pxeT1, 
@@ -390,6 +395,7 @@ ul.pData li{ font-size:12px; margin:0 0 5px 0;}
 .pxeT3 td{ border:0;}
 .pxeT3{ width:100%; border-top:2px solid #818181; margin:0 0 15px 0;}
 .pxeT3 caption{ padding:10px 0 0 0; text-align:left; font:bold 18px/24px Arial; color:#000; text-indent:12px;}
+.pxeT3 caption em{ color:#f60;}
 .pxeT3 caption sup{ color:#bbb; font:bold 11px Arial; position:relative; top:3px; *top:0;}
 .pxeT3 th,
 .pxeT3 td{ text-align:center; white-space:nowrap; vertical-align:top;}
@@ -426,24 +432,22 @@ ul.pData li{ font-size:12px; margin:0 0 5px 0;}
 /* pxeCodeHeader */
 .pxeCodeHeader{ position:relative; z-index:2; padding:13px 15px 10px 15px; margin:0 0 12px 0; border:1px solid #ddd; background:#fbfbfb; *zoom:1;}
 .pxeCodeHeader:after{ content:""; display:block; clear:both;}
-.pxeCodeHeader table{ border:0;}
+.pxeCodeHeader table{ border:0; float:left;}
 .pxeCodeHeader th{ border:0; padding:0 0 7px 0; font-weight:normal; color:#888; text-align:left;}
 .pxeCodeHeader td{ border:0; padding:0 0 7px 12px; color:#666; font-family:Arial;}
 .pxeCodeHeader td strong{ font-size:15px; color:#333;}
 .pxeCodeHeader td a{ margin:0 5px 0 0; font-size:14px;}
 .pxeCodeHeader td a em{ color:#fb6a00;}
-.pxeCodeHeader .do{ position:absolute; top:18px; right:23px;}
+.pxeCodeHeader .do{ float:right;}
 .pxeCodeHeader h3{ display:inline; margin:0; font-size:12px; color:#333;}
 .pxeCodeHeader h3 em{ font-weight:normal; color:#767676;}
 .pxeCodeHeader .tFilter{ border-left:1px solid #d9d9d9; margin:0 0 0 10px; padding:0 0 0 10px;}
 .pxeCodeHeader .tFilter button .i{ border:3px solid #fbfbfb; border-top-color:#848484;}
 .pxeCodeHeader .tFilter.fOpen button .i{ top:-2px; border-top-color:#fbfbfb; border-bottom-color:#848484;}
 
-
 /* svnMessage */
 .svnMessage{ padding:0 15px; border:1px solid #ddd; background:#f7f7f7; color:#666;}
 .svnMessage p{ margin:13px 0;}
-
 
 /* pxeT4 */
 .pxeT4,
@@ -459,7 +463,7 @@ ul.pData li{ font-size:12px; margin:0 0 5px 0;}
 .pxeT4 tr.removed{ background:#fde0e3;}
 .pxeT4 tr.added{ background:#e4f4ff;}
 .pxeT4 .code{ width:100%;}
-.pxeT4 code{ display:block; width:100%; text-align:left; font:12px "Courier New", Courier, monospace;}
+.pxeT4 code{ display:block; width:100%; text-align:left; font:12px "Courier New", Courier, monospace; white-space:normal;}
 .pxeT4 code button{ width:100%; text-align:left; border:0; padding:0; background:transparent; overflow:visible; font:12px "Courier New", Courier, monospace; cursor:pointer; color:#666;}
 .pxeT4 tr.removed+tr.review{ background:#fef7f8;}
 .pxeT4 tr.added+tr.review{ background:#f6fbff;}
@@ -504,6 +508,7 @@ ul.pData li{ font-size:12px; margin:0 0 5px 0;}
 .pxeSrch .detail{ display:none; position:relative; z-index:1; clear:both; padding:8px 0 10px 0; width:100%; *zoom:1;}
 .pxeSrch .openSrch .detail{ display:block;}
 .pxeSrch .detail:after{ content:""; display:block; clear:both;}
+.pxeSrch .detail .buttonArea{ padding:10px 0;}
 
 .pxeSrch .issue .item{ float:left; width:12.5%;}
 .pxeSrch .issue .last{ *width:12.2%;}
@@ -532,9 +537,6 @@ ul.pData li{ font-size:12px; margin:0 0 5px 0;}
 .pxeSrch .time .iText{ position:relative; width:68px; height:14px; padding:2px 20px 2px 4px; margin:0 -18px 0 0; color:#666; font:11px Verdana; vertical-align:middle;}
 .pxeSrch .time .iCheck{ width:13px; height:13px; margin:0; padding:0; vertical-align:middle;}
 .pxeSrch .time label{ cursor:pointer; padding:0 8px 0 3px;}
-
-
-
 
 /* toggleTr */
 .toggleTr,
@@ -637,6 +639,19 @@ ul.pData li{ font-size:12px; margin:0 0 5px 0;}
 .pxeFeedback .fContent .change li{ border:0; padding:0; color:#666;}
 .pxeFeedback .fContent p{ line-height:1.5; font-size:12px; color:#666;}
 
+.pxeFeedback .file{ font:11px Tahoma, Geneva, sans-serif;}
+.pxeFeedback .file a{ display:inline-block; position:relative; margin:0 10px 0 0; text-decoration:none;}
+.pxeFeedback .file a:hover,
+.pxeFeedback .file a:active,
+.pxeFeedback .file a:focus{ _text-decoration:underline;}
+.pxeFeedback .file a:hover .fName,
+.pxeFeedback .file a:active .fName,
+.pxeFeedback .file a:focus .fName{ text-decoration:underline;}
+.pxeFeedback .file a .bubble{ position:absolute; _position:static; display:none; _display:inline; left:-4px; bottom:100%; padding:2px 3px; border:1px solid #ddd; _border:0; background:#fff; _background:none; color:#666; white-space:nowrap;}
+.pxeFeedback .file a:hover .bubble,
+.pxeFeedback .file a:active .bubble,
+.pxeFeedback .file a:focus .bubble{ display:block; _display:inline}
+
 /* pxeRead */
 .pxeRead{ border-bottom:1px solid #ccc; padding:1em 0; line-height:1.5;}
 
@@ -644,11 +659,20 @@ ul.pData li{ font-size:12px; margin:0 0 5px 0;}
 .pxeTagList{ border-bottom:1px solid #ddd; margin:0; padding:8px 0;}
 .pxeTagList dt{ display:inline; font-weight:bold; color:#666; white-space:nowrap; padding:0 10px;}
 .pxeTagList dd{ display:inline; margin:0; font-size:11px;}
+.pxeTagList dd a{ margin:0 10px 0 0;}
 
 /* pxeFileList */
 .pxeFileList{ border-bottom:1px solid #ddd; margin:0; padding:8px 0;}
 .pxeFileList dt{ display:inline; font-weight:bold; color:#666; white-space:nowrap; padding:0 10px;}
 .pxeFileList dd{ display:inline; margin:0; font:11px Tahoma, Geneva, sans-serif;}
+.pxeFileList dd a{ display:inline-block; position:relative; margin:0 10px 0 0; text-decoration:none;}
+.pxeFileList dd a:hover .fName,
+.pxeFileList dd a:active .fName,
+.pxeFileList dd a:focus .fName{ text-decoration:underline;}
+.pxeFileList dd a .bubble{ position:absolute; _position:static; display:none; _display:inline; left:-4px; bottom:100%; padding:2px 3px; border:1px solid #ddd; _border:0; background:#fff; _background:none; color:#666; white-space:nowrap;}
+.pxeFileList dd a:hover .bubble,
+.pxeFileList dd a:active .bubble,
+.pxeFileList dd a:focus .bubble{ display:block; _display:inline;}
 
 /* editor */
 .editor{ margin:0 0 1em 0;}
@@ -683,8 +707,8 @@ ul.pData li{ font-size:12px; margin:0 0 5px 0;}
 
 
 /* pxeWrite */
-.pxeWrite .guest{ margin:1em 0; border:1px solid #ddd; border-left:0; border-right:0; padding:5px 0;}
-.pxeWrite .guest .item{ display:inline-block; position:relative;}
+.pxeWrite .guest{ clear:both; position:relative; margin:1em 0; border:1px solid #ddd; border-left:0; border-right:0; padding:5px 0; *zoom:1;}
+.pxeWrite .guest .item{ display:inline-block; position:relative; text-align:left;}
 .pxeWrite .guest .iLabel{ position:absolute; top:5px; left:6px; color:#767676;}
 .pxeWrite .guest .iText{ padding:5px 5px 3px; width:120px; height:14px; color:#333; border:1px solid #b8b8b8; border-right-color:#e0e0e0; border-bottom-color:#e0e0e0; background:transparent;}
 
@@ -694,7 +718,7 @@ ul.pData li{ font-size:12px; margin:0 0 5px 0;}
 .pxeWriteHeader .iText{ width:100%; padding:5px 5px 3px; margin:0 -6px; height:18px; font-size:14px; font-weight:bold; color:#333; border:1px solid #b8b8b8; border-right-color:#e0e0e0; border-bottom-color:#e0e0e0; background:transparent;}
 
 /* pxeReplyForm */
-.pxeReplyForm{ border:2px solid #ddd; background:#fcfcfc;}
+.pxeReplyForm{ border:2px solid #ddd; background:#fcfcfc; *zoom:1;}
 .pxeReplyForm .editor{ margin:1em 2em;}
 .pxeReplyForm .guest{ margin:1em 2em;}
 
