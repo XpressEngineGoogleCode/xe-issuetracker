@@ -101,7 +101,7 @@
 				<dd>
                     {@ $uploaded_list = $oIssue->getUploadedFiles() }
                     <!--@foreach($uploaded_list as $key => $file)-->
-                    <a href="{getUrl('')}{$file->download_url}">{$file->source_filename} <span class="bubble">[File Size:{FileHandler::filesize($file->file_size)}/Download:{number_format($file->download_count)}]</span></a> 
+                    <a href="{getUrl('')}{$file->download_url}"><span class="fName">{$file->source_filename}</span> <span class="bubble">[File Size:{FileHandler::filesize($file->file_size)}/Download:{number_format($file->download_count)}]</span></a> 
                     <!--@end-->
 				</dd>
 			</dl>
@@ -226,7 +226,7 @@
         </tr>
         </table>
         <!--@end-->
-        	<div class="editor">{$oIssue->getCommentEditor()}</div>
+        {$oIssue->getCommentEditor()}
     	</div>
 	</div>
 
