@@ -17,7 +17,7 @@
 			<input type="hidden" name="content" value="{$oIssue->getContentText()}" />
 			<input type="hidden" name="document_srl" value="{$document_srl}" />
 			
-				<div class="pxeWriteHeader">
+				<div class="pxeWriteHeader item">
 					<!--@if($oIssue->getTitleText())-->
 					<label for="title" class="iLabel" style="visibility:hidden;">{$lang->title}</label><input name="title" type="text" class="iText" id="title" value="{htmlspecialchars($oIssue->getTitleText())}"/>
 					<!--@else-->
