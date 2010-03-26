@@ -5,7 +5,7 @@
 			<!--@if($curDate)--></tbody></table><!--@endif-->
 			{@ $curDate = zdate($changeset->date, "Y.m.d")}
 			<table border="1" cellspacing="0" class="pxeT3">
-				<caption>{$curDate} <sup>{zdate($changeset->date,"D")}</sup></caption>
+				<caption><!--@if($curDate==date("Y.m.d"))--><em>{$curDate}</em><!--@else-->{$curDate}<!--@end--> <sup>{zdate($changeset->date,"D")}</sup></caption>
 				<thead>
 					<tr>
 						<th scope="col">시간</th>

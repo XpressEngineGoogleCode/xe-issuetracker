@@ -19,10 +19,14 @@
 			<div class="xe_content">{nl2br($history->content)}</div>
 			<!--@endif-->
 
+			<!--@if($history->hasUploadedFiles())-->
 			<div class="file">
-				<a href="#"><span class="fName">test.gif</span> <span class="bubble">[File Size:100KB/Download:10]</span></a> 
-				<a href="#"><span class="fName">test.gif</span> <span class="bubble">[File Size:100KB/Download:10]</span></a> 
+				{@ $uploadedFiles = $history->getUploadedFiles() }
+				<!--@foreach($uploadedFiles as $file)-->
+				<a href="{getUrl('')}{$file->download_url}"><span class="fName">{$file->source_filename}</span> <span class="bubble">[File Size:{FileHandler::filesize($file->file_size)}/Download:{number_format($file->download_count)}]</span></a> 
+				<!--@end-->
 			</div>
+			<!--@end-->
 
 		</div>
 	</li>
