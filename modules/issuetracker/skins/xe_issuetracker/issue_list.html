@@ -42,9 +42,9 @@
 						<div class="item first">
 							<h4><label for="plan">{$lang->milestone}</label><input type="checkbox" name="d_milestone" value="1" id="plan" class="iCheck" <!--@if($display_option["milestone"]->checked)-->checked="checked"<!--@end--> /></h4>
 							<ul class="sOption">
-								<li><input name="plan" type="radio" value="" class="iRadio" id="plan0" /><label for="plan0">{$lang->not_assigned}</label></li>
+								<li><input name="milestone_srl" type="radio" value="0" class="iRadio" id="plann" <!--@if(isset($milestone_srl) && $milestone_srl == 0)-->checked="checked"<!--@endif--> /><label for="plann">{$lang->not_assigned}</label></li>
 								<!--@foreach($project->milestones as $key => $val)-->
-								<li><input name="plan" type="radio" value="" class="iRadio" id="plan{$key}" /><label for="plan{$key}">{$val->title}</label></li>
+								<li><input name="milestone_srl" type="radio" value="{$val->milestone_srl}" class="iRadio" id="plan{$key}" <!--@if($milestone_srl == $val->milestone_srl)-->checked="checked"<!--@endif-->/><label for="plan{$key}">{$val->title}</label></li>
 								<!--@end-->
 							</ul>
 						</div>

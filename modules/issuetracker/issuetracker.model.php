@@ -501,7 +501,6 @@
             if(in_array('commit', $targets))
             {
                 $output = executeQueryArray("issuetracker.getChangesets", $args);
-				debugPrint($output);
                 if(!$output->toBool()) return array();
                 if(!$output->data) $output->data = array();
 
