@@ -90,16 +90,21 @@
 							<h4><label for="package">{$lang->package}</label><input type="checkbox" name="d_package" id="package" class="iCheck" value="1" <!--@if($display_option["package"]->checked)-->checked="checked"<!--@end-->/></h4>
 							<ul class="sOption">
 								<!--@foreach($project->packages as $key => $val)-->
-								<li><input name="package" type="radio" value="" class="iRadio" id="package{$key}" /><label for="package{$key}">{$val->title}</label></li>
+								<li><input name="package_srl" type="radio" value="{$val->package_srl}" class="iRadio" id="package{$key}" onclick="package_releases(this, '{$val->package_srl}');" <!--@if($val->package_srl==$package_srl)-->checked="checked"<!--@endif--> /><label for="package{$key}">{$val->title}</label></li>
 								<!--@end-->
 							</ul>
 						</div>
 						<div class="item">
+							<input type="hidden" id="current_package" value="" />
 							<h4><label for="version">{$lang->occured_version}</label><input type="checkbox" name="d_occured_version" value="1" id="version" class="iCheck" <!--@if($display_option["occured_version"]->checked)-->checked="checked"<!--@end--> /></h4>
-							<ul class="sOption">
-								<li><input name="version" type="radio" value="" class="iRadio" id="version1" /><label for="version1">3.0.0</label></li>
-								<li><input name="version" type="radio" value="" class="iRadio" id="version2" /><label for="version2">2.0.0</label></li>
-								<li><input name="version" type="radio" value="" class="iRadio" id="version3" /><label for="version3">...</label></li>
+							<ul class="sOption" id="releases">
+								<!--@if($package_srl)-->
+									<!--@foreach($project->releases as $k => $v)-->
+									<!--@if($v->package_srl == $package_srl)-->
+									<li><input name="release_srl" type="radio" value="{$v->release_srl}" class="iRadio" id="version{$v->release_srl}" <!--@if($v->release_srl==$release_srl)-->checked="checked"<!--@endif-->/><label for="version{$v->release_srl}">{$v->title}</label></li>
+									<!--@end-->
+									<!--@end-->
+								<!--@endif-->
 							</ul>
 						</div>
 						<div class="item last">
@@ -228,4 +233,15 @@
 		
 	</div>
 	<!-- /#pxeBody -->
+<div style="display:none;">
+<!--@foreach($project->packages as $key => $val)-->
+<ul class="sOption" id="release_{$val->package_srl}">
+    <!--@foreach($project->releases as $k => $v)-->
+    <!--@if($val->package_srl == $v->package_srl)-->
+	<li><input name="release_srl" type="radio" value="{$v->release_srl}" class="iRadio" id="version{$v->release_srl}" /><label for="version{$v->release_srl}">{$v->title}</label></li>
+    <!--@end-->
+    <!--@end-->
+</ul>
+<!--@end-->
+</div>
 <!--#include('footer.html')-->

@@ -102,6 +102,40 @@ jQuery(function($){
 			return false;
 		}
 	});
+
+	window.package_releases = package_releases;
+	function package_releases(element, package_srl)
+	{
+		var cur_package = $("#current_package").get(0);
+		var list = $("#releases").empty();
+		cur_package.value = package_srl;
+		var target = jQuery("#release_"+package_srl);	
+		target.find('li').clone(true).appendTo(list);
+
+		/*list.find('>li>.iRadio').change(single_select)
+			.filter('[checked]')
+			.each(function(){
+				var t = $(this);
+				var chk = t.parents('div.item:first').find('>h4>input[type=checkbox]');
+			
+				if (chk.attr('checked')) {
+					t.change();
+				} else {
+					t.removeAttr('checked');
+				}
+			});
+		list.find('>li>.iRadio').next('label').click(function(){
+				var t = $(this);
+				t.toggleClass('selected');
+
+				if(t.prev('.iRadio[checked]').length){
+				t.prev('.iRadio[checked]').removeAttr('checked');
+				t.parents('.item:first').find('h4>input[type=checkbox]').removeAttr('checked');
+				return false;
+				}
+			});*/
+	}
+
 		
 	// Multi Select
 	function multi_select(){
