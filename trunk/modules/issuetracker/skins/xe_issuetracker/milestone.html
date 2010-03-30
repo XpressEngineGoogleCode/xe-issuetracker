@@ -34,7 +34,6 @@
 		{@ $val->title = $lang->not_assigned}
 		{@ $val->description = $lang->not_assigned_description}
 	<!--@end-->
-	{@ debugPrint($val) }
 	<tr <!--@if($val->is_completed != 'Y')-->class="open"<!--@end--> >
 		<th scope="row"><a href="{getUrl('','mid',$mid,'act','dispIssuetrackerViewIssue','milestone_srl', $val->milestone_srl)}">{$val->title}</a></th>
 		<td class="progress">

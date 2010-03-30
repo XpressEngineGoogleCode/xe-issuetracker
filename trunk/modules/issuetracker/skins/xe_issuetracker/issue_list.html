@@ -57,7 +57,6 @@
 								{@ $checkArr[$val] = 1 }	
 								<!--@end-->
 								<!--@endif-->
-								{@ debugPrint($checkArr) }
 								<!--@foreach($lang->status_list as $key=>$val)-->
 								<li><input name="status[]" type="checkbox" value="{$key}" class="iCheck" id="status{$key}" <!--@if($checkArr[$key])-->checked="checked"<!--@endif-->/><label for="status{$key}">{$val}</label></li>
 								<!--@end-->

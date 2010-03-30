@@ -70,7 +70,6 @@
 				<td>{$line->before_line_number}</td>
 				<td>{$line->after_line_number}</td>
 				<td>{$op}</td>
-				{@ debugPrint($line); }
 				<td class="code"><code>{nl2br(str_replace("\t","&nbsp;&nbsp;&nbsp;&nbsp;",str_replace(' ','&nbsp;',htmlspecialchars($line->data))))}</code></td>
 			</tr>
 			<!--@endforeach--><!--lines-->
