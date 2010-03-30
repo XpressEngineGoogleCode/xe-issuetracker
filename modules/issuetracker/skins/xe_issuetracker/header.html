@@ -24,7 +24,7 @@
 						<div class="sub">
 							<ul>
 							<!--@foreach($value[1] as $subkey => $sub)-->
-								<li><a href="{getUrl('','mid',$mid,'act',$sub[0])}"><span>{$subkey}</span></a>
+								<li><a href="{getUrl('','mid',$mid,'act',$sub[0])}"><span>{$subkey}</span></a></li>
 							<!--@end-->
 							</ul>
 						</div>
@@ -36,7 +36,7 @@
 			<!--@if($grant->manager)-->
 			<div class="aside">
 				<ul>
-					<li class="m2"><a href="{getUrl('','mid',$mid,'act','dispIssuetrackerAdminProjectSetting')}"><span>프로젝트 설정</span></a>
+					<li class="m2"><a href="{getUrl('','mid',$mid,'act','dispIssuetrackerAdminProjectSetting')}"><span>프로젝트 설정</span></a></li>
 				</ul>
 			</div>
 			<span class="gradient"></span>
