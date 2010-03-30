@@ -1,5 +1,6 @@
 <!--#include("header.html")-->
 <!--%import("js/toggle.js")-->
+<!--%load_js_plugin("ui.datepicker")-->
 <!-- #pxeBody -->
 	<div id="pxeBody">
 	
@@ -19,9 +20,10 @@
 					<!--@endif-->
 				</ul>
 				<form action="" class="search openSrch">
-					<fieldset class="basic">
+					<fieldset class="basic item">
 						<legend class="alt">Basic Search</legend>
-						<input name="" type="text" class="iText" title="ID/Contributor" value="ID/공헌자" />
+						<label for="idContributor" class="iLabel">ID/공헌자</label>
+						<input name="" type="text" class="iText" id="idContributor" />
 						<span class="btnPxe strong"><input type="submit" value="검색" /></span>
 						<button type="button" class="toggleSrch">상세검색<span></span></button>
 					</fieldset>
@@ -30,18 +32,14 @@
 						<dl>
 							<dt>기간</dt>
 							<dd>
-								<div class="term">
-									<input name="" type="text" class="iText" maxlength="10" title="start" /><button type="button" class="btnCndr"><span class="alt">Calendar</span></button>
-									<div class="calendar">
-										< ! -- 달력 -- >
-									</div>
+								<div class="term item">
+									<label for="term1" class="iLabel">YYYY-MM-DD</label>
+									<input name="" type="text" class="iText datepicker" maxlength="10" id="term1" /><!--<button type="button" class="btnCndr"><span class="alt">Calendar</span></button>-->
 								</div>
 								 ~ 
-								<div class="term">
-									<input name="" type="text" class="iText" maxlength="10" title="end" /><button type="button" class="btnCndr"><span class="alt">Calendar</span></button>
-									<div class="calendar">
-										< ! -- 달력 -- >
-									</div>
+								<div class="term item">
+									<label for="term2" class="iLabel">YYYY-MM-DD</label>
+									<input name="" type="text" class="iText datepicker" maxlength="10" id="term2" /><!--<button type="button" class="btnCndr"><span class="alt">Calendar</span></button>-->
 								</div>
 							</dd>
 							<dt>조건</dt>
@@ -54,6 +52,20 @@
 								<span class="btnPxe strong"><input type="submit" value="검색" /></span>
 							</dd>
 						</dl>
+						<script type="text/javascript">
+							jQuery(function($) {
+								$('.datepicker')
+								.datepicker({
+									dateFormat:'yy-mm-dd', 
+									showAnim:'fadeIn', // show|slideDown|fadeIn
+									changeYear:true,
+									showOtherMonths:true,
+									changeMonth:true, 
+									//selectOtherMonths: true,
+									//showButtonPanel:true
+								})
+							});
+						</script>
 					</fieldset>
 				</form>
 			</div>
