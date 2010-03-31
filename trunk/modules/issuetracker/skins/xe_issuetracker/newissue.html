@@ -1,8 +1,8 @@
 <!--#include("header.html")-->	
 <!--%import("js/toggle.js")-->
 	
-	<!-- #pxeBody -->
-	<div id="pxeBody">
+	<!-- #issueBody -->
+	<div id="issueBody">
 	
 		<!-- #pxeContent -->
 		<div id="pxeContent">
@@ -25,14 +25,13 @@
 					<!--@end-->
 				</div>
 				
-				<table border="1" cellspacing="0" class="pxeT5">
 				<!--@if(count($extra_keys))-->
+				<table border="1" cellspacing="0" class="pxeT5">
 				<!--@foreach($extra_keys as $key => $val)-->
 				<tr>
 					<th scope="row">{$val->name} <!--@if($val->is_required=='Y')--><em>*</em><!--@end--></th>
 					<td>{$val->getFormHTML()}</td>
 				</tr>
-				<!--@end-->
 				<!--@end-->
 
 				<!--@if(!$oIssue->isExists())-->
@@ -135,10 +134,11 @@
 				<!--@endif-->
 				<!--@endif-->
 				</table>
+				<!--@end-->
 				
 				<div class="editor">{$oIssue->getEditor()}</div>
 
-				<div class="pxeTag">
+				<div class="pxeTag item">
 					<label for="tag" class="iLabel" <!--@if($oIssue->get('tags'))-->style="visibility:hidden"<!--@end--> >{$lang->about_tag}</label><input type="text" title="Tag" class="iText" id="tag" name="tags" value="{htmlspecialchars($oIssue->get('tags'))}" />
 				</div>
 
@@ -191,7 +191,7 @@
 		<!-- /#pxeContent -->
 		
 	</div>
-	<!-- /#pxeBody -->
+	<!-- /#issueBody -->
 <form action="{Context::getRequestUri()}" method="get" style="display:none;">
 <input type="hidden" name="vid" value="{$vid}" />
 <!--@foreach($project->packages as $key => $val)-->
