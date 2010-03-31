@@ -532,11 +532,11 @@ ul.pData li{ font-size:12px; margin:0 0 5px 0;}
 .pxeSrch .time dd{ position:relative; left:25px; display:inline; margin:0;}
 .pxeSrch .time dt{ margin:0 6px 0 0; font-weight:bold; color:#333; color:#3f4857;}
 .pxeSrch .time dd{ margin:0 50px 0 0; color:#666;}
-.pxeSrch .time .term{ position:relative; display:inline-block; margin:0 4px 0 0; background:#fff; *display:inline; *zoom:1;}
+.pxeSrch .time .term{ position:relative; display:inline-block; margin:0 10px 0 0; background:#fff; *display:inline; *zoom:1;}
 .pxeSrch .time .term .iLabel{ font:11px Tahoma, Geneva, sans-serif; top:3px; left:3px;}
-.pxeSrch .time .btnCndr{ position:relative; width:15px; height:14px; border:0; overflow:hidden; padding:0; margin:0; background:url(../img/btnCalendar.gif) no-repeat; cursor:pointer; vertical-align:middle;}
+.pxeSrch .time .ui-datepicker-trigger{ position:relative; width:15px; height:14px; border:0; overflow:hidden; padding:0; margin:0; background:url(../img/btnCalendar.gif) no-repeat; cursor:pointer; vertical-align:middle; font-size:0;}
 .pxeSrch .time .calendar{ position:absolute; top:21px; _top:22px; left:0; text-align:left;}
-.pxeSrch .time .iText{ position:relative; width:78px; height:14px; padding:2px 4px; margin:0; color:#666; font:11px Verdana; vertical-align:middle; background:transparent;}
+.pxeSrch .time .iText{ position:relative; width:86px; height:14px; padding:2px 4px; margin:0 -18px 0 0; color:#666; font:11px Verdana; vertical-align:middle; background:transparent;}
 .pxeSrch .time .iCheck{ width:13px; height:13px; margin:0; padding:0; vertical-align:middle;}
 .pxeSrch .time label{ cursor:pointer; padding:0 8px 0 3px;}
 
@@ -707,7 +707,6 @@ ul.pData li{ font-size:12px; margin:0 0 5px 0;}
 .editorOption .iCheck{ width:13px; height:13px; margin:0; padding:0; vertical-align:middle;}
 .editorOption label{ margin:0 10px 0 0; color:#767676; cursor:pointer;}
 
-
 /* pxeWrite */
 .pxeWrite .guest{ clear:both; position:relative; margin:1em 0; border:1px solid #ddd; border-left:0; border-right:0; padding:5px 0; *zoom:1;}
 .pxeWrite .guest .item{ display:inline-block; position:relative; text-align:left;}
@@ -724,4 +723,6 @@ ul.pData li{ font-size:12px; margin:0 0 5px 0;}
 .pxeReplyForm .editor{ margin:1em 2em;}
 .pxeReplyForm .guest{ margin:1em 2em;}
 
+/* Fix */
 ul.issue_action li { display: inline-block; }
+.ui-datepicker{ z-index:100;}

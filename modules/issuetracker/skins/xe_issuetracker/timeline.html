@@ -1,6 +1,10 @@
 <!--#include("header.html")-->
+<!--%import("css/ui.core.css")-->
+<!--%import("css/ui.theme.css")-->
+<!--%import("css/ui.datepicker.css")-->
 <!--%import("js/toggle.js")-->
-<!--%load_js_plugin("ui.datepicker")-->
+<!--%import("js/ui.datepicker.js")-->
+
 <!-- #pxeBody -->
 	<div id="pxeBody">
 	
@@ -34,12 +38,12 @@
 							<dd>
 								<div class="term item">
 									<label for="term1" class="iLabel">YYYY-MM-DD</label>
-									<input name="" type="text" class="iText datepicker" maxlength="10" id="term1" /><!--<button type="button" class="btnCndr"><span class="alt">Calendar</span></button>-->
+									<input name="" type="text" class="iText datepicker" maxlength="10" id="term1" />
 								</div>
 								 ~ 
 								<div class="term item">
 									<label for="term2" class="iLabel">YYYY-MM-DD</label>
-									<input name="" type="text" class="iText datepicker" maxlength="10" id="term2" /><!--<button type="button" class="btnCndr"><span class="alt">Calendar</span></button>-->
+									<input name="" type="text" class="iText datepicker" maxlength="10" id="term2" />
 								</div>
 							</dd>
 							<dt>조건</dt>
@@ -57,12 +61,11 @@
 								$('.datepicker')
 								.datepicker({
 									dateFormat:'yy-mm-dd', 
-									showAnim:'fadeIn', // show|slideDown|fadeIn
+									showAnim:'fadeIn',
 									changeYear:true,
 									showOtherMonths:true,
 									changeMonth:true, 
-									//selectOtherMonths: true,
-									//showButtonPanel:true
+									showOn: 'button'
 								})
 							});
 						</script>
