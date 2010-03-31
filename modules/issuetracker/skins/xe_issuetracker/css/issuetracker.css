@@ -30,12 +30,12 @@ a:focus{ text-decoration:underline;}
 
 /* Layout */
 #pxeBranch{ position:relative; width:917px; margin:0 auto;}
-#pxeBody{ position:relative; z-index:1; clear:both; *zoom:1;}
-#pxeBody:after{ content:""; display:block; clear:both;}
+#issueBody{ position:relative; z-index:1; clear:both; *zoom:1;}
+#issueBody:after{ content:""; display:block; clear:both;}
 #pxeContent{ margin:0 0 30px 0;}
 #pxeAside{ display:none; margin:0 0 30px 0;}
-#pxeHeader{ position:relative; z-index:2; clear:both; margin:0 0 25px 0;}
-.pxeCa #pxeBody{ margin:0 247px 0 0;}
+#issueHeader{ position:relative; z-index:2; clear:both; margin:0 0 25px 0;}
+.pxeCa #issueBody{ margin:0 247px 0 0;}
 .pxeCa #pxeContent{ float:left; width:100%;}
 .pxeCa #pxeAside{ display:block; position:relative; width:222px; float:right; clear:right; left:247px; margin-left:-222px;}
 
@@ -698,7 +698,7 @@ ul.pData li{ font-size:12px; margin:0 0 5px 0;}
 
 /* pxeTag */
 .pxeTag{ position:relative; margin:0 0 -1px 0; border:1px solid #ddd; border-left:0; border-right:0; padding:5px 0;}
-.pxeTag .iLabel{ position:absolute; top:10px; left:6px; color:#767676;}
+.pxeTag .iLabel{ top:10px; left:6px; color:#767676;}
 .pxeTag .iText{ position:relative; padding:5px 5px 3px; width:96%; height:14px; color:#333; border:1px solid #b8b8b8; border-right-color:#e0e0e0; border-bottom-color:#e0e0e0; background:transparent;}
 
 /* editorOption */
@@ -714,7 +714,7 @@ ul.pData li{ font-size:12px; margin:0 0 5px 0;}
 .pxeWrite .guest .iText{ padding:5px 5px 3px; width:120px; height:14px; color:#333; border:1px solid #b8b8b8; border-right-color:#e0e0e0; border-bottom-color:#e0e0e0; background:transparent;}
 
 /* pxeWriteHeader */
-.pxeWriteHeader{ position:relative; margin:0 6px;}
+.pxeWriteHeader{ position:relative; margin:0 6px 5px 6px;}
 .pxeWriteHeader .iLabel{ position:absolute; top:7px; left:6px; color:#333; font-size:14px; font-weight:bold;}
 .pxeWriteHeader .iText{ width:100%; padding:5px 5px 3px; margin:0 -6px; height:18px; font-size:14px; font-weight:bold; color:#333; border:1px solid #b8b8b8; border-right-color:#e0e0e0; border-bottom-color:#e0e0e0; background:transparent;}
 
