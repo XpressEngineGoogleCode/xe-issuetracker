@@ -500,7 +500,11 @@
                         $obj->date = date("YmdHis", strtotime($log->date));
                         $obj->message = trim($log->msg);
                         $obj->module_srl = $module_info->module_srl;
-                        executeQuery("issuetracker.insertChangeset", $obj);
+                        $output = executeQuery("issuetracker.insertChangeset", $obj);
+						if($output->toBool())
+						{
+							$output = ModuleHandler::triggerCall('issuetracker.insertChangeset', 'after', $obj);
+						}
                     }
                 }
                 $latestRevision = $oModel->getLatestRevision($module_info->module_srl);

@@ -198,6 +198,8 @@
             {
                 executeQuery("issuetracker.updateRelease", $args);
             }
+
+            $output = ModuleHandler::triggerCall('issuetracker.insertRelease', 'after', $args);
         }
 
         function procIssuetrackerAdminDeletePackage()
