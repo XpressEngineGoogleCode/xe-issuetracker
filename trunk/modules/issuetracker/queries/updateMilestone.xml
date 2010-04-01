@@ -4,11 +4,11 @@
     </tables>
     <columns>
         <column name="title" var="title" notnull="notnull" />
-        <column name="description" var="description" />
-        <column name="deadline" var="deadline" />
+        <column name="description" var="description" default="" />
+        <column name="deadline" var="deadline" default="" />
         <column name="is_completed" var="is_completed" default="N" />
         <column name="is_default" var="is_default" />
-        <column name="released_date" var="released_date" />
+        <column name="released_date" var="released_date" default="" />
     </columns>
     <conditions>
         <condition operation="equal" column="milestone_srl" var="milestone_srl" notnull="notnull" />
