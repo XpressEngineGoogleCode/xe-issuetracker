@@ -153,17 +153,14 @@
             array_unshift($output, $notassigned);
 
             if($output) {
+				$status_list = array("new", "reviewing", "assign", "resolve", "reopen", "invalid", "duplicated", "postponed");
                 foreach($output as $key => $milestone) {
-                    $issues = null;
-                    $issues['new'] = $oIssuetrackerModel->getIssuesCount($this->module_srl,'milestone_srl', $milestone->milestone_srl,'new');
-                    $issues['reviewing'] = $oIssuetrackerModel->getIssuesCount($this->module_srl,'milestone_srl', $milestone->milestone_srl,'reviewing');
-                    $issues['assign'] = $oIssuetrackerModel->getIssuesCount($this->module_srl,'milestone_srl', $milestone->milestone_srl,'assign');
-                    $issues['resolve'] = $oIssuetrackerModel->getIssuesCount($this->module_srl,'milestone_srl', $milestone->milestone_srl,'resolve');
-                    $issues['reopen'] = $oIssuetrackerModel->getIssuesCount($this->module_srl,'milestone_srl', $milestone->milestone_srl,'reopen');
-                    $issues['postponed'] = $oIssuetrackerModel->getIssuesCount($this->module_srl,'milestone_srl', $milestone->milestone_srl,'postponed');
-                    $issues['invalid'] = $oIssuetrackerModel->getIssuesCount($this->module_srl,'milestone_srl', $milestone->milestone_srl,'invalid');
-                    $issues['duplicated'] = $oIssuetrackerModel->getIssuesCount($this->module_srl,'milestone_srl', $milestone->milestone_srl,'duplicated');
-                    $issues['total'] = $issues['new']+$issues['assign']+$issues['resolve']+$issues['reopen']+$issues['reviewing'];
+					$issues = $oIssuetrackerModel->getIssueCountByStatus($milestone->milestone_srl, $this->module_srl);
+					foreach($status_list as $status)
+					{
+						if(!$issues[$status]) $issues[$status] = 0;
+					}
+
                     $milestone->issues = $issues;
                     $milestones[$milestone->milestone_srl] = $milestone;
                     
