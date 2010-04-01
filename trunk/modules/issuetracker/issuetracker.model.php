@@ -27,6 +27,23 @@
         function init() {
         }
 
+		function getIssueCountByStatus($milestone_srl, $module_srl)
+		{
+			$args->milestone_srl = $milestone_srl;
+			$args->module_srl = $module_srl;
+			$output = executeQueryArray("issuetracker.getIssueCountByStatus", $args);
+			$issues = array();
+			if($output->data)
+			{
+				foreach($output->data as $data)
+				{
+					$issues[$data->status] = $data->count;
+				}
+			}
+			$issues['total'] = $issues['new']+$issues['assign']+$issues['resolve']+$issues['reopen']+$issues['reviewing'];
+			return $issues;
+		}
+
 		function getIssueCount($module_srl)
 		{
 			if(!$module_srl) return 0;
