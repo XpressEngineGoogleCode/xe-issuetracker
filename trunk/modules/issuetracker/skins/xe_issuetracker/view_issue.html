@@ -12,7 +12,7 @@
 			
 			<div class="pxeReadHeader">
 				<h1><em class="id">#{$oIssue->document_srl}</em> <em class="status {$oIssue->get('status')}">{$lang->status_list[$oIssue->get('status')]}</em> {$oIssue->getTitle()}</h1>
-				<div class="meta"><strong>{$oIssue->getNickName()}</strong> <span class="time">({$oIssue->getRegdate('y.m.d H:i')})</span></div>
+				<div class="meta"><strong><!--@if($oIssue->get('member_srl'))--><span class="member_{$oIssue->get('member_srl')}">{$oIssue->getNickName()}</span><!--@else-->{$oIssue->getNickName()}<!--@end--></strong> <span class="time">({$oIssue->getRegdate('y.m.d H:i')})</span></div>
 			</div>
 			
 			<table border="1" cellspacing="0" class="pxeT5">
