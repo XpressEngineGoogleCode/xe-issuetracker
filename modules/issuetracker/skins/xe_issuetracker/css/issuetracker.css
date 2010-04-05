@@ -304,7 +304,7 @@ a:focus{ text-decoration:underline;}
 .pagination a:active,
 .pagination a:focus{ background-color:#f8f8f8; }
 .pagination strong{ color:#ff6600; border:1px solid #e7e7e7;}
-.pagination .direction{ font-weight:normal; color:#767676; white-space:nowrap; border:1px solid #e7e7e7;}
+.pagination .direction{ margin:0; font-weight:normal; color:#767676; white-space:nowrap; border:1px solid #e7e7e7;}
 .pagination .direction:hover,
 .pagination .direction:active,
 .pagination .direction:focus{ background-color:#fff; color:#333;}
