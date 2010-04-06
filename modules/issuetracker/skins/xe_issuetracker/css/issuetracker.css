@@ -609,7 +609,7 @@ ul.pData li{ font-size:12px; margin:0 0 5px 0;}
 .pxeReadHeader .status.recur{ background:#ef7589;}
 .pxeReadHeader .status.reviewing{ background:#d9d18f;}
 .pxeReadHeader .status.assign{ background:#8fccd9;}
-.pxeReadHeader .status.clear{ background:#7cd039;}
+.pxeReadHeader .status.resolve{ background:#7cd039;}
 .pxeReadHeader .meta{ float:right; color:#767676;}
 .pxeReadHeader .meta .time{ font:11px Tahoma, Geneva, sans-serif; color:#767676;}
 
