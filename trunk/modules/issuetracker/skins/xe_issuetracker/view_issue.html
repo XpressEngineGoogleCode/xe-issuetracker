@@ -250,4 +250,17 @@
 		
 	</div>
 	<!-- /#issueBody -->
+<form action="{Context::getRequestUri()}" method="get" style="display:none;">
+<input type="hidden" name="vid" value="{$vid}" />
+<!--@foreach($project->packages as $key => $val)-->
+<select id="release_{$val->package_srl}">
+    <option value="">{$lang->release}</option> 
+    <!--@foreach($project->releases as $k => $v)-->
+    <!--@if($val->package_srl == $v->package_srl)-->
+    <option value="{$v->release_srl}">{$v->title}</option> 
+    <!--@end-->
+    <!--@end-->
+</select>
+<!--@end-->
+</form>
 <!--#include("footer.html")-->
