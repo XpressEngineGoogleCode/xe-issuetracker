@@ -25,13 +25,14 @@
 					<!--@end-->
 				</div>
 				
-				<!--@if(count($extra_keys))-->
 				<table border="1" cellspacing="0" class="pxeT5">
+				<!--@if(count($extra_keys))-->
 				<!--@foreach($extra_keys as $key => $val)-->
 				<tr>
 					<th scope="row">{$val->name} <!--@if($val->is_required=='Y')--><em>*</em><!--@end--></th>
 					<td>{$val->getFormHTML()}</td>
 				</tr>
+				<!--@end-->
 				<!--@end-->
 
 				<!--@if(!$oIssue->isExists())-->
@@ -134,7 +135,6 @@
 				<!--@endif-->
 				<!--@endif-->
 				</table>
-				<!--@end-->
 				
 				<div class="editor">{$oIssue->getEditor()}</div>
 
