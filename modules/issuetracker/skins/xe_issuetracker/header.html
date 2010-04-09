@@ -1,8 +1,10 @@
 <!--%import("css/issuetracker.css")-->
 <!--%import("js/issuetracker.js")-->
 {$module_info->header_text}
-
-<div class="issuetracker cPurple">
+<!--@if(!$module_info->colorset)-->
+{@ $module_info->colorset = "cPurple"; }
+<!--@end-->
+<div class="issuetracker {$module_info->colorset}">
     <div id="issueHeader">
 		<!--@if($module_info->projectTitle)-->
 		<div class="issuetrackerTitle">
