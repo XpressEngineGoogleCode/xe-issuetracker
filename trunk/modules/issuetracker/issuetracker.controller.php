@@ -485,6 +485,8 @@
             $latestRevision = $oModel->getLatestRevision($module_info->module_srl);
 
             $oController = &getController('issuetracker');
+			$member_info_array = array();
+			$oMemberModel =& getModel('member');
             while($latestRevision < $status->revision)
             {
                 $gap = $status->revision-$latestRevision;
@@ -500,6 +502,10 @@
                         $obj->date = date("YmdHis", strtotime($log->date));
                         $obj->message = trim($log->msg);
                         $obj->module_srl = $module_info->module_srl;
+						if(!isset($member_info_array[$obj->author])) {
+							$member_info_array[$obj->author] = $oMemberModel->getMemberInfoByUserID($obj->author);
+						}
+						if($member_info_array[$obj->author]) $obj->member_srl = $member_info_array[$obj->author]->member_srl;
                         $output = executeQuery("issuetracker.insertChangeset", $obj);
 						if($output->toBool())
 						{

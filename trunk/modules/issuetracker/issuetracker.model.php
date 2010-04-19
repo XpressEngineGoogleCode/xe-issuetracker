@@ -515,6 +515,7 @@
 
             $args->module_srl = $module_srl;
 			$args->list_count = $list_count+1;
+			$oMemberModel =& getModel('member');
             if(in_array('commit', $targets))
             {
                 $output = executeQueryArray("issuetracker.getChangesets", $args);
@@ -524,6 +525,14 @@
                 // message에 htmlspecialchars() 적용
                 foreach($output->data as $key => $changeset)
 				{
+					if($changeset->member_srl)
+					{
+						$member_info = $oMemberModel->getMemberInfoByMemberSrl($changeset->member_srl);
+						if($member_info)
+						{
+							$changeset->author = $member_info->nick_name;
+						}
+					}
                     $changeset->message = $this->_linkXE(htmlspecialchars($changeset->message));
 				}
             }

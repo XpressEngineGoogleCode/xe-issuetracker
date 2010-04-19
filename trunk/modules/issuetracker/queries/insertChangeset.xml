@@ -8,5 +8,6 @@
         <column name="author" var="author" notnull="notnull" />
         <column name="date" var="date" notnull="notnull" />
         <column name="message" var="message" />
+        <column name="member_srl" var="member_srl" />
     </columns>
 </query>
