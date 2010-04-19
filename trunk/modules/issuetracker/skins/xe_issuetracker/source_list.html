@@ -58,7 +58,7 @@
 						<!--@if($item->type == "directory" || $item->ext_type == "text")-->
 						<a href="{getUrl('type',$type, path, urlencode($item->path), 'revs', $revs)}" class="{$type}">{$item->name}</a>
 						<!--@else-->
-						<a href="{$svn_url}{$item_path}" class="{$type}">{$item->name}</a>
+						<a href="{$svn_url}{$item->path}" class="{$type}">{$item->name}</a>
 						<!--@end-->
 						</td>
 						<td class="num aRight"><a href="{getUrl('type','log','path',urlencode($item->path),'erev',$revs?$revs:'')}">r{$item->revision}</a></td>
