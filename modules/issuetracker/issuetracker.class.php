@@ -49,6 +49,7 @@
             if(!$oDB->isColumnExists('issues_history', 'uploaded_count')) return true;
 
             if(!$oModuleModel->getTrigger('document.moveDocumentModule', 'issuetracker', 'controller', 'triggerMoveDocumentModule', 'after')) return true;
+            if(!$oDB->isColumnExists('issue_changesets', 'member_srl')) return true;
 
             return false;
         }
@@ -80,6 +81,22 @@
             if(!$oModuleModel->getTrigger('document.moveDocumentModule', 'issuetracker', 'controller', 'triggerMoveDocumentModule', 'after')) {
                 $oModuleController->insertTrigger('document.moveDocumentModule', 'issuetracker', 'controller', 'triggerMoveDocumentModule', 'after');
             }
+
+            if(!$oDB->isColumnExists('issue_changesets', 'member_srl')) { 
+                $oDB->addColumn('issue_changesets', 'member_srl', 'number', 11, 0);
+				$output = executeQueryArray("issuetracker.getAuthors");
+				$oMemberModel =& getModel('member');
+				foreach($output->data as $data)
+				{
+					$member_info = $oMemberModel->getMemberInfoByUserID($data->author);
+					if(!$member_info) continue;
+
+					$args = null;
+					$args->member_srl = $member_info->member_srl;
+					$args->author = $data->author;
+					$output2 = executeQuery("issuetracker.updateMemberSrl", $args);
+				}
+			}
 
             return new Object(0, 'success_updated');
         }
