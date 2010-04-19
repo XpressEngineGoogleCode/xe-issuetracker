@@ -10,7 +10,7 @@
 			</div>
 
 			<div class="pxeSrch">
-				<h3><em>{$page_navigation->total_count}</em>개의 글이 있습니다</h3>
+				<h3>{sprintf($lang->about_total_count, $page_navigation->total_count)}</h3>
 				<form action="{Context::getRequestUri()}" method="get" class="search openSrch">
 				<input type="hidden" name="vid" value="{$vid}" />
 				<input type="hidden" name="mid" value="{$mid}" />

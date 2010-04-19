@@ -12,29 +12,29 @@
 		<div id="pxeContent">
 			
 			<div class="pxeHeading">
-				<h2>타임라인</h2>
+				<h2>{$lang->project_menus[$act]}</h2>
 			</div>
 			
 			<div class="pxeSrch">
 				<ul class="timeH">
-					<li>이슈 <em>{$issue_count}</em></li>
-					<li>리비전 <em>{$changeset_count}</em></li>
+					<li>{$lang->issue} <em>{$issue_count}</em></li>
+					<li>{$lang->revision} <em>{$changeset_count}</em></li>
 					<!--@if($oldestItem)-->
-					<li>시작일 <strong>{zdate($oldestItem, "Y.m.d")}</strong></li>
+					<li>{$lang->startdate} <strong>{zdate($oldestItem, "Y.m.d")}</strong></li>
 					<!--@endif-->
 				</ul>
 				<form action="" class="search openSrch">
 					<fieldset class="basic item">
 						<legend class="alt">Basic Search</legend>
-						<label for="idContributor" class="iLabel">ID/공헌자</label>
+						<label for="idContributor" class="iLabel">{$lang->issue_id}/{$lang->contributor}</label>
 						<input name="" type="text" class="iText" id="idContributor" />
-						<span class="btnPxe strong"><input type="submit" value="검색" /></span>
-						<button type="button" class="toggleSrch">상세검색<span></span></button>
+						<span class="btnPxe strong"><input type="submit" value="{$lang->cmd_search}" /></span>
+						<button type="button" class="toggleSrch">{$lang->cmd_detailed_search}<span></span></button>
 					</fieldset>
 					<fieldset class="detail time">
 						<legend class="alt">Detail Search</legend>
 						<dl>
-							<dt>기간</dt>
+							<dt>{$lang->duration}</dt>
 							<dd>
 								<div class="term item">
 									<label for="term1" class="iLabel">YYYY-MM-DD</label>
@@ -46,14 +46,13 @@
 									<input name="" type="text" class="iText datepicker" maxlength="10" id="term2" />
 								</div>
 							</dd>
-							<dt>조건</dt>
 							<dd>
-								<input name="" type="checkbox" value="" class="iCheck" id="plan" /><label for="plan">계획</label>
-								<input name="" type="checkbox" value="" class="iCheck" id="iUpdate" /><label for="iUpdate">이슈갱신</label>
-								<input name="" type="checkbox" value="" class="iCheck" id="cUpdate" /><label for="cUpdate">코드갱신</label>
+								<input name="" type="checkbox" value="" class="iCheck" id="iCreate" /><label for="iCreate">{$lang->target_list["issue_created"]}</label>
+								<input name="" type="checkbox" value="" class="iCheck" id="iUpdate" /><label for="iUpdate">{$lang->target_list["issue_changed"]}</label>
+								<input name="" type="checkbox" value="" class="iCheck" id="cUpdate" /><label for="cUpdate">{$lang->target_list["commit"]}</label>
 							</dd>
 							<dd>
-								<span class="btnPxe strong"><input type="submit" value="검색" /></span>
+								<span class="btnPxe strong"><input type="submit" value="{$lang->cmd_search}" /></span>
 							</dd>
 						</dl>
 						<script type="text/javascript">
@@ -76,7 +75,7 @@
 			
 			<!--@if($lastdate)-->
 			<div class="buttonArea">
-				<div class="fLeft" id="moreButton"><span class="btnPxe"><button type="button" onclick="getMoreTimeline()">더보기</button></span></div>
+				<div class="fLeft" id="moreButton"><span class="btnPxe"><button type="button" onclick="getMoreTimeline()">{$lang->more}</button></span></div>
 			</div>
 			<!--@endif-->
 		</div>

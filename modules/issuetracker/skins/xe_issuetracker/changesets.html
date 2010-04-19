@@ -8,11 +8,11 @@
 				<caption><!--@if($curDate==date("Y.m.d"))--><em>{$curDate}</em><!--@else-->{$curDate}<!--@end--> <sup>{zdate($changeset->date,"D")}</sup></caption>
 				<thead>
 					<tr>
-						<th scope="col">시간</th>
-						<th scope="col">갱신내역</th>
-						<th scope="col">ID/리비전</th>
+						<th scope="col">{$lang->time}</th>
+						<th scope="col">{$lang->type}</th>
+						<th scope="col">ID/{$lang->revision}</th>
 						<th scope="col">{$lang->description}</th>
-						<th scope="col">공헌자</th>
+						<th scope="col">{$lang->contributor}</th>
 						<th scope="col"><button type="button" class="toggleTable" onclick="button_table_click(this);"><span class="alt">열기/닫기</span></button></th>
 					</tr>
 				</thead>
@@ -26,7 +26,7 @@
 						<td>{$lang->timeline_msg[$changeset->type]}</td>
 						<td><a href="{getUrl('','document_srl',$changeset->target_srl)}">#{$changeset->target_srl}</a></td>
 						<!--@else-->
-						<td>코드변경</td>
+						<td>{$lang->target_list["commit"]}</td>
 						<td><a href="{getUrl('act','dispIssuetrackerViewSource','erev',$changeset->revision,'type','log')}">r{$changeset->revision}</a></td>
 						<!--@endif-->
 						<td class="title">

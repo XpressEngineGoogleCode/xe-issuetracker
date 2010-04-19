@@ -2,7 +2,7 @@
 <div id="issueBody">
 <div id="pxeContent">
 	<div class="pxeHeading">
-		<h2>코드열람</h2>
+		<h2>{$lang->project_menus["dispIssuetrackerViewSource"]}</h2>
 	</div>
 	<div class="pxeCodeHeader">
 		<table border="1" cellspacing="0" summary="Directory Information">
@@ -44,7 +44,7 @@
 					<!--@if(count($path_tree) > 0)-->
 					<tr class="dr">
 						{@ $upperval = array_pop($path_tree); }
-						<td colspan="5"><a href="{getUrl('type','','path',urlencode($upperval),revs,$revs)}">상위디렉토리</a></td>
+						<td colspan="5"><a href="{getUrl('type','','path',urlencode($upperval),revs,$revs)}">{$lang->parent_directory}</a></td>
 					</tr>
 					<!--@end-->
 					<!--@foreach($list as $item)-->
