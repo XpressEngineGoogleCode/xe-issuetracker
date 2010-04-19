@@ -51,7 +51,7 @@
      $lang->deadline = 'Deadline';
      $lang->name = 'Name';
      $lang->complete = 'Complete';
-     $lang->completed_date = 'Completed Date';
+     $lang->completed_date = 'Completed';
      $lang->order = 'Order';
      $lang->package = $lang->package_srl = 'Package';
      $lang->release = $lang->release_srl = 'Release';
@@ -65,9 +65,9 @@
      $lang->status_list = array(
              'new' => 'New',
              'reviewing' => 'Reviewing',
-             'assign' => 'Assign',
-             'resolve' => 'Resolve',
-             'reopen' => 'Reopen',
+             'assign' => 'Assigned',
+             'resolve' => 'Resolved',
+             'reopen' => 'Reopened',
              'postponed' => 'Postponed',
              'duplicated' => 'Duplicated',
              'invalid' => 'Invalid',
@@ -103,9 +103,9 @@
     $lang->msg_changes_from = 'View changes from';
     $lang->duration = 'Duration';
     $lang->target_list = array(
-        'issue_created' => 'Created issues',
-        'issue_changed' => 'Changed issues',
-        'commit' => 'Repository checkins'
+        'issue_created' => 'Created',
+        'issue_changed' => 'Changed',
+        'commit' => 'Commit'
         );
 
 	$lang->not_using_repository = 'This project is not using repository.';
@@ -115,5 +115,23 @@
 	$lang->compare_with_previous = "Compare with prev. version";
 	$lang->issue_id = "ID";
 	$lang->cmd_detailed_search = "Advanced Search";
+	$lang->about_total_count = "There exist <em>%s</em> issues.";
 
+	$lang->new_project_menus = array(
+		'Milestone' => array('dispIssuetrackerViewMilestone'),
+		'Issues' => array('dispIssuetrackerViewIssue', array(
+			'Issue List' => array('dispIssuetrackerViewIssue'),
+			'New Issue' => array('dispIssuetrackerNewIssue'))),
+		'Source' => array('dispIssuetrackerViewSource', array(
+			'View Source' => array('dispIssuetrackerViewSource'))),
+		'Timeline' => array('dispIssuetrackerTimeline'),
+		'Download' => array('dispIssuetrackerDownload'));
+	$lang->startdate = "Start Date";
+	$lang->contributor = "Contributor";
+	$lang->time = "Time";
+	$lang->condition = "Condition";
+	$lang->parent_directory = "Parent Directory";
+	$lang->cmd_compare = "Compare";
+	$lang->progress = "Progress";
+	$lang->noissue = "There is no issue.";
 ?>

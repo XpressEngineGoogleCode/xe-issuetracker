@@ -115,4 +115,22 @@
 	$lang->compare_with_previous = "Compare with prev. version";
 	$lang->issue_id = "ID";
 	$lang->cmd_detailed_search = "Advanced Search";
+	$lang->about_total_count = "There exist <em>%s</em> issues.";
+	$lang->new_project_menus = array(
+		'Milestone' => array('dispIssuetrackerViewMilestone'),
+		'Issues' => array('dispIssuetrackerViewIssue', array(
+			'Issue List' => array('dispIssuetrackerViewIssue'),
+			'New Issue' => array('dispIssuetrackerNewIssue'))),
+		'Source' => array('dispIssuetrackerViewSource', array(
+			'View Source' => array('dispIssuetrackerViewSource'))),
+		'Timeline' => array('dispIssuetrackerTimeline'),
+		'Download' => array('dispIssuetrackerDownload'));
+	$lang->startdate = "Start Date";
+	$lang->contributor = "Contributor";
+	$lang->time = "Time";
+	$lang->condition = "Condition";
+	$lang->parent_directory = "Parent Directory";
+	$lang->cmd_compare = "Compare";
+	$lang->progress = "Progress";
+	$lang->noissue = "There is no issue.";
 ?>

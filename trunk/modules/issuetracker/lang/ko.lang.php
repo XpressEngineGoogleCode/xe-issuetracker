@@ -126,4 +126,13 @@
 	$lang->compare_with_previous = "이전 버전과 비교";
 	$lang->issue_id = "ID";
 	$lang->cmd_detailed_search = "상세검색";
+	$lang->about_total_count = "<em>%s</em> 개의 이슈가 있습니다.";
+	$lang->startdate = "시작일";
+	$lang->contributor = "공헌자";
+	$lang->time = "시간";
+	$lang->condition = "조건";
+	$lang->parent_directory = "상위 디렉토리";
+	$lang->cmd_compare = "비교";
+	$lang->progress = "진행률";
+	$lang->noissue = "등록된 이슈가 없습니다.";
 ?>

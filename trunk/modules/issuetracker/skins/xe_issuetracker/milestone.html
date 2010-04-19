@@ -18,7 +18,7 @@
 	<thead>
 	<tr>
 		<th scope="col" style="text-align:left">{$lang->milestone}</th>
-		<th scope="col" class="progress">진행률</th>
+		<th scope="col" class="progress">{$lang->progress}</th>
 		<th scope="col">{$lang->deadline}</th>
 		<th scope="col">{$lang->completed_date}</th>
 		<!--@if($grant->is_admin)-->
@@ -48,7 +48,7 @@
 			</ul>
 			<!--@else-->
 			<ul class="pBar">
-				<li style="width:100%; border-color:#ccc; background-color:#ccc;">등록된 이슈가 없습니다.</li> 
+				<li style="width:100%; border-color:#ccc; background-color:#ccc;">{$lang->noissue}</li> 
 			</ul>
 			<!--@end-->
 			<div class="pData">
@@ -78,7 +78,7 @@
 		<td class="num">{zdate($val->deadline, 'Y-m-d')}&nbsp;</td>
 		<td class="num">{zdate($val->released_date, "Y-m-d")}&nbsp;</td>
 		<!--@if($grant->is_admin)-->
-		<td><!--@if($val->milestone_srl)--><span class="btnPxe small"><a href="{getUrl('milestone_srl',$val->milestone_srl,'act','dispIssuetrackerAdminModifyMilestone')}">수정</a></span><!--@endif--></td>
+		<td><!--@if($val->milestone_srl)--><span class="btnPxe small"><a href="{getUrl('milestone_srl',$val->milestone_srl,'act','dispIssuetrackerAdminModifyMilestone')}">{$lang->cmd_modify}</a></span><!--@endif--></td>
 		<!--@end-->
 		<td><button type="button" class="toggleTr" onclick="button_tr_click(this);"><span class="alt">열기/닫기</span></button></td>
 	</tr>

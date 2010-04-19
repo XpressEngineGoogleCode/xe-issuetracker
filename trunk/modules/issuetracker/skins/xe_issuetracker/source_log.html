@@ -2,7 +2,7 @@
 <div id="issueBody">
 <div id="pxeContent">
 	<div class="pxeHeading">
-		<h2>코드열람</h2>
+		<h2>{$lang->project_menus["dispIssuetrackerViewSource"]}</h2>
 	</div>
 	<!--@if($logs)-->
 		<!--@if(substr($path,-1)=='/')-->
@@ -42,18 +42,18 @@
 		</tr>
 		</table>
 		<div class="do">
-			<span class="btnPxe strong"><input type="submit" value="비교" /></span>
+			<span class="btnPxe strong"><input type="submit" value="{$lang->cmd_compare}" /></span>
 		</div>
 	</div>
 	<table border="1" cellspacing="0" class="pxeT3">
 	<thead>
 	<tr>
-		<th scope="col">리비전</th>
+		<th scope="col">{$lang->revision}</th>
 		<th scope="col">ER</th>
 		<th scope="col">BR</th>
-		<th scope="col">설명</th>
-		<th scope="col">커밋터</th>
-		<th scope="col">날짜</th>
+		<th scope="col">{$lang->description}</th>
+		<th scope="col">{$lang->contributor}</th>
+		<th scope="col">{$lang->date}</th>
 	</tr>
 	</thead>
 	<tbody id="logList">
@@ -73,9 +73,9 @@
 	</table>
 	<div class="buttonArea">
 		<!--@if($lastrev)-->
-		<div class="fLeft" id="moreButton"><span class="btnPxe"><button type="button" onclick="getMoreLog()">더보기</button></span></div>
+		<div class="fLeft" id="moreButton"><span class="btnPxe"><button type="button" onclick="getMoreLog()">{$lang->more}</button></span></div>
 		<!--@end-->
-		<div class="fRight"><span class="btnPxe strong"><input type="submit" value="비교" /></span></div>
+		<div class="fRight"><span class="btnPxe strong"><input type="submit" value="{$lang->cmd_compare}" /></span></div>
 	</div>
 	<input type="hidden" name="lastrev" value="{$lastrev}" />
 	</form>
