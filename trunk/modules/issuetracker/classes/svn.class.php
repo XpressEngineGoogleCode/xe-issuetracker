@@ -308,10 +308,6 @@
 
         function execCmd($command, &$error) {
             $err = false;
-            if(!$_ENV["LANG"] || !strpos(strtolower($_ENV["LANG"]), "utf-8"))
-            {
-                $_ENV["LANG"] = "en_US.UTF-8";
-            }
 
             $descriptorspec = array ( 
                 0 => array('pipe', 'r'),
@@ -319,7 +315,17 @@
                 2 => array('pipe', 'w')
             );
 
-            $fp = proc_open($command, $descriptorspec, $pipes, NULL, $_ENV);
+			if(!stristr(PHP_OS, 'win')) {
+				if(!$_ENV["LANG"] || !strpos(strtolower($_ENV["LANG"]), "utf-8"))
+				{
+					$_ENV["LANG"] = "en_US.UTF-8";
+				}
+				$fp = proc_open($command, $descriptorspec, $pipes, NULL, $_ENV);
+			}
+			else
+			{
+				$fp = proc_open($command, $descriptorspec, $pipes);
+			}
 
             if (!is_resource($fp)) return;
 
