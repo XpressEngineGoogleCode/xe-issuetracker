@@ -145,11 +145,15 @@
             $args->target_srl = $obj->document_srl;
             if(!$args->target_srl) return new Object();
             $output = executeQuery('issuetracker.deleteIssue', $args);
-            if(!$output->toBool()) return $output;
-
-            $output = executeQuery('issuetracker.deleteHistories', $args);
-            return $output;
+			return $output;
         }
+
+		function triggerDeleteComment(&$obj)
+		{
+			if(!$obj->comment_srl) return new Object();
+			$output = executeQuery("issuetracker.deleteHistories", $obj);
+			return $output;
+		}
 
         function triggerMoveDocumentModule(&$obj)
         {
@@ -163,9 +167,18 @@
             $output = executeQuery('issuetracker.updateIssueModule', $args);
             if(!$output->toBool()) return $output;
 
+			$output = executeQueryArray("issuetracker.getComments", $args);
+			if(!$output->data) return new Object();
+
+			$comment_srls = array();	
+			foreach($output->data as $comment)
+			{
+				$comment_srls[] = $comment->comment_srl;
+			}
+
             $args = null;
             $args->module_srl = $obj->module_srl;
-            $args->document_srls = $obj->document_srls;
+            $args->comment_srls = implode(",", $comment_srls);
             $output = executeQuery('issuetracker.updateIssueHistoryModule', $args);
             return $output;
         }
@@ -186,16 +199,18 @@
             $args = null;
 
             // 글작성시 필요한 변수를 세팅
-            $args->history_srl = $args->comment_srl = $objs->comment_srl;
+            $args->comment_srl = $objs->comment_srl?$objs->comment_srl:getNextSequence();
+			
             $args->uploaded_count = $objs->uploaded_count;
             $args->target_srl = $target_srl;
+            $args->document_srl = $target_srl;
             $args->content = Context::get('content');
             if($logged_info->member_srl) {
                 $args->member_srl = $logged_info->member_srl;
                 $args->nick_name = $logged_info->nick_name;
             } else {
                 $args->nick_name = Context::get('nick_name');
-                $args->password = md5(Context::get('password'));
+                $args->password = Context::get('password');
             }
 
             // 커미터일 경우 각종 상태 변경값을 받아서 이슈의 상태를 변경하고 히스토리 생성
@@ -210,147 +225,128 @@
                 $status = $objs->status;
                 $assignee_srl = $objs->assignee_srl;
 
-                $project = $oIssuetrackerModel->getProjectInfo($module_srl);
-                $history = array();
                 $change_args = null;
 
-                if($milestone_srl != $oIssue->get('milestone_srl')) {
-                    $new_milestone = null;
-                    if(count($project->milestones)) {
-                        foreach($project->milestones as $val) {
-                            if($val->milestone_srl == $milestone_srl) {
-                                $new_milestone = $val;
-                                break;
-                            }
-                        }
-                    }
-
-                    if($milestone_srl == 0)
-                    {
-                        $new_milestone->title = "";
-                    }
-
-                    if($new_milestone) {
-                        $history['milestone'] = array($oIssue->getMilestoneTitle(), $new_milestone->title);
-                        $change_args->milestone_srl = $milestone_srl;
-                    }
+                if($milestone_srl && $milestone_srl != $oIssue->get('milestone_srl')) {
+					$c_args = null;
+					$c_args->type="m";
+					$c_args->before = $oIssue->get('milestone_srl');
+					$c_args->after = $milestone_srl;
+					$c_args->comment_srl = $args->comment_srl;
+					$c_args->module_srl = $module_srl;
+					$output2 = executeQuery("issuetracker.insertHistoryChange", $c_args);
+					$change_args->milestone_srl = $milestone_srl;
                 }
 
-                if($priority_srl != $oIssue->get('priority_srl')) {
-                    $new_priority = null;
-                    if(count($project->priorities)) {
-                        foreach($project->priorities as $val) {
-                            if($val->priority_srl == $priority_srl) {
-                                $new_priority = $val;
-                                break;
-                            }
-                        }
-                    }
+                if($priority_srl && $priority_srl != $oIssue->get('priority_srl')) {
+					$c_args = null;
+					$c_args->type="p";
+					$c_args->before = $oIssue->get('priority_srl');
+					$c_args->after = $priority_srl;
+					$c_args->comment_srl = $args->comment_srl;
+					$c_args->module_srl = $module_srl;
+					$output2 = executeQuery("issuetracker.insertHistoryChange", $c_args);
+					$change_args->priority_srl = $priority_srl;
+				}
 
-                    if($new_priority) {
-                        $history['priority'] = array($oIssue->getPriorityTitle(), $new_priority->title);
-                        $change_args->priority_srl = $priority_srl;
-                    }
+                if($type_srl && $type_srl != $oIssue->get('type_srl')) {
+					$c_args = null;
+					$c_args->type="t";
+					$c_args->before = $oIssue->get('type_srl');
+					$c_args->after = $type_srl;
+					$c_args->comment_srl = $args->comment_srl;
+					$c_args->module_srl = $module_srl;
+					$output2 = executeQuery("issuetracker.insertHistoryChange", $c_args);
+					$change_args->type_srl = $type_srl;
                 }
 
-                if($type_srl != $oIssue->get('type_srl')) {
-                    $new_type = null;
-                    if(count($project->types)) {
-                        foreach($project->types as $val) {
-                            if($val->type_srl == $type_srl) {
-                                $new_type = $val;
-                                break;
-                            }
-                        }
-                    }
-
-                    if($new_type) {
-                        $history['type'] = array($oIssue->getTypeTitle(), $new_type->title);
-                        $change_args->type_srl = $type_srl;
-                    }
+                if($component_srl && $component_srl != $oIssue->get('component_srl')) {
+					$c_args = null;
+					$c_args->type="c";
+					$c_args->before = $oIssue->get('component_srl');
+					$c_args->after = $component_srl;
+					$c_args->comment_srl = $args->comment_srl;
+					$c_args->module_srl = $module_srl;
+					$output2 = executeQuery("issuetracker.insertHistoryChange", $c_args);
+					$change_args->component_srl = $component_srl;
                 }
 
-                if($component_srl != $oIssue->get('component_srl')) {
-                    $new_component = null;
-                    if(count($project->components)) {
-                        foreach($project->components as $val) {
-                            if($val->component_srl == $component_srl) {
-                                $new_component = $val;
-                                break;
-                            }
-                        }
-                    }
-
-                    if($new_component) {
-                        $history['component'] = array($oIssue->getComponentTitle(), $new_component->title);
-                        $change_args->component_srl = $component_srl;
-                    }
+                if($package_srl && $package_srl != $oIssue->get('package_srl')) {
+					$c_args = null;
+					$c_args->type="r";
+					$c_args->before = $oIssue->get('package_srl');
+					$c_args->after = $package_srl;
+					$c_args->comment_srl = $args->comment_srl;
+					$c_args->module_srl = $module_srl;
+					$output2 = executeQuery("issuetracker.insertHistoryChange", $c_args);
+					$change_args->package_srl = $package_srl;
                 }
 
-                if($package_srl != $oIssue->get('package_srl')) {
-                    $new_package = null;
-                    if(count($project->packages)) {
-                        foreach($project->packages as $val) {
-                            if($val->package_srl == $package_srl) {
-                                $new_package = $val;
-                                break;
-                            }
-                        }
-                    }
+                if($occured_version_srl && $occured_version_srl != $oIssue->get('occured_version_srl')) {
+					$c_args = null;
+					$c_args->type="v";
+					$c_args->before = $oIssue->get('occured_version_srl');
+					$c_args->after = $occured_version_srl;
+					$c_args->comment_srl = $args->comment_srl;
+					$c_args->module_srl = $module_srl;
+					$output2 = executeQuery("issuetracker.insertHistoryChange", $c_args);
+					$change_args->occured_version_srl = $occured_version_srl;
+				}
 
-                    if($new_package) {
-                        $history['package'] = array($oIssue->getPackageTitle(), $new_package->title);
-                        $change_args->package_srl = $package_srl;
-                    }
-                }
+				$status_rev_list = array();
+				foreach($this->status_list as $key=>$value)
+				{
+					$status_rev_list[$value] = $key;
+				}
 
-                if($occured_version_srl != $oIssue->get('occured_version_srl')) {
-                    $new_release = null;
-                    if(count($project->releases)) {
-                        foreach($project->releases as $val) {
-                            if($val->release_srl == $occured_version_srl) {
-                                $new_release = $val;
-                                break;
-                            }
-                        }
-                    }
-
-                    if($new_release) {
-                        $history['occured_version'] = array($oIssue->getReleaseTitle(), $new_release->title);
-                        $change_args->occured_version_srl = $occured_version_srl;
-                    }
-                }
-
-                $status_lang = Context::getLang('status_list');
                 switch($action) {
                     case 'resolve' :
-                            $history['status'] = array($oIssue->getStatus(), $status_lang[$status]);
-                            $change_args->status = $status;
-                        break;
+						if($oIssue->get('status') != $status) {
+							$c_args = null;
+							$c_args->type="s";
+							$c_args->before = $status_rev_list[$oIssue->get('status')];
+							$c_args->after = $status_rev_list[$status]; 
+							$c_args->comment_srl = $args->comment_srl;
+							$c_args->module_srl = $module_srl;
+							$output2 = executeQuery("issuetracker.insertHistoryChange", $c_args);
+							$change_args->status = $status;
+						}
+						break;
+					case 'accept':
+						$assignee_srl = $logged_info->member_srl;
+						$assignee_name = $logged_info->nick_name;
                     case 'reassign' :
-                            $oMemberModel = &getModel('member');
-                            $member_info = $oMemberModel->getMemberInfoByMemberSrl($assignee_srl);
-                            $history['assignee'] = array($oIssue->get('assignee_name'), $member_info->nick_name);
-                            $change_args->assignee_srl = $assignee_srl;
-                            $change_args->assignee_name = $member_info->nick_name;
-
-                            if($oIssue->get('status')!='assign') {
-                                $change_args->status = 'assign';
-                                $history['status'] = array($oIssue->getStatus(), $status_lang[$change_args->status]);
-                                $change_args->status = $change_args->status;
-                            }
-                        break;
-                    case 'accept' :
-                            $history['assignee'] = array($oIssue->get('assignee_name'), $logged_info->nick_name);
-                            $change_args->assignee_srl = $logged_info->member_srl;
-                            $change_args->assignee_name = $logged_info->nick_name;
-
-                            $change_args->status = 'assign';
-                            $history['status'] = array($oIssue->getStatus(), $status_lang[$change_args->status]);
-                            $change_args->status = $change_args->status;
-                        break;
-                }
-
+						$status = "assign";
+						if($oIssue->get('status')!='assign') {
+							$c_args = null;
+							$c_args->type="s";
+							$c_args->before = $status_rev_list[$oIssue->get('status')];
+							$c_args->after = $status_rev_list[$status]; 
+							$c_args->comment_srl = $args->comment_srl;
+							$c_args->module_srl = $module_srl;
+							$output2 = executeQuery("issuetracker.insertHistoryChange", $c_args);
+							$change_args->status = "assign";
+						}
+						if($oIssue->get('assignee_srl') != $assignee_srl)
+						{
+							$c_args = null;
+							$c_args->type="a";
+							$c_args->before = $oIssue->get('assignee_srl'); 
+							$c_args->after = $assignee_srl;
+							$c_args->comment_srl = $args->comment_srl;
+							$c_args->module_srl = $module_srl;
+							$output2 = executeQuery("issuetracker.insertHistoryChange", $c_args);
+							if(!$assignee_name)
+							{
+								$oMemberModel = &getModel('member');
+								$member_info = $oMemberModel->getMemberInfoByMemberSrl($assignee_srl);
+								$assignee_name = $member_info->nick_name;
+							}
+							$change_args->assignee_srl = $assignee_srl;
+							$change_args->assignee_name = $assignee_name;
+						}
+						break;
+				}
                 if($change_args!==null) {
                     // 이슈 상태 변경시 보고자에게 쪽지 발송
                     if($oIssue->get('member_srl') && $oIssue->useNotify()) {
@@ -384,21 +380,18 @@
                     }
                 }
             }
-            $args->issues_history_srl = ($args->history_srl) ? $args->history_srl : getNextSequence();
+
+            $args->issues_history_srl = $args->comment_srl; 
             $args->module_srl = $module_srl;
 
+			$oCommentController =& getController('comment');
+			$output = $oCommentController->insertComment($args);
+            if(!$output->toBool()) return $output;
 
-            // trigger 호출 (before)
+            // trigger 호출 (after)
             $output = ModuleHandler::triggerCall('issuetracker.insertHistory', 'after', $args);
             if(!$output->toBool()) return $output;
 
-            $output = executeQueryArray('issuetracker.insertHistory', $args);
-            if(!$output->toBool()) return $output;
-
-            // 전체 댓글 개수를 구함
-            $cnt = $oIssuetrackerModel->getHistoryCount($target_srl);
-            $oDocumentController = &getController('document');
-            $oDocumentController->updateCommentCount($target_srl, $cnt, $logged_info->member_srl);
 
             return new Object();
         }

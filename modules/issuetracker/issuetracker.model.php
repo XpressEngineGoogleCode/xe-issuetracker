@@ -6,7 +6,6 @@
      **/
 
     require_once(_XE_PATH_.'modules/issuetracker/issuetracker.item.php');
-    require_once(_XE_PATH_."modules/issuetracker/issuetracker.history.php");
 
     function _compare($a, $b)
     {
@@ -111,13 +110,6 @@
             if($status !== null) $args->status = $status;
             $output = executeQuery('issuetracker.getIssuesCount', $args);
             if(!$output->toBool() || !$output->data) return -1;
-            return $output->data->count;
-        }
-
-        function getHistoryCount($target_srl) {
-            $args->target_srl = $target_srl;
-            $output = executeQuery('issuetracker.getHistoryCount', $args);
-            if(!$output->toBool() || !$output->data) return 0;
             return $output->data->count;
         }
 
@@ -303,18 +295,72 @@
             return $output->data;
         }
 
-        function getHistories($target_srl) {
-            $args->target_srl = $target_srl;
-            $output = executeQueryArray('issuetracker.getHistories', $args);
-            $histories = $output->data;
-            $cnt = count($histories);
-            for($i=0;$i<$cnt;$i++) {
-                $history = new issueHistory();
-                $history->populate($histories[$i]);
-                $histories[$i] = $history;
-            }
-            return $histories;
-        }
+		function getHistoryValue(&$project_info, $type, $value)
+		{
+			if($type == "s") {
+				$status_lang_list = Context::getLang('status_list');
+				return $status_lang_list[$this->status_list[$value]];
+			}
+			else if(!$value) return $value;
+			else if($type == "a")
+			{
+				static $member_info = array();
+				if(!isset($member_info[$value])) 
+				{
+					$oMemberModel =& getModel('member');
+					$info = $oMemberModel->getMemberInfoByMemberSrl($value);
+					if($info) $member_info[$value] = $info->nick_name;
+					else $member_info[$value] = "";
+				}
+				return $member_info[$value];
+			}
+			static $matching_list = array("m" => "milestones", "p" => "priorities", "t" => "types", "c" => "components", "r" => "packages",  "v" => "releases");
+			static $matching_list2 = array("m" => "milestone_srl", "p" => "priority_srl", "t" => "type_srl", "c" => "component_srl", "r" => "package_srl",  "v" => "release_srl");
+			foreach($project_info->{$matching_list[$type]} as $item)
+			{
+				if($item->{$matching_list2[$type]} == $value)
+				{
+					return $item->title;
+				}
+			}
+		}
+
+		function _populate(&$comments, $module_srl)
+		{
+			if(count($comments))
+			{
+				$oModel =& getModel('issuetracker');
+				$project_info =& $oModel->getProjectInfo($module_srl);
+
+				$comment_srls = array_keys($comments);
+				$args->comment_srls = implode(",",$comment_srls);
+				$output = executeQueryArray("issuetracker.getHistoryChanges", $args);
+				if($output->data)
+				{
+					foreach($output->data as $history)
+					{
+						if($history->before || $history->type == "s")
+						{
+							$str = Context::getLang('history_format');
+						}
+						else $str = Context::getLang('history_format_not_source');
+
+						$str = str_replace('[source]', $this->getHistoryValue($project_info, $history->type, $history->before), $str);
+						$str = str_replace('[target]', $this->getHistoryValue($project_info, $history->type, $history->after), $str);
+						$str = str_replace('[key]', Context::getLang($this->matching_list[$history->type]), $str);
+						$comments[$history->comment_srl]->history[] = $str;
+					}
+				}
+			}
+		}
+
+		function getHistories(&$oIssue)
+		{
+			$comments = $oIssue->getComments();
+			$this->_populate($comments, $oIssue->get('module_srl'));
+
+			return $comments;	
+		}
 
         function getPackageList($module_srl, $package_srl=0, $each_releases_count = 0)
         {
@@ -541,33 +587,27 @@
             {
                 $solvedHistory = array();
                 $output2 = executeQueryArray("issuetracker.getHistories", $args);
-                if(count($output2->data)) {
-                    foreach($output2->data as $history)
-                    {
-                        $hist = unserialize($history->history);
-                        $h = array();
-                        if(!is_array($hist)) continue;
-                        $res = "";
-                        $bFirst = true;
-                        foreach($hist as $key => $val) {
-                            if($bFirst) { $bFirst = false; }
-                            else { $res .= "<br />"; }
-                            if($val[0]) $str = Context::getLang('history_format');
-                            else $str = Context::getLang('history_format_not_source');
-                            $str = str_replace('[source]', $val[0], $str);
-                            $str = str_replace('[target]', $val[1], $str);
-                            $str = str_replace('[key]', Context::getLang($key), $str);
-                            $res .= $str;
-                        }
-                        $obj = null;
+				if($output2->data)
+				{
+					$comments = array();
+					foreach($output2->data as $item)
+					{
+						$comments[$item->comment_srl] = $item;
+					}
+					$this->_populate($comments, $module_srl);
+					foreach($comments as $history)
+					{
+						if(!$history->history) continue;
+						$res = "";
+						$obj = null;
                         $obj->date = $history->regdate;
                         $obj->type = "changed";
-                        $obj->message = $res;
-                        $obj->target_srl = $history->target_srl;
+                        $obj->message = implode("<br />", $history->history); 
+                        $obj->target_srl = $history->document_srl;
                         $obj->author = $history->nick_name;
                         $output->data[] = $obj;
-                    }
-                }
+					}
+				}
             }
 
             if(in_array('issue_created', $targets))
