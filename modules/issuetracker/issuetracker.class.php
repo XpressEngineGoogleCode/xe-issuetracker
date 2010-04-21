@@ -182,8 +182,9 @@
 				$sargs = null;
 				while(true)
 				{
-					$args->page = $page;
+					$args->page = 1; 
 					$args->list_count = 100;
+					$sargs = null;
 					$output = executeQueryArray("issuetracker.getHistoriesToChange", $args);
 					if(!$output->data) break;
 					foreach($output->data as $history)
@@ -270,7 +271,6 @@
 					}
 					$output3 = executeQuery("issuetracker.deleteHistoriesRange", $sargs);
 					if($page == $output->page_navigation->total_page) break;
-					$page ++;
 					unset($output);
 				}
 			}
