@@ -415,7 +415,7 @@ dpScript;
                 $this->setTemplateFile('issue_list');
             } else {
                 // 히스토리를 가져옴
-                $histories = $oIssuetrackerModel->getHistories($oIssue->get('document_srl'));
+                $histories = $oIssuetrackerModel->getHistories($oIssue);
                 $oIssue->add('histories', $histories);
 
                 if($oIssue->isAccessible()) $oIssue->updateReadedCount();
