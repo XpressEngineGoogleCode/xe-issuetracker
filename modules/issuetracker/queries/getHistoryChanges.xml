@@ -7,5 +7,6 @@
 	</columns>
 	<conditions>
 		<condition operation="in" column="comment_srl" var="comment_srls" notnull="notnull" />
+		<condition operation="equal" column="type" var="type" pipe="and" />
 	</conditions>
 </query>
