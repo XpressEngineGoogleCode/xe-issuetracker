@@ -56,6 +56,7 @@
 			if($output->data) return true;
 
 			if(!$oModuleModel->getTrigger("comment.deleteComment", "issuetracker", "controller", "triggerDeleteComment", "after")) return true;
+			if(!$oDB->isIndexExists("issue_history_change", "unique_comment_type")) return true;
 
             return false;
         }
@@ -102,6 +103,10 @@
 					$args->author = $data->author;
 					$output2 = executeQuery("issuetracker.updateMemberSrl", $args);
 				}
+			}
+
+			if(!$oDB->isIndexExists("issue_history_change", "unique_comment_type")) {
+				$oDB->addIndex("issue_history_change", "unique_comment_type", array("comment_srl", "type"), true);
 			}
 
 			$output = executeQuery("issuetracker.getHistoriesToChange");
@@ -204,6 +209,14 @@
 						{
 							if($history->issues_history_srl > $sargs->maxsrl) $sargs->maxsrl = $history->issues_history_srl;
 						}
+						$list_args = null;
+						$list_args->comment_srl = $history->issues_history_srl;
+						$list_args->document_srl = $history->target_srl;
+						$list_args->module_srl = $history->module_srl;
+						$list_args->regdate = $history->regdate;
+						$list_args->head = $list_args->arrange = $list_args->comment_srl;
+						$list_args->depth = 0;
+						$output = executeQuery('comment.insertCommentList', $list_args);
 						
 						$history->comment_srl = $history->issues_history_srl;
 						$history->document_srl = $history->target_srl;
@@ -221,6 +234,7 @@
 							$args->type = $matching_list[$t];
 							$args->module_srl = $history->module_srl;
 							$args->comment_srl = $history->comment_srl;
+							if($args->type == "v") continue;
 							switch($args->type)
 							{
 							case "a":
@@ -254,8 +268,6 @@
 								$args->before = $args->before?$args->before->package_srl:null;
 								$args->after = $args->after?$args->after->package_srl:null;
 								break;
-							case "v":
-								continue;
 							case "s":
 								$args->before = $changes[0]?$status_list[$changes[0]]:null;
 								$args->after = $changes[1]?$status_list[$changes[1]]:null;
@@ -264,6 +276,7 @@
 								$args->before = $changes[0]?${$t}[$history->module_srl][$changes[0]]:null;	
 								$args->after = $changes[1]?${$t}[$history->module_srl][$changes[1]]:null;	
 							}
+							if($args->before == $args->after) continue;
 							if(!$args->before) unset($args->before);
 							if(!$args->after) unset($args->after);
 							$output2 = executeQuery("issuetracker.insertHistoryChange", $args);
