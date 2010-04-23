@@ -539,7 +539,7 @@
 
         function _linkDocument($matches) {
             $document_srl = $matches[1];
-            return sprintf('<a href="%s" onclick="window.open(this.href); return false;">#%d</a>', getUrl('','document_srl',$document_srl), $document_srl);
+            return sprintf('<a href="%s" onclick="window.open(this.href); return false;">#%d</a> ', getUrl('','document_srl',$document_srl), $document_srl);
         }
 
         function _linkXE($message)
@@ -584,7 +584,7 @@
 				$args->nick_name = $args->author = $search_value;
 				$args->id = $search_value;
 				if(substr($args->id, 0, 1) == "#") $args->id = substr($args->id, 1);
-				$args->id = int($args->id);
+				$args->id = intval($args->id);
 				if(!$args->id) unset($args->id);
 			}
 
