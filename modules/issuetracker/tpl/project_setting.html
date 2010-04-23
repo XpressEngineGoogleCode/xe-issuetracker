@@ -75,6 +75,8 @@
 
     <form id="deleteForm" action="./" method="post">
     <input type="hidden" id="target_srl" name="target_srl" value="" />
+    <input type="hidden" name="mid" value="{$mid}" />
+    <input type="hidden" name="vid" value="{$vid}" />
     </form>
 
     <form action="./" method="post" onsubmit="return procFilter(this, insert_priority)">

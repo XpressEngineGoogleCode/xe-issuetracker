@@ -4,6 +4,8 @@
     </form>
     <parameter>
         <param name="component_srl" target="target_srl" />
+        <param name="mid" target="mid" />
+        <param name="vid" target="vid" />
     </parameter>
     <response callback_func="completeInsertSetting">
         <tag name="error" />
