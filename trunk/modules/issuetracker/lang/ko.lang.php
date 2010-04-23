@@ -135,4 +135,5 @@
 	$lang->cmd_compare = "비교";
 	$lang->progress = "진행률";
 	$lang->noissue = "등록된 이슈가 없습니다.";
+	$lang->cmd_new_issue = "이슈 등록";
 ?>
