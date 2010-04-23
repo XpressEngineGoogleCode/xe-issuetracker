@@ -235,7 +235,7 @@
             if(in_array($query_id, array('issuetracker.getIssueListWithinTag'))) {
                 $group_args = clone($args);
                 $group_output = executeQueryArray($query_id, $group_args);
-                if(!$group_output->toBool()||!count($group_output->data)) return $output;
+                if(!$group_output->toBool()||!count($group_output->data)) return $group_output;
 
                 foreach($group_output->data as $key => $val) {
                     if($val->document_srl) {
@@ -255,6 +255,7 @@
                     $output->total_count = $group_output->data->total_count;
                     $output->total_page = $group_output->data->total_page;
                     $output->page = $group_output->data->page;
+					$output->page_navigation = $group_output->page_navigation;
                 }
             } else {
                 $output = executeQueryArray($query_id, $args);
