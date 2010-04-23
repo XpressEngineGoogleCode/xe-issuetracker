@@ -23,11 +23,14 @@
 					<li>{$lang->startdate} <strong>{zdate($oldestItem, "Y.m.d")}</strong></li>
 					<!--@endif-->
 				</ul>
-				<form action="" class="search openSrch">
+				<form action="{Context::getRequestUri()}" method="GET" class="search openSrch">
+					<input type="hidden" name="act" value="{$act}" />
+					<input type="hidden" name="mid" value="{$mid}" />
+					<input type="hidden" name="vid" value="{$vid}" />
 					<fieldset class="basic item">
 						<legend class="alt">Basic Search</legend>
 						<label for="idContributor" class="iLabel">{$lang->issue_id}/{$lang->contributor}</label>
-						<input name="" type="text" class="iText" id="idContributor" />
+						<input name="search_value" type="text" class="iText" id="idContributor" value="{$search_value}" />
 						<span class="btnPxe strong"><input type="submit" value="{$lang->cmd_search}" /></span>
 						<button type="button" class="toggleSrch">{$lang->cmd_detailed_search}<span></span></button>
 					</fieldset>
@@ -38,18 +41,18 @@
 							<dd>
 								<div class="term item">
 									<label for="term1" class="iLabel">YYYY-MM-DD</label>
-									<input name="" type="text" class="iText datepicker" maxlength="10" id="term1" />
+									<input name="startdate" type="text" class="iText datepicker" maxlength="10" id="term1" value="{$startdate}" />
 								</div>
 								 ~ 
 								<div class="term item">
 									<label for="term2" class="iLabel">YYYY-MM-DD</label>
-									<input name="" type="text" class="iText datepicker" maxlength="10" id="term2" />
+									<input name="enddate" type="text" class="iText datepicker" maxlength="10" id="term2" value="{$enddate}" />
 								</div>
 							</dd>
 							<dd>
-								<input name="" type="checkbox" value="" class="iCheck" id="iCreate" /><label for="iCreate">{$lang->target_list["issue_created"]}</label>
-								<input name="" type="checkbox" value="" class="iCheck" id="iUpdate" /><label for="iUpdate">{$lang->target_list["issue_changed"]}</label>
-								<input name="" type="checkbox" value="" class="iCheck" id="cUpdate" /><label for="cUpdate">{$lang->target_list["commit"]}</label>
+								<!--@foreach($lang->target_list as $key=>$val)-->
+								<input name="targets[]" type="checkbox" value="{$key}" class="iCheck" id="iTarget{$key}" <!--@if(in_array($key, $targets))-->checked="checked"<!--@endif--> /><label for="iTarget{$key}">{$val}</label>
+								<!--@end-->
 							</dd>
 							<dd>
 								<span class="btnPxe strong"><input type="submit" value="{$lang->cmd_search}" /></span>
@@ -89,6 +92,8 @@
 	<input type="hidden" name="vid" value="{$vid}" />
 	<input type="hidden" name="lastdatetime" value="{$lastdate}" />
 	<input type="hidden" name="displayed_date" value="{$curDate}" />
+	<input type="hidden" name="search_value" value="{$search_value}" />
+	<input type="hidden" name="startdate" value="{$startdate}" />
 </form>
 <!--@end-->
 <!--#include("footer.html")-->

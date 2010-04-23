@@ -95,6 +95,10 @@
             $oModel = &getModel('issuetracker');
 			Context::set('issue_count', $oModel->getIssueCount($this->module_srl));
 			Context::set('changeset_count', $oModel->getChangesetCount($this->module_srl));
+
+            $this->setTemplateFile('timeline');
+
+			$search_value = Context::get('search_value');
 			$oldestIssue = $oModel->getOldestIssue($this->module_srl);
 			$oldestChange = $oModel->getOldestChange($this->module_srl);
 			if(!$oldestIssue)
@@ -119,7 +123,7 @@
                 $targets = array('issue_created', 'issue_changed', 'commit');
                 Context::set('targets', $targets);
             }
-            $res = $oModel->getChangesets($this->module_info->module_srl, Context::get('enddate'), 20, $targets);
+            $res = $oModel->getChangesets($this->module_info->module_srl, Context::get('startdate'), Context::get('enddate'), 20, $targets, $search_value);
 			$changesets = $res->data;
             Context::set('changesets', $changesets);
 			if($res->lastdate) Context::set('lastdate', $res->lastdate);
@@ -133,7 +137,6 @@
                 }
             }
             Context::set('issues', $issues);
-            $this->setTemplateFile('timeline');
         }
 
         /**
