@@ -225,7 +225,8 @@
         function procIssuetrackerAdminDeleteRelease()
         {
             $release_srl = Context::get('release_srl');
-            $this->deleteRelease($release_srl);
+            $output = $this->deleteRelease($release_srl);
+
             $this->setMessage('success_deleted');
         }
 
@@ -236,6 +237,8 @@
 
             $oFileController = &getController('file');
             $oFileController->deleteFiles($args->release_srl);
+
+            $output = ModuleHandler::triggerCall('issuetracker.deleteRelease', 'after', $args);
         }
 
         function procIssuetrackerAdminAttachRelease() {
