@@ -132,12 +132,14 @@
             if($this->package) return $this->package->title;
         }
 
+		function replaceRevision($matches) 
+		{
+			return $matches[1].sprintf('<a href="%s" onclick="window.open(this.href); return false;">r%s</a>',getUrl('','mid',Context::get('mid'),'act','dispIssuetrackerViewSource','type','compare','erev',$matches[2],'brev',''),$matches[2])."</a>";
+		}
+
         function getContent($add_popup_menu = true, $add_content_info = true, $resource_realpath = false) {
             $content = parent::getContent($add_popup_menu, $add_content_info, $resource_realpath);
-            preg_match_all('/r([0-9]+)/',$content, $mat);
-            for($k=0;$k<count($mat[1]);$k++) {
-                $content = str_replace('r'.$mat[1][$k], sprintf('<a href="%s" onclick="window.open(this.href); return false;">%s</a>',getUrl('','mid',Context::get('mid'),'act','dispIssuetrackerViewSource','type','compare','erev',$mat[1][$k],'brev',''), 'r'.$mat[1][$k]), $content);
-            }
+			$content = preg_replace_callback('!(^| |\t|>)r([0-9]+)!s', array($this, replaceRevision), $content);
             return $content;
         }
 
