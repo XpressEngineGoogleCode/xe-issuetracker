@@ -118,12 +118,14 @@
 			$enddate = Context::get('lastdatetime');
 			$displayedDate = Context::get('displayed_date');
             $targets = Context::get('targets');
+			$startdate = Context::get('startdate');
             if(!$targets || !is_array($targets) || !count($targets))
             {
                 $targets = array('issue_created', 'issue_changed', 'commit');
                 Context::set('targets', $targets);
             }
-			$res = $this->getChangesets($this->module_srl, $enddate, 20, $targets );
+			$search_value = Context::get('search_value');
+			$res = $this->getChangesets($this->module_srl, $startdate, $enddate, 20, $targets, $search_value );
 			$changesets = $res->data;
 			$issues = array();
             foreach($changesets as $changeset)
@@ -545,8 +547,7 @@
             return preg_replace_callback('/^\#?([0-9]+)( |\:)/', array($this, '_linkDocument'), $message);
         }
 
-
-        function getChangesets($module_srl, $enddate = null, $list_count = 20, $targets)
+        function getChangesets($module_srl, $startdate=null, $enddate = null, $list_count = 20, $targets, $search_value = null)
         {
             if(!$enddate)
             {
@@ -555,14 +556,41 @@
             }
 			else
 			{
-				$args->enddate = $enddate; 
+				$enddate = str_replace(array("-","/"), array("",""), $enddate);
+				if(strlen($enddate) <= 8)
+				{
+					$args->enddate = date("Ymd", ztime($enddate)+24*60*60);
+				}
+				else
+				{
+					$args->enddate = $enddate;
+				}
 			}
 
-            //$args->startdate = date("Ymd", ztime($enddate)-24*60*60*$limit);
+			if($startdate)
+			{
+				$args->startdate = str_replace(array("-","/"), array("",""), $startdate);
+			}
+
+			$oMemberModel =& getModel('member');
+			if($search_value)
+			{
+				$member_srl = $oMemberModel->getMemberSrlByNickName($search_value);
+				if($member_srl)
+				{
+					$member_info = $oMemberModel->getMemberInfoByMemberSrl($member_srl);
+					$args->member_srl = $member_info->member_srl;
+				}
+				$args->nick_name = $args->author = $search_value;
+				$args->id = $search_value;
+				if(substr($args->id, 0, 1) == "#") $args->id = substr($args->id, 1);
+				$args->id = int($args->id);
+				if(!$args->id) unset($args->id);
+			}
+
 
             $args->module_srl = $module_srl;
 			$args->list_count = $list_count+1;
-			$oMemberModel =& getModel('member');
             if(in_array('commit', $targets))
             {
                 $output = executeQueryArray("issuetracker.getChangesets", $args);
