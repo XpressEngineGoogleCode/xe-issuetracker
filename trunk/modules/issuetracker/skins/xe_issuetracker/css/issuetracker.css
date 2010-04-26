@@ -587,7 +587,7 @@ ul.pData li{ font-size:12px; margin:0 0 5px 0;}
 .pxeDownload .dFooter{ padding:10px 0; border-top:1px solid #8b8b8b; *zoom:1;}
 .pxeDownload .dFooter:after{ content:""; display:block; clear:both;}
 .pxeDownload .dFooter .btnPxe .opener,
-.pxeDownload .dFooter .btnPxe .closer{ padding:0; height:auto; line-height:normal; background:none;}
+.pxeDownload .dFooter .btnPxe .closer{ padding:0; height:auto; line-height:normal; background:none; vertical-align:middle;}
 .pxeDownload .dFooter .opener{ display:none;}
 .pxeDownload .dFooter .hidden .closer{ display:none;}
 .pxeDownload .dFooter .hidden .opener{ display:inline;}
