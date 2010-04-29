@@ -111,7 +111,7 @@
 							<h4><label for="charge">{$lang->assignee}</label><input type="checkbox" name="d_assignee" value="1" id="charge" class="iCheck" <!--@if($display_option["assignee"]->checked)-->checked="checked"<!--@end--> /></h4>
 							<ul class="sOption">
 								<!--@foreach($commiters as $val)-->
-								<li><input name="charge" type="radio" value="{$val->member_srl}" class="iRadio" id="charge{$val->member_srl}" /><label for="charge{$val->member_srl}">{$val->nick_name}</label></li>
+								<li><input name="assignee_srl" type="radio" value="{$val->member_srl}" class="iRadio" id="charge{$val->member_srl}" <!--@if($val->member_srl==$assignee_srl)-->checked="checked"<!--@end--> /><label for="charge{$val->member_srl}">{$val->nick_name}</label></li>
 								<!--@end-->
 							</ul>
 						</div>
