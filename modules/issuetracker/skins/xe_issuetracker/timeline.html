@@ -87,13 +87,14 @@
 	</div>
 	<!-- /#issueBody -->
 <!--@if($lastdate)-->
-<form id="hiddenForm">
+<form id="hiddenForm" style="display:none;">
 	<input type="hidden" name="mid" value="{$mid}" />
 	<input type="hidden" name="vid" value="{$vid}" />
 	<input type="hidden" name="lastdatetime" value="{$lastdate}" />
 	<input type="hidden" name="displayed_date" value="{$curDate}" />
 	<input type="hidden" name="search_value" value="{$search_value}" />
 	<input type="hidden" name="startdate" value="{$startdate}" />
+    <input type="hidden" name="targets" value="{implode(',', $targets)}" />
 </form>
 <!--@end-->
 <!--#include("footer.html")-->
