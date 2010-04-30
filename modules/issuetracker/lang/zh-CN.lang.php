@@ -133,4 +133,5 @@
 	$lang->progress = "Progress";
 	$lang->noissue = "There is no issue.";
 	$lang->cmd_new_issue = "New Issue";
+	$lang->more = "More";
 ?>
