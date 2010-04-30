@@ -118,6 +118,10 @@
 			$enddate = Context::get('lastdatetime');
 			$displayedDate = Context::get('displayed_date');
             $targets = Context::get('targets');
+            if($targets && !is_array($targets))
+            {
+                $targets = explode(",", $targets);
+            }
 			$startdate = Context::get('startdate');
             if(!$targets || !is_array($targets) || !count($targets))
             {
