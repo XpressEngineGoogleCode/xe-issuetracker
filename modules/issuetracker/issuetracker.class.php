@@ -36,6 +36,45 @@
             $oModuleController->insertTrigger('document.moveDocumentModule', 'issuetracker', 'controller', 'triggerMoveDocumentModule', 'after');
         }
 
+		function moduleUninstall()
+		{
+            $oModuleModel = &getModel('module');
+            $oModuleController = &getController('module');
+
+			// module delete
+			$output = executeQueryArray("issuetracker.getAllIssuetracker");
+			debugPrint($output);
+			if($output->data) {
+				set_time_limit(0);
+				foreach($output->data as $issuetracker)
+				{
+					$oModuleController->deleteModule($issuetracker->module_srl);
+				}
+			}
+			
+            if($oModuleModel->getTrigger('member.getMemberMenu', 'issuetracker', 'controller', 'triggerMemberMenu', 'after')) {
+                $oModuleController->deleteTrigger('member.getMemberMenu', 'issuetracker', 'controller', 'triggerMemberMenu', 'after');
+            }
+            if($oModuleModel->getTrigger('document.deleteDocument', 'issuetracker', 'controller', 'triggerDeleteDocument', 'after')) {
+                $oModuleController->deleteTrigger('document.deleteDocument', 'issuetracker', 'controller', 'triggerDeleteDocument', 'after');
+            }
+
+            if($oModuleModel->getTrigger('issuetracker.insertHistory', 'file', 'controller', 'triggerCommentCheckAttached', 'before')) {
+                $oModuleController->deleteTrigger('issuetracker.insertHistory', 'file', 'controller', 'triggerCommentCheckAttached', 'before');
+            }
+            if($oModuleModel->getTrigger('issuetracker.insertHistory', 'file', 'controller', 'triggerCommentAttachFiles', 'after')) {
+                $oModuleController->deleteTrigger('issuetracker.insertHistory', 'file', 'controller', 'triggerCommentAttachFiles', 'after');
+            }
+            if($oModuleModel->getTrigger('document.moveDocumentModule', 'issuetracker', 'controller', 'triggerMoveDocumentModule', 'after')) {
+                $oModuleController->deleteTrigger('document.moveDocumentModule', 'issuetracker', 'controller', 'triggerMoveDocumentModule', 'after');
+            }
+			if($oModuleModel->getTrigger("comment.deleteComment", "issuetracker", "controller", "triggerDeleteComment", "after")) 
+			{
+				$oModuleController->deleteTrigger("comment.deleteComment", "issuetracker", "controller", "triggerDeleteComment", "after"); 
+			}
+			return new Object();
+		}
+
         function checkUpdate()
         {
             $oModuleModel = &getModel('module');
