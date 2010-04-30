@@ -137,9 +137,29 @@
 			return $matches[1].sprintf('<a href="%s" onclick="window.open(this.href); return false;">r%s</a>',getUrl('','mid',Context::get('mid'),'act','dispIssuetrackerViewSource','type','compare','erev',$matches[2],'brev',''),$matches[2])."</a>";
 		}
 
+		function replaceRevision2($matches)
+		{
+			return sprintf('<a href="%s" onclick="window.open(this.href); return false;">[%s]</a>', getUrl('','mid',Context::get('mid'),'act','dispIssuetrackerViewSource','type','compare','erev',$matches[1],'brev',''),$matches[1]);
+		}
+
+		function replaceIssueNumber($matches) 
+		{
+			return $matches[1].sprintf('<a href="%s" onclick="window.open(this.href); return false;">#%s</a>',getUrl('','document_srl',$matches[2]),$matches[2])."</a>";
+		}
+
+		function replaceContent($content)
+		{
+			$content = preg_replace_callback('!(^| |\t|>)r([0-9]+)!s', array($this, replaceRevision), $content);
+			$content = preg_replace_callback('!\[([0-9]+)\]!s', array($this, replaceRevision2), $content);
+			$content = preg_replace_callback('!(^| |\t|>)#([0-9]+)!s', array($this, replaceIssueNumber), $content);
+			return $content;	
+		}
+
         function getContent($add_popup_menu = true, $add_content_info = true, $resource_realpath = false) {
             $content = parent::getContent($add_popup_menu, $add_content_info, $resource_realpath);
 			$content = preg_replace_callback('!(^| |\t|>)r([0-9]+)!s', array($this, replaceRevision), $content);
+			$content = preg_replace_callback('!\[([0-9]+)\]!s', array($this, replaceRevision2), $content);
+			$content = preg_replace_callback('!(^| |\t|>)#([0-9]+)!s', array($this, replaceIssueNumber), $content);
             return $content;
         }
 

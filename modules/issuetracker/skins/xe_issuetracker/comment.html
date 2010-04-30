@@ -16,7 +16,7 @@
 			</ul>
 			<!--@endif-->
 			<!--@if($history->content)-->
-			<div class="xe_content">{nl2br($history->content)}</div>
+			<div class="xe_content">{$oIssue->replaceContent(nl2br($history->content))}</div>
 			<!--@endif-->
 
 			<!--@if($history->hasUploadedFiles())-->
