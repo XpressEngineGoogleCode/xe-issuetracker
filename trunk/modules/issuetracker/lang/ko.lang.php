@@ -136,4 +136,5 @@
 	$lang->progress = "진행률";
 	$lang->noissue = "등록된 이슈가 없습니다.";
 	$lang->cmd_new_issue = "이슈 등록";
+	$lang->more = "더보기";
 ?>
