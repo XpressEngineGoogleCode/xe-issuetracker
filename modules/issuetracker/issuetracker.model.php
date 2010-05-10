@@ -113,6 +113,24 @@
             return $output->data->count;
         }
 
+		function populateIssues($target_srls)
+		{
+			if(!is_array($target_srls) || !count($target_srls)) return array();
+			$args->target_srl = implode(",", $target_srls);
+			$output = executeQueryArray("issuetracker.getIssues", $args);
+			$issues = array();
+			if($output->data)
+			{
+				foreach($output->data as $issue)
+				{
+					$oIssue = $this->getIssue(0);
+					$oIssue->setAttribute($issue, false);
+					$issues[$issue->target_srl] = $oIssue;
+				}
+			}
+			return $issues;
+		}
+
 		function getIssuetrackerMoreChangesets() {
 			$template_path = sprintf("%sskins/%s/",$this->module_path, $this->module_info->skin);
 			$enddate = Context::get('lastdatetime');
@@ -131,15 +149,13 @@
 			$search_value = Context::get('search_value');
 			$res = $this->getChangesets($this->module_srl, $startdate, $enddate, 20, $targets, $search_value );
 			$changesets = $res->data;
-			$issues = array();
+			$target_srls = array();
             foreach($changesets as $changeset)
             {
                 if(!$changeset->target_srl) continue;
-                if(!$issues[$changeset->target_srl])
-                {
-                    $issues[$changeset->target_srl] = $this->getIssue($changeset->target_srl, false, false); 
-                }
+				$target_srls[] = $changeset->target_srl;
             }
+			$issues = $this->populateIssues($target_srls);
             Context::set('issues', $issues);
 			$count = 0;
 			foreach($changesets as $changeset)
