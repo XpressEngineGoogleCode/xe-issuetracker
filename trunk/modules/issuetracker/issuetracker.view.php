@@ -128,14 +128,14 @@
             Context::set('changesets', $changesets);
 			if($res->lastdate) Context::set('lastdate', $res->lastdate);
             $issues = array();
+			$target_srls = array();
             foreach($changesets as $changeset)
             {
                 if(!$changeset->target_srl) continue;
-                if(!$issues[$changeset->target_srl])
-                {
-                    $issues[$changeset->target_srl] = $oModel->getIssue($changeset->target_srl, false, false); 
-                }
+				$target_srls[] = $changeset->target_srl;
             }
+			$issues = $oModel->populateIssues($target_srls);
+
             Context::set('issues', $issues);
         }
 
