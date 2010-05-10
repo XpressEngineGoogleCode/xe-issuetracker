@@ -44,7 +44,6 @@ jQuery(function($){
 		var v = $(this).next('label').text();
 		$(this).parents('ul:first').prev('.myValue').text('').append(v);
 		$(this).parents('ul:first').prev('.myValue').addClass('selected');
-		return false;
 	}
 	
 	// Set Anchor
