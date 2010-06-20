@@ -23,7 +23,7 @@
             <title xml:lang="zh-TW">Timeline</title>
             <title xml:lang="jp">Timeline</title>
             <title xml:lang="en">Timeline</title>
-			<title xml:lang="vi">Timeline</title>
+			<title xml:lang="vi">Thời gian biểu</title>
         </grant>
         <grant name="browser_source" default="guest">
             <title xml:lang="ko">소스 열람</title>
@@ -31,7 +31,7 @@
             <title xml:lang="zh-TW">檢視原始碼</title>
             <title xml:lang="jp">ソース閲覧</title>
             <title xml:lang="en">View Source</title>
-			<title xml:lang="vi">Xem mã</title>
+			<title xml:lang="vi">Xem mã nguồn</title>
         </grant>
         <grant name="commiter" default="member">
             <title xml:lang="ko">개발자</title>
@@ -47,7 +47,7 @@
             <title xml:lang="zh-TW">下載</title>
             <title xml:lang="jp">ダウンロード</title>
             <title xml:lang="en">Download</title>
-			<title xml:lang="vi">Download</title>
+			<title xml:lang="vi">Tải về</title>
         </grant>
     </grants>
     <permissions />
