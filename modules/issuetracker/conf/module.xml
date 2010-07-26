@@ -108,6 +108,7 @@
         <action name="procIssuetrackerAdminManageCheckedIssue" type="controller" standalone="true" />
 		<action name="getIssuetrackerMoreLog" type="model" />
 		<action name="getIssuetrackerMoreChangesets" type="model" />
-
+		<action name="getIssuetrackerMoreChangesetsM" type="model" />
+	
     </actions>
 </module>

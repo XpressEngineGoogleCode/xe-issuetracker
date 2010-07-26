@@ -98,6 +98,12 @@
 		'타임라인' => array('dispIssuetrackerTimeline'),
 		'다운로드' => array('dispIssuetrackerDownload'));
 
+	$lang->mobile_it_menu = array(
+		'dispIssuetrackerViewMilestone' => '개발계획',
+		'dispIssuetrackerViewIssue' => '이슈 열람',
+		'dispIssuetrackerNewIssue' => '이슈 등록',
+		'dispIssuetrackerTimeline' => '타임라인');
+
     $lang->msg_not_attched = '파일을 첨부해주세요';
     $lang->msg_attached = '파일이 등록되었습니다';
     $lang->msg_no_releases = '등록된 배포판이 없습니다';
