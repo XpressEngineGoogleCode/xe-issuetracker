@@ -69,10 +69,13 @@ class issuetrackerMobile extends issuetrackerView {
 		$output = $output->data;
 		if(!$output) $output = array();
 		$milestones = array();
-		$notassigned = null;
-		$notassigned->milestone_srl = 0;
-		$notassigned->is_completed = "N";
-		array_unshift($output, $notassigned);
+		if($args->page == 1)
+		{
+			$notassigned = null;
+			$notassigned->milestone_srl = 0;
+			$notassigned->is_completed = "N";
+			array_unshift($output, $notassigned);
+		}
 
 		if($output) {
 			$status_list = array("new", "reviewing", "assign", "resolve", "reopen", "invalid", "duplicated", "postponed");
