@@ -723,6 +723,11 @@ ul.pData li{ font-size:12px; margin:0 0 5px 0;}
 .pxeReplyForm .editor{ margin:1em 2em;}
 .pxeReplyForm .guest{ margin:1em 2em;}
 
+/* message */
+.pxeMsg{ margin:2em 0;}
+.pxeMsg p{ text-align:center; font-size:14px;}
+.pxeMsg .btnArea{ text-align:center;}
+
 /* Fix */
 ul.issue_action li { display: inline-block; }
 .ui-datepicker{ z-index:100;}
