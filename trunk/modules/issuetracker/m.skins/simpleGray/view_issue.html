@@ -142,6 +142,17 @@ jQuery(function($){
 			loadPage({$oIssue->document_srl}, {$lastpage});
 		}
 	});
+	function completeGetPage(ret_val) {
+		jQuery("#cl").remove();
+		jQuery("#clpn").remove();
+		jQuery("#clb").parent().after(ret_val['html']);
+	}
+	function loadPage(document_srl, page) {
+		var params = {};
+		params["cpage"] = page; 
+		params["document_srl"] = document_srl 
+		exec_xml("textyle", "getTextyleCommentPage", params, completeGetPage, ['html','error','message'], params);
+	}
 });
 //]]>
 </script>
