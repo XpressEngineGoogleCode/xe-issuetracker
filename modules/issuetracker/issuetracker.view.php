@@ -1,7 +1,7 @@
 <?php
     /**
      * @class  issuetrackerView
-     * @author zero (zero@nzeo.com)
+     * @author NHN (developers@xpressengine.com)
      * @brief  issuetracker 모듈의 View class
      **/
 

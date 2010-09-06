@@ -1,7 +1,7 @@
 <?php
     /**
      * @file   modules/issuetracker/lang/es.lang.php
-     * @author zero (zero@nzeo.com)
+     * @author NHN (developers@xpressengine.com)
      * @brief  El idioma por defecto del módulo Issuetracker
      **/
 

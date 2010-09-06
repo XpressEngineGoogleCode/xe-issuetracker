@@ -1,7 +1,7 @@
 <?php
     /**
      * @file   zh-CN.lang.php
-     * @author zero (zero@nzeo.com)
+     * @author NHN (developers@xpressengine.com)
      * @brief  Issuetracker模块语言包
      **/
 
