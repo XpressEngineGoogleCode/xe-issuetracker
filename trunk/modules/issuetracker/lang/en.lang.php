@@ -1,7 +1,7 @@
 <?php
     /**
      * @file   ko.lang.php
-     * @author zero (zero@nzeo.com)
+     * @author NHN (developers@xpressengine.com)
      * @brief  Default Language Pack of Issuetracker
      **/
 

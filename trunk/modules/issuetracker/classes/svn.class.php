@@ -1,7 +1,7 @@
 <?php
     /**
      * @class   svn
-     * @author  zero <zero@zeroboard.com>
+     * @author NHN (developers@xpressengine.com)
      * @brief   svn source browser class
      **/
     class Svn {

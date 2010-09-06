@@ -1,7 +1,7 @@
 <?PHP
     /**
      * @class  issuetracker
-     * @author haneul (haneul0318@gmail.com)
+     * @author NHN (developers@xpressengine.com)
      * @brief  base class for the issue tracker
      **/
 
