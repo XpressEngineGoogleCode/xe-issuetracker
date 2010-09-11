@@ -20,7 +20,7 @@
         <grant name="timeline" default="guest">
             <title xml:lang="ko">타임라인</title>
             <title xml:lang="zh-CN">时间轴</title>
-            <title xml:lang="zh-TW">Timeline</title>
+            <title xml:lang="zh-TW">時間軸</title>
             <title xml:lang="jp">Timeline</title>
             <title xml:lang="en">Timeline</title>
 			<title xml:lang="vi">Thời gian biểu</title>
@@ -36,7 +36,7 @@
         <grant name="commiter" default="member">
             <title xml:lang="ko">개발자</title>
             <title xml:lang="zh-CN">开发者</title>
-            <title xml:lang="zh-TW">開發</title>
+            <title xml:lang="zh-TW">開發者</title>
             <title xml:lang="jp">開発者</title>
             <title xml:lang="en">Developer</title>
 			<title xml:lang="vi">Người phát triển</title>

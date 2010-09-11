@@ -35,7 +35,7 @@
 			<title xml:lang="vi">Purple</title>
             <title xml:lang="es">Purple</title>
             <title xml:lang="zh-CN">Purple</title>
-            <title xml:lang="zh-TW">Purple</title>
+            <title xml:lang="zh-TW">紫色</title>
         </color>
         <color name="cViolet">
             <title xml:lang="ko">보라색</title>
@@ -44,7 +44,7 @@
 			<title xml:lang="vi">Violet</title>
             <title xml:lang="es">Violet</title>
             <title xml:lang="zh-CN">Violet</title>
-            <title xml:lang="zh-TW">Violet</title>
+            <title xml:lang="zh-TW">淺紫</title>
         </color>
         <color name="cOrange">
             <title xml:lang="ko">주황색</title>
@@ -53,7 +53,7 @@
 			<title xml:lang="vi">Orange</title>
             <title xml:lang="es">Orange</title>
             <title xml:lang="zh-CN">Orange</title>
-            <title xml:lang="zh-TW">Orange</title>
+            <title xml:lang="zh-TW">橘色</title>
         </color>
         <color name="cGreen">
             <title xml:lang="ko">청록색</title>
@@ -62,7 +62,7 @@
 			<title xml:lang="vi">Teal</title>
             <title xml:lang="es">Teal</title>
             <title xml:lang="zh-CN">Teal</title>
-            <title xml:lang="zh-TW">Teal</title>
+            <title xml:lang="zh-TW">藍綠</title>
         </color>
         <color name="cGray">
             <title xml:lang="ko">회색</title>
@@ -71,7 +71,7 @@
 			<title xml:lang="vi">Gray</title>
             <title xml:lang="es">Gray</title>
             <title xml:lang="zh-CN">Gray</title>
-            <title xml:lang="zh-TW">Gray</title>
+            <title xml:lang="zh-TW">灰色</title>
         </color>
     </colorset>
 
@@ -83,7 +83,7 @@
 			<title xml:lang="vi">Thiết lập mặc định</title>
             <title xml:lang="es">Configuración predeterminada</title>
             <title xml:lang="zh-CN">默认设置</title>
-            <title xml:lang="zh-TW">預設值</title>
+            <title xml:lang="zh-TW">基本設定</title>
             <var name="projectTitle" type="text">
                 <title xml:lang="ko">이슈트래커 제목</title>
                 <title xml:lang="jp">イシュートラッカー（IssueTracker）タイトル</title>
