@@ -21,16 +21,16 @@
      $lang->cmd_reassign = '修改所有者';
      $lang->cmd_accept = '接受';
 
-     $lang->svn_url = 'SVN位址';
-     $lang->about_svn_url = '請輸入專案的SVN位址。';
-     $lang->svn_cmd = 'SVN應用程式位置';
-     $lang->about_svn_cmd = '請輸入SVN Client應用程式位置。(例: /usr/bin/svn)';
-     $lang->diff_cmd = 'DIFF應用程式位置';
-     $lang->about_diff_cmd = '為了比較SVN版本，請輸入diff應用程式位置。(例: /usr/bin/diff)';
-     $lang->svn_userid = 'SVN帳號';
-     $lang->about_svn_userid = '必須要驗證時，請輸入帳號來登入SVN檔案庫';
-     $lang->svn_passwd = 'SVN密碼';
-     $lang->about_svn_passwd = '必須要驗證時，請輸入密碼來登入SVN檔案庫';
+     $lang->svn_url = 'SVN 位址';
+     $lang->about_svn_url = '請輸入專案的 SVN 位址。';
+     $lang->svn_cmd = 'SVN 應用程式位置';
+     $lang->about_svn_cmd = '請輸入 SVN Client 應用程式位置。(例: /usr/bin/svn)';
+     $lang->diff_cmd = 'DIFF 應用程式位置';
+     $lang->about_diff_cmd = '為了比較 SVN 版本，請輸入 diff 應用程式位置。(例: /usr/bin/diff)';
+     $lang->svn_userid = 'SVN 帳號';
+     $lang->about_svn_userid = '必須要驗證時，請輸入帳號來登入 SVN 檔案庫';
+     $lang->svn_passwd = 'SVN 密碼';
+     $lang->about_svn_passwd = '必須要驗證時，請輸入密碼來登入 SVN 檔案庫';
 
      $lang->issue = '問題';
      $lang->total_issue = '所有問題';
@@ -88,6 +88,22 @@
              'dispIssuetrackerAdminProjectSetting' => '設置',
     );
 
+	$lang->new_project_menus = array(
+		'개발계획' => array('dispIssuetrackerViewMilestone'),
+		'이슈' => array('dispIssuetrackerViewIssue', array(
+			'이슈 열람' => array('dispIssuetrackerViewIssue'),
+			'이슈 등록' => array('dispIssuetrackerNewIssue'))),
+		'코드' => array('dispIssuetrackerViewSource', array(
+			'코드 열람' => array('dispIssuetrackerViewSource'))),
+		'타임라인' => array('dispIssuetrackerTimeline'),
+		'다운로드' => array('dispIssuetrackerDownload'));
+
+	$lang->mobile_it_menu = array(
+		'dispIssuetrackerViewMilestone' => '개발계획',
+		'dispIssuetrackerViewIssue' => '이슈 열람',
+		'dispIssuetrackerNewIssue' => '이슈 등록',
+		'dispIssuetrackerTimeline' => '타임라인');
+
     $lang->msg_not_attched = '請新增附檔。';
     $lang->msg_attached = '檔案已新增。';
     $lang->msg_no_releases = '尚未被新增的發佈版本。';
@@ -108,29 +124,21 @@
         'issue_changed' => '變更問題',
         'commit' => 'Repository checkins'
         );
+
 	$lang->not_using_repository = 'This project is not using repository.';
-	$lang->revision = "Revision";
-	$lang->repos_path = "Repository path";
-	$lang->view_log = "View logs";
-	$lang->compare_with_previous = "Compare with prev. version";
+	$lang->revision = "版本";
+	$lang->repos_path = "檔案庫路徑";
+	$lang->view_log = "檢視日誌";
+	$lang->compare_with_previous = "與舊版本比較";
 	$lang->issue_id = "ID";
-	$lang->cmd_detailed_search = "Advanced Search";
+	$lang->cmd_detailed_search = "進階搜尋";
 	$lang->about_total_count = "There exist <em>%s</em> issues.";
-	$lang->new_project_menus = array(
-		'Milestone' => array('dispIssuetrackerViewMilestone'),
-		'Issues' => array('dispIssuetrackerViewIssue', array(
-			'Issue List' => array('dispIssuetrackerViewIssue'),
-			'New Issue' => array('dispIssuetrackerNewIssue'))),
-		'Source' => array('dispIssuetrackerViewSource', array(
-			'View Source' => array('dispIssuetrackerViewSource'))),
-		'Timeline' => array('dispIssuetrackerTimeline'),
-		'Download' => array('dispIssuetrackerDownload'));
-	$lang->startdate = "Start Date";
+	$lang->startdate = "建立日期";
 	$lang->contributor = "Contributor";
-	$lang->time = "Time";
-	$lang->condition = "Condition";
+	$lang->time = "時間";
+	$lang->condition = "條件";
 	$lang->parent_directory = "Parent Directory";
-	$lang->cmd_compare = "Compare";
+	$lang->cmd_compare = "比較";
 	$lang->progress = "Progress";
 	$lang->noissue = "There is no issue.";
 	$lang->cmd_new_issue = "New Issue";
