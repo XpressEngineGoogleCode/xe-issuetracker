@@ -57,7 +57,7 @@ input[type=radio]{width:13px;height:13px;margin:0;padding:0}
 .ln .next{right:-5px;border:10px solid transparent;border-left-color:#000}
 .ln .prev{right:5px;border:10px solid transparent;border-right-color:#000}
 /* List */
-.lt{margin:0;padding:0;list-style:none;font-size:14px}
+.lt{margin:0;padding:0;list-style:none;background:#f8f8f8;font-size:14px}
 .lt li{border-bottom:1px solid #ccc8be}
 .lt a{display:block;text-decoration:none;color:#000;padding:10px}
 .lt .title{display:block;margin:0 0 5px 0}
