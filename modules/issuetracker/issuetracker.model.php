@@ -174,7 +174,7 @@
 			{
 				$lastChangesets = array_slice($changesets, 0, $count);
 				Context::set('lastChangesets', $lastChangesets);
-				$lastItems = $templateHandler->compile($template_path, "changeset_items.html");
+				$lastItems = $templateHandler->compile($template_path, "changesets.html");
 				$this->add('lastitems', $lastItems);
 				$changesets = array_slice($changesets, $count);
 			}
@@ -182,7 +182,7 @@
 			if(count($changesets > 0))
 			{
 				Context::set('changesets', $changesets);
-				$changesetsCompiled = $templateHandler->compile($template_path, "changesets");
+				$changesetsCompiled = $templateHandler->compile($template_path, "changesets.html");
 				$this->add("changesets", $changesetsCompiled);
 			}
 		}
