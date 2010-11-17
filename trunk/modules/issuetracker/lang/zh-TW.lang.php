@@ -89,28 +89,28 @@
     );
 
 	$lang->new_project_menus = array(
-		'개발계획' => array('dispIssuetrackerViewMilestone'),
-		'이슈' => array('dispIssuetrackerViewIssue', array(
-			'이슈 열람' => array('dispIssuetrackerViewIssue'),
-			'이슈 등록' => array('dispIssuetrackerNewIssue'))),
-		'코드' => array('dispIssuetrackerViewSource', array(
-			'코드 열람' => array('dispIssuetrackerViewSource'))),
-		'타임라인' => array('dispIssuetrackerTimeline'),
-		'다운로드' => array('dispIssuetrackerDownload'));
+		'開發計畫' => array('dispIssuetrackerViewMilestone'),
+		'問題' => array('dispIssuetrackerViewIssue', array(
+			'問題清單' => array('dispIssuetrackerViewIssue'),
+			'發表問題' => array('dispIssuetrackerNewIssue'))),
+		'原始碼' => array('dispIssuetrackerViewSource', array(
+			'檢視' => array('dispIssuetrackerViewSource'))),
+		'時間軸' => array('dispIssuetrackerTimeline'),
+		'下載' => array('dispIssuetrackerDownload'));
 
 	$lang->mobile_it_menu = array(
-		'dispIssuetrackerViewMilestone' => '개발계획',
-		'dispIssuetrackerViewIssue' => '이슈 열람',
-		'dispIssuetrackerNewIssue' => '이슈 등록',
-		'dispIssuetrackerTimeline' => '타임라인');
+		'dispIssuetrackerViewMilestone' => '開發計畫',
+		'dispIssuetrackerViewIssue' => '問題清單',
+		'dispIssuetrackerNewIssue' => '發表問題',
+		'dispIssuetrackerTimeline' => '時間軸');
 
     $lang->msg_not_attched = '請新增附檔。';
     $lang->msg_attached = '檔案已新增。';
-    $lang->msg_no_releases = '尚未被新增的發佈版本。';
+    $lang->msg_no_releases = '尚未新增的發佈版本。';
 
     $lang->cmd_document_do = '將此問題...';
     $lang->not_assigned = '尚未分配';
-    $lang->not_assigned_description = '尚未被分配的問題清單';
+    $lang->not_assigned_description = '尚未分配的問題';
     $lang->timeline_msg = array(
         'changed' => '變更',
         'created' => '建立'
@@ -122,25 +122,25 @@
     $lang->target_list = array(
         'issue_created' => '建立問題',
         'issue_changed' => '變更問題',
-        'commit' => 'Repository checkins'
+        'commit' => '檔案更新'
         );
 
-	$lang->not_using_repository = 'This project is not using repository.';
+	$lang->not_using_repository = '此專案未使用檔案庫。';
 	$lang->revision = "版本";
 	$lang->repos_path = "檔案庫路徑";
 	$lang->view_log = "檢視日誌";
 	$lang->compare_with_previous = "與舊版本比較";
 	$lang->issue_id = "ID";
 	$lang->cmd_detailed_search = "進階搜尋";
-	$lang->about_total_count = "There exist <em>%s</em> issues.";
+	$lang->about_total_count = "總共有 <em>%s</em> 個問題";
 	$lang->startdate = "建立日期";
-	$lang->contributor = "Contributor";
+	$lang->contributor = "貢獻者";
 	$lang->time = "時間";
 	$lang->condition = "條件";
-	$lang->parent_directory = "Parent Directory";
+	$lang->parent_directory = "根目錄";
 	$lang->cmd_compare = "比較";
-	$lang->progress = "Progress";
-	$lang->noissue = "There is no issue.";
-	$lang->cmd_new_issue = "New Issue";
+	$lang->progress = "進展";
+	$lang->noissue = "無任何問題";
+	$lang->cmd_new_issue = "發表問題";
 	$lang->more = "More";
 ?>
