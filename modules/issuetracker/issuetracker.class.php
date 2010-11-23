@@ -43,7 +43,7 @@
 
 			// module delete
 			$output = executeQueryArray("issuetracker.getAllIssuetracker");
-			debugPrint($output);
+		//	debugPrint($output);
 			if($output->data) {
 				set_time_limit(0);
 				foreach($output->data as $issuetracker)
