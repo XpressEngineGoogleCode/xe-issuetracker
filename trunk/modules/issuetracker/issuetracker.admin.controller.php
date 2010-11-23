@@ -196,7 +196,8 @@
             }
             else
             {
-                executeQuery("issuetracker.updateRelease", $args);
+                executeQuery("issuetracker.deleteRelease", $args);
+                executeQuery("issuetracker.insertRelease", $args);
             }
 
             $output = ModuleHandler::triggerCall('issuetracker.insertRelease', 'after', $args);
