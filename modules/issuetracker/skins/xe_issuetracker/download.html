@@ -6,13 +6,13 @@
 <div id="pxeContent">
 
 <div class="pxeHeading">
-	<h2>다운로드</h2>
+	<h2>{$lang->project_menus['dispIssuetrackerDownload']}</h2>
 </div>
 
 <span class="pxeDownloadHr"></span>
 <!--@if(count($package_list) == 0)-->
 <div class="pxeNews pxeNoData">
-<p>아직 올라온 패키지가 없습니다.</p>
+<p>{$lang->msg_no_releases}</p>
 </div>
 <!--@else-->
 <!--@foreach($package_list as $key => $val)-->
@@ -35,11 +35,11 @@
 			<h4>{$v->title}</h4>
 			<table border="1" cellspacing="0" summary="Distribution Information">
 				<tr>
-					<th scope="row">배포 날짜</th>
+					<th scope="row">{$lang->released_date}</th>
 					<td>{zdate($v->regdate, "Y.m.d")}</td>
 				</tr>
 				<tr>
-					<th scope="row">다운로드</th>
+					<th scope="row">{$lang->download}</th>
 					<td>{$sumDownload}</td>
 				</tr>
 			</table>
@@ -49,10 +49,10 @@
 
 			<table border="1" cellspacing="0" summary="Programe Information">
 			<tr>
-				<th scope="col">다운로드</th>
-				<th scope="col" class="desc">설명</th>
-				<th scope="col">크기</th>
-				<th scope="col">다운로드</th>
+				<th scope="col">{$lang->download}</th>
+				<th scope="col" class="desc">{$lang->description}</th>
+				<th scope="col">{$lang->filesize}</th>
+				<th scope="col">{$lang->download_count}</th>
 			</tr>
 			<!--@if($v->files)-->
 			<!--@foreach($v->files as $file)-->
@@ -66,7 +66,7 @@
 			<!--@else-->
 			<tr>
 				<td colspan="4">
-				<div class="pxeNoData">아직 등록된 파일이 없습니다.</div>
+				<div class="pxeNoData">{$lang->msg_no_releases}</div>
 			</tr>
 			<!--@end-->
 
@@ -74,14 +74,14 @@
 
 			<!--@if($v->release_note || $v->release_changes)-->
 			<div class="vInfo openInfo">
-				<button type="button"><span class="opener">배포기록 및 변경사항</span> <span class="closer">닫기</span> <span class="i"></span></button>
+				<button type="button"><span class="opener">{$lang->release_note} / {$lang->release_changes}</span> <span class="closer">{$lang->cmd_close}</span> <span class="i"></span></button>
 				<dl>
 				<!--@if($v->release_note)-->
-				<dt>배포기록</dt>
+				<dt>{$lang->release_note}</dt>
 				<dd>{nl2br($v->release_note)}</dd>
 				<!--@end-->
 				<!--@if($v->release_changes)-->
-				<dt>변경사항</dt>
+				<dt>{$lang->release_changed}</dt>
 				<dd>{nl2br($v->release_changes)}</dd>
 				<!--@end-->
 				</dl>
@@ -93,13 +93,13 @@
 	<!--@if(count($val->releases) > 1)-->
 	<div class="dFooter">
 		<div class="fRight">
-			<span class="btnPxe strong"><button type="button" class="hidden"><span class="opener">지난버전 모두보기</span> <span class="closer">지난버전 숨기기</span> <span class="i"></span></button></span>
+			<span class="btnPxe strong"><button type="button" class="hidden"><span class="opener">{$lang->cmd_show_all_version}</span> <span class="closer">{$lang->cmd_hide_all_version}</span> <span class="i"></span></button></span>
 		</div>
 	</div>
 	<!--@endif-->
 <!--@else-->
 <div class="pxeNews pxeNoData">
-<p>아직 등록된 배포본이 없습니다.</p>
+<p>{$lang->msg_no_releases}</p>
 </div>
 <!--@endif-->
 </div>
