@@ -136,4 +136,8 @@
 	$lang->noissue = "Không có Issue nào tồn tại.";
 	$lang->cmd_new_issue = "Issue mới";
 	$lang->more = "Xem thêm";
+    $lang->cmd_openclose = 'open / close';
+    $lang->released_date = 'released date';
+    $lang->cmd_show_all_version = 'show all versions';
+    $lang->cmd_hide_all_version = 'hide all versions';
 ?>

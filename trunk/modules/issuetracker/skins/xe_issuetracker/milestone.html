@@ -24,7 +24,7 @@
 		<!--@if($grant->is_admin)-->
 		<th scope="col">{$lang->cmd_modify}</th>
 		<!--@end-->
-		<th scope="col"><button type="button" class="toggleTable" onclick="button_table_click_t2(this);"><span class="alt">열기/닫기</span></button></th>
+		<th scope="col"><button type="button" class="toggleTable" onclick="button_table_click_t2(this);"><span class="alt">{$lang->cmd_openclose}</span></button></th>
 	</tr>
 	</thead>
 	<tbody>
@@ -80,7 +80,7 @@
 		<!--@if($grant->is_admin)-->
 		<td><!--@if($val->milestone_srl)--><span class="btnPxe small"><a href="{getUrl('milestone_srl',$val->milestone_srl,'act','dispIssuetrackerAdminModifyMilestone')}">{$lang->cmd_modify}</a></span><!--@endif--></td>
 		<!--@end-->
-		<td><button type="button" class="toggleTr" onclick="button_tr_click(this);"><span class="alt">열기/닫기</span></button></td>
+		<td><button type="button" class="toggleTr" onclick="button_tr_click(this);"><span class="alt">{$lang->cmd_openclose}</span></button></td>
 	</tr>
 	<!--@end-->
 	</tbody>

@@ -143,4 +143,8 @@
 	$lang->noissue = "등록된 이슈가 없습니다.";
 	$lang->cmd_new_issue = "이슈 등록";
 	$lang->more = "더보기";
+    $lang->cmd_openclose = '열기/닫기';
+    $lang->released_date = '배포 날짜';
+    $lang->cmd_show_all_version = '지난 버전 모두 보기';
+    $lang->cmd_hide_all_version = '지난 버전 숨기기';
 ?>

@@ -143,4 +143,8 @@
 	$lang->noissue = "無任何問題";
 	$lang->cmd_new_issue = "發表問題";
 	$lang->more = "More";
+    $lang->cmd_openclose = 'open / close';
+    $lang->released_date = 'released date';
+    $lang->cmd_show_all_version = 'show all versions';
+    $lang->cmd_hide_all_version = 'hide all versions';
 ?>

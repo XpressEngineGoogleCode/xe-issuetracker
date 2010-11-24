@@ -134,4 +134,8 @@
 	$lang->noissue = "There is no issue.";
 	$lang->cmd_new_issue = "New Issue";
 	$lang->more = "More";
+    $lang->cmd_openclose = 'open / close';
+    $lang->released_date = 'released date';
+    $lang->cmd_show_all_version = 'show all versions';
+    $lang->cmd_hide_all_version = 'hide all versions';
 ?>
