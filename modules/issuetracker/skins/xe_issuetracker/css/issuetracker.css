@@ -573,6 +573,7 @@ ul.pData li{ font-size:12px; margin:0 0 5px 0;}
 .pxeDownload .dBody .vContent .vInfo{ padding:15px 0; position:relative; background:#fffeef;}
 .pxeDownload .dBody .vContent .vInfo dl{ display:none; margin:0; padding:7px 22px 0 22px; margin-bottom:-12px;}
 .pxeDownload .dBody .vContent .vInfo.openInfo dl{ display:block;}
+.pxeDownload .dBody .vContent .vInfo.openAlways dl{ display:block;}
 .pxeDownload .dBody .vContent .vInfo dt{ margin:0 0 6px 0; font-weight:bold; color:#333;}
 .pxeDownload .dBody .vContent .vInfo dd{ color:#666; margin:0 0 19px 0;}
 

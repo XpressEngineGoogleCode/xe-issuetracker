@@ -47,6 +47,7 @@
 
 		<div class="vContent">
 
+			<!--@if($v->files)-->
 			<table border="1" cellspacing="0" summary="Programe Information">
 			<tr>
 				<th scope="col">{$lang->download}</th>
@@ -54,7 +55,6 @@
 				<th scope="col">{$lang->filesize}</th>
 				<th scope="col">{$lang->download_count}</th>
 			</tr>
-			<!--@if($v->files)-->
 			<!--@foreach($v->files as $file)-->
 			<tr>
 				<td><a href="{$file->download_url}">{$file->source_filename}</a></td>
@@ -63,18 +63,12 @@
 				<td class="num">{$file->download_count}</td>
 			</tr>
 			<!--@endforeach-->
-			<!--@else-->
-			<tr>
-				<td colspan="4">
-				<div class="pxeNoData">{$lang->msg_no_releases}</div>
-			</tr>
+			</table>
 			<!--@end-->
 
-			</table>
-
 			<!--@if($v->release_note || $v->release_changes)-->
-			<div class="vInfo openInfo">
-				<button type="button"><span class="opener">{$lang->release_note} / {$lang->release_changes}</span> <span class="closer">{$lang->cmd_close}</span> <span class="i"></span></button>
+			<div class="vInfo openInfo <!--@if(!$v->files)-->openAlways<!--@end-->">
+				<!--@if($v->files)--><button type="button"><span class="opener">{$lang->release_note} / {$lang->release_changes}</span> <span class="closer">{$lang->cmd_close}</span> <span class="i"></span></button><!--@end-->
 				<dl>
 				<!--@if($v->release_note)-->
 				<dt>{$lang->release_note}</dt>
