@@ -731,7 +731,7 @@ ul.pData li{font-size:12px;margin:0 0 5px 0}
 
 /* Issue Action */
 .issue_action{margin:0;padding:0;list-style:none}
-.issue_action li{padding:2px 0}
+.issue_action li{padding:4px 0}
 .issue_action li *{vertical-align:middle}
 .issue_action input{width:13px;height:13px;margin:0 4px 0 0;padding:0}
 
