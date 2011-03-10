@@ -6,6 +6,12 @@ function loadPage(document_srl, page) {
 	exec_xml("issuetracker", "getIssuetrackerCommentPage", params, completeGetPage, ['html','error','message'], params);
 }
 
+function completeGetPage(ret_val) {
+	jQuery("#cl").remove();
+	jQuery("#clpn").remove();
+	jQuery("#clb").parent().after(ret_val['html']);
+}
+
 function completeIssueInserted(ret_obj) {
     var error = ret_obj['error'];
     var message = ret_obj['message'];
