@@ -225,14 +225,14 @@
 
         function getComp($path, $brev, $erev) {
             if(!$brev) {
-                $command = sprintf('%s --non-interactive %s --config-dir %s log --xml --limit 2 %s%s@%d', $this->svn_cmd, $this->_getAuthInfo(), $this->tmp_dir, $this->url, $path, $erev);
+                $command = sprintf('%s -x --ignore-eol-style --non-interactive %s --config-dir %s log --xml --limit 2 %s%s@%d', $this->svn_cmd, $this->_getAuthInfo(), $this->tmp_dir, $this->url, $path, $erev);
                 $buff = $this->execCmd($command, $error);
                 $xmlDoc = $this->oXml->parse($buff);
                 if(is_array($xmlDoc->log->logentry)) $brev = $xmlDoc->log->logentry[1]->attrs->revision;
                 if(!$brev) return;
             }
 
-            $command = sprintf('%s --non-interactive %s --config-dir %s diff %s%s@%d %s%s@%d',
+            $command = sprintf('%s -x --ignore-eol-style --non-interactive %s --config-dir %s diff %s%s@%d %s%s@%d',
                     $this->svn_cmd,
                     $this->_getAuthInfo(),
                     $this->tmp_dir,
