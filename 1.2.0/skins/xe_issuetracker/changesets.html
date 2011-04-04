@@ -31,7 +31,7 @@
 						<!--@endif-->
 						<td class="title">
 							<!--@if($changeset->type)-->
-							{$oIssue->getTitleText(50)}
+							{$oIssue->getTitle(50)}
 							<p class="pData">
 								<!--@if($changeset->type=="changed")-->
 								{$changeset->message}
