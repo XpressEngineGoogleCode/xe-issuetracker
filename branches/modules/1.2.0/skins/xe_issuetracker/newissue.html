@@ -120,19 +120,6 @@
 					</td>
 				</tr>
 				<!--@endif-->
-				<!--@if($grant->commiter && count($commiters)>0)-->
-				<tr>
-					<th scope="row"><label for="inputAssignee">{$lang->assignee}</label></th>
-					<td>
-						<select name="assignee_srl" id="inputAssignee" >
-							<option value="" selected="selected">{$lang->assignee}</option>
-							<!--@foreach($commiters as $key => $val)-->
-							<option value="{$val->member_srl}">{$val->nick_name} ({$val->user_id})</option> 
-							<!--@end-->
-						</select>
-					</td>
-				</tr>
-				<!--@endif-->
 				<!--@endif-->
 				</table>
 				
