@@ -139,4 +139,8 @@
     $lang->released_date = 'released date';
     $lang->cmd_show_all_version = 'show all versions';
     $lang->cmd_hide_all_version = 'hide all versions';
+
+    $lang->issue_admin_mail = '관리자 메일';
+    $lang->about_issue_admin_mail = '이슈 등록이나 상태등 이 변결될때 등록된 메일주소로 메일이 발송됩니다<br /> ,(콤마)로 연결시 다수의 메일주소로 발송할 수 있습니다.';
+	$lang->view_issue = '이슈보기';
 ?>
