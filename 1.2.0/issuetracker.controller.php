@@ -64,15 +64,17 @@
 
             // 그렇지 않으면 신규 등록
             } else {
-                // assignee name
-                $oMemberModel = &getModel('member');
-                $member_info = $oMemberModel->getMemberInfoByMemberSrl($obj->assignee_srl);
-                $obj->assignee_name = $member_info->nick_name;
+
+				if($obj->assignee_srl) {
+					// assignee name
+					$oMemberModel = &getModel('member');
+					$member_info = $oMemberModel->getMemberInfoByMemberSrl($obj->assignee_srl);
+					$obj->assignee_name = $member_info->nick_name;
+				}
 
                 // transaction start
                 $oDB = &DB::getInstance();
                 $oDB->begin();
-
                 $output = executeQuery("issuetracker.insertIssue", $obj);
                 if(!$output->toBool()) {
                     $oDB->rollback();
@@ -94,7 +96,7 @@
                 if($output->toBool() && $this->module_info->admin_mail) {
                     $oMail = new Mail();
                     $oMail->setTitle($obj->title);
-                    $oMail->setContent( sprintf("From : <a href=\"%s\">%s</a><br/>\r\n%s", getUrl('','document_srl',$obj->document_srl), getUrl('','document_srl',$obj->document_srl), $obj->content));
+                    $oMail->setContent( sprintf("From : <a href=\"%s\">%s</a><br/>\r\n%s", getFullUrl('','document_srl',$obj->document_srl), getFullUrl('','document_srl',$obj->document_srl), $obj->content));
                     $oMail->setSender($obj->user_name, $obj->email_address);
 
                     $target_mail = explode(',',$this->module_info->admin_mail);
@@ -388,12 +390,38 @@
 			$output = $oCommentController->insertComment($args);
             if(!$output->toBool()) return $output;
 
+			if($output->toBool() && $this->module_info->admin_mail) {
+
+				$comment_srl = $args->comment_srl;
+				$oCommentModel = &getModel('comment');
+				$oComment = $oCommentModel->getComment($comment_srl);
+
+				$oDocumentModel = &getModel('document');
+				$oDocument = $oDocumentModel->getDocument($target_srl);
+				$document_srl = $oDocument->document_srl;
+
+				$oMail = new Mail();
+				$title = $action ? sprintf('[%s] ', $action) : '';
+				$title .= $oDocument->getTitleText();
+
+				$oMail->setTitle($title);
+				$oMail->setContent( sprintf("From : <a href=\"%s#comment_%d\">%s#comment_%d</a><br/>\r\n%s", getFullUrl('','document_srl',$document_srl),$comment_srl, getFullUrl('','document_srl',$document_srl), $comment_srl, $oComment->getSummary(200)));
+				$oMail->setSender($oComment->get('user_name'), $oComment->get('email_address'));
+
+				$target_mail = explode(',',$this->module_info->admin_mail);
+				for($i=0;$i<count($target_mail);$i++) {
+					$email_address = trim($target_mail[$i]);
+					if(!$email_address) continue;
+					$oMail->setReceiptor($email_address, $email_address);
+					$oMail->send();
+				}
+			}
+
             // trigger 호출 (after)
             $output = ModuleHandler::triggerCall('issuetracker.insertHistory', 'after', $args);
             if(!$output->toBool()) return $output;
 
-
-            return new Object();
+			return new Object();
         }
 
         function procIssuetrackerInsertHistory() {
@@ -408,10 +436,13 @@
                 $args->occured_version_srl = $args->release_srl;
             }
             $output = $this->insertHistory($target_srl, $args, $this->module_srl, $this->grant->commiter);
+
+
             if(!$output->toBool())
             {
                 return $output;
             }
+
 
             $this->add('document_srl', $target_srl);
             $this->add('mid', $this->module_info->mid);
