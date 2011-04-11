@@ -10,6 +10,6 @@
         <condition operation="equal" column="module_srl" var="module_srl" pipe="and"/>
     </conditions>
     <navigation>
-        <index var="sort_index" default="title" order="desc" />
+        <index var="sort_index" default="release_date" order="desc" />
     </navigation>
 </query>

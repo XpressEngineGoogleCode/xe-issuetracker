@@ -10,5 +10,6 @@
         <column name="release_note" var="release_note" />
         <column name="release_changes" var="release_changes" />
         <column name="regdate" default="curdate()" />
+        <column name="release_date" var="release_date" />
     </columns>
 </query>

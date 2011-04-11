@@ -97,6 +97,8 @@
 			if(!$oModuleModel->getTrigger("comment.deleteComment", "issuetracker", "controller", "triggerDeleteComment", "after")) return true;
 			if(!$oDB->isIndexExists("issue_history_change", "unique_comment_type")) return true;
 
+            if(!$oDB->isColumnExists('issue_releases', 'release_date')) return true;
+
             return false;
         }
 
@@ -329,6 +331,12 @@
 			if(!$oModuleModel->getTrigger("comment.deleteComment", "issuetracker", "controller", "triggerDeleteComment", "after")) 
 			{
 				$oModuleController->insertTrigger("comment.deleteComment", "issuetracker", "controller", "triggerDeleteComment", "after"); 
+			}
+
+            if(!$oDB->isColumnExists('issue_releases', 'release_date')) {
+                $oDB->addColumn('issue_releases',"release_date","date");
+				$oDB->addIndex("issue_releases", "idx_release_date", array("release_date"));
+				$output = executeQuery('issuetracker.updateReleaseDates');
 			}
 
             return new Object(0, 'success_updated');

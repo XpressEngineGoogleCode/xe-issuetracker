@@ -60,8 +60,8 @@
     <!--@foreach($package->releases as $key => $val)-->
         <tr>
             <th rowspan="4"><div>{$val->title}</div></th>
-            <td>{$lang->regdate}</td>
-            <td class="wide">{zdate($val->regdate)}</td>
+            <td>{$lang->released_date}</td>
+            <td class="wide">{zdate($val->release_date,'Y-m-d')}</td>
             <td class="nowrap center">
                 <a href="{getUrl('module_srl',$module_srl,'act','dispIssuetrackerAdminAttachRelease','release_srl',$val->release_srl)}"><img src="images/buttonAttach.gif" alt="" /></a> 
                 <a href="{getUrl('module_srl',$module_srl,'act','dispIssuetrackerAdminModifyRelease','release_srl',$val->release_srl)}"><img src="images/buttonModify.gif" alt="" /></a> 
